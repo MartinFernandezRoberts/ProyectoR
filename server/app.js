@@ -55,6 +55,7 @@ app.use(passport.session());
 //rutas
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
+app.use('/panel', require('./routes/panel'));
 
 //rutas API
 
