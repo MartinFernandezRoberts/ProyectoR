@@ -1,35 +1,74 @@
-const express = require('express')
-const dotenv = require('dotenv')
-const path = require('path')
-const morgan = require('morgan')
-const connectDB = require('./config/db')
+const path = require('path');
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const passport = require('passport');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const connectDB = require('./config/db');
+const cors = require('cors');
 
-//cargar configuración
 // cargar configuración
-dotenv.config({ path: './server/config/config.env'})
+dotenv.config({ path: './server/config/config.env' });
 
-connectDB()
+//passport config
+require('./config/passport')(passport);
 
-const app = express()
+connectDB();
+
+const app = express();
 
 //middleware
-app.use(express.urlencoded({ extended: false}))
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
+app.use(cors());
 //static
-app.use(express.static(path.join(__dirname, './public')))
 
-//rutas 
-app.use('/', require('./routes/index'))
+app.use(express.static(path.join(__dirname, './public/')));
 
-//Consola onlydev
-if(process.env.NODE_ENV === 'development'){
-    app.use(morgan('dev'))
+//sessions ARRIBADEPASSPORT
+app.use(
+    session({
+        secret: 'lokesea',
+        resave: false,
+        saveUninitialized: false,
+        store: MongoStore.create({ 
+            mongoUrl: process.env.MONGO_URI}),
+    })
+);
+
+//cors
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8080'); // update to match the domain you will make the request from
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept'
+    );
+    next();
+});
+
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+//rutas
+app.use('/', require('./routes/index'));
+app.use('/auth', require('./routes/auth'));
+
+//rutas API
+
+
+//kewea la consola onlydev mode
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
 }
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
 app.listen(
     PORT,
-    console.log(`Corriendo modo ${process.env.NODE_ENV}, en el puerto ${PORT}`)
-)
+    console.log(
+        `Server en modo ${process.env.NODE_ENV}, en el puerto ${PORT}`
+    )
+);
