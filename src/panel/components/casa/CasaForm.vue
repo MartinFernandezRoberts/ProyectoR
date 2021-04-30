@@ -93,7 +93,7 @@
 export default {
     name: 'CasaForm',
     props: {
-        portafolio: {
+        casa: {
             type: Object,
             default: function() {
                 return {
