@@ -58,7 +58,7 @@ app.use('/auth', require('./routes/auth'));
 app.use('/panel', require('./routes/panel'));
 
 //rutas API
-
+app.use('/api/casa', require('./routes/api/casa'));
 
 //kewea la consola onlydev mode
 if (process.env.NODE_ENV === 'development') {
@@ -70,6 +70,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(
     PORT,
     console.log(
-        `Server en modo ${process.env.NODE_ENV}, en el puerto ${PORT}`
+        `SERVER DE PANA EN MODO ${process.env.NODE_ENV}, PUERTO: ${PORT}`
     )
 );

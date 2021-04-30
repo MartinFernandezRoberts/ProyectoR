@@ -15,6 +15,7 @@
   },
   "main": "app.js",
   "dependencies": {
+    "axios": "^0.21.1",
     "connect-mongo": "^4.4.1",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
@@ -27,7 +28,8 @@
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
-    "vue": "^3.0.11"
+    "vue": "^3.0.11",
+    "vue-router": "^4.0.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.1.2",
