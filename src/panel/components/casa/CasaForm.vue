@@ -109,10 +109,10 @@ export default {
     emits: ['close', 'guardar'],
     data() {
         return {
-            tituloCasa: this.portafolio.tituloCasa,
-            descripcionCasa: this.portafolio.descripcionCasa,
-            ubicacionCasa: this.portafolio.ubicacionCasa,
-            fechaCasa: this.portafolio.fechaCasa,
+            tituloCasa: this.casa.tituloCasa,
+            descripcionCasa: this.casa.descripcionCasa,
+            ubicacionCasa: this.casa.ubicacionCasa,
+            fechaCasa: this.casa.fechaCasa,
         };
     },
     methods: {
