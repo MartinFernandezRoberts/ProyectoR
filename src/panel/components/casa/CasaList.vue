@@ -76,6 +76,7 @@ export default {
             this.guardando = true;
             await CasaService.update(this.edit, data);
             this.guardando = false;
+            this.edit = '';
             this.$emit('cargarCasa');
         },
         async deleteCasa(id) {
