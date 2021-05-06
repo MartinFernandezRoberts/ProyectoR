@@ -13,17 +13,14 @@
             @close="nuevo = false"
             @guardar="createCasa"
         />
-        <CasaList
-            :casa="casa"
-            @cargarCasa="loadCasa"
-        />
+        <CasaList :casa="casa" @cargarCasa="loadCasa" />
     </div>
 </template>
 
 <script>
-import CasaService from '../../CasaService'
-import CasaForm from './CasaForm'
-import CasaList from './CasaList'
+import CasaService from '../../CasaService';
+import CasaForm from './CasaForm';
+import CasaList from './CasaList';
 
 export default {
     name: 'CasaMain',
@@ -60,6 +57,8 @@ export default {
             this.guardando = true;
             await CasaService.create(data);
             this.guardando = false;
+            this.nuevo = false;
+            this.loadCasa();
         },
     },
     created() {
