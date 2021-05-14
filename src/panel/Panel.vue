@@ -4,7 +4,10 @@
     >
         <div class="flex items-center">
             <h1 class="text-xl font-bold">ProyectoR</h1>
-            <h2><span class="text-pink-600 font-bold mx-1"> ></span>Panel de Control</h2>
+            <h2>
+                <span class="text-pink-600 font-bold mx-1"> ></span>Panel de
+                Control
+            </h2>
         </div>
         <div>
             <router-link
@@ -12,6 +15,15 @@
                 active-class="text-pink-600 font-bold"
             >
                 Casa
+            </router-link>
+
+            <span class="mx-2">|</span>
+
+            <router-link
+                to="/panel/imagenes"
+                active-class="text-pink-600 font-bold"
+            >
+                Imágenes
             </router-link>
         </div>
     </nav>

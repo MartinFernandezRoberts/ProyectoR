@@ -7,12 +7,14 @@
         >
             Nueva Casa
         </button>
+
         <CasaForm
             v-else
             :guardando="guardando"
             @close="nuevo = false"
             @guardar="createCasa"
         />
+
         <CasaList :casa="casa" @cargarCasa="loadCasa" />
     </div>
 </template>

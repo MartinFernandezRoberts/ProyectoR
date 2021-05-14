@@ -15,6 +15,7 @@
                 v-model="tituloCasa"
             />
         </div>
+
         <div class="mb-4">
             <label
                 class="block text-gray-700 text-sm font-bold mb-2"
@@ -30,6 +31,7 @@
                 v-model="descripcionCasa"
             />
         </div>
+
         <div class="mb-4">
             <label
                 class="block text-gray-700 text-sm font-bold mb-2"
@@ -44,6 +46,7 @@
                 v-model="ubicacionCasa"
             />
         </div>
+
         <div class="mb-6">
             <label
                 class="block text-gray-700 text-sm font-bold mb-2"
@@ -58,6 +61,7 @@
                 v-model="fechaCasa"
             />
         </div>
+
         <div class="float-right space-x-2">
             <button
                 class="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200"
@@ -95,7 +99,7 @@ export default {
     props: {
         casa: {
             type: Object,
-            default: function() {
+            default: function () {
                 return {
                     tituloCasa: '',
                     descripcionCasa: '',
