@@ -50,8 +50,9 @@
 <script>
 import CasaService from '../../CasaService';
 import CasaForm from './CasaForm';
-import DeleteIcon from '../DeleteIcon';
-import EditIcon from '../EditIcon';
+import DeleteIcon from '../svg/DeleteIcon';
+import EditIcon from '../svg/EditIcon';
+
 export default {
     name: 'CasaList',
     components: {
