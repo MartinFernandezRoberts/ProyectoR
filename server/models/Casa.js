@@ -30,7 +30,13 @@ const CasaSchema = new mongoose.Schema({
     fechaCasa: {
         type: String,
         default: formatDate(new Date()),
-    }
+    },
+    imagenCasa: [
+        {
+            ref: 'Imagen',
+            type: mongoose.Schema.Types.ObjectId,
+        },
+    ],
 });
 
 module.exports = mongoose.model('Casa', CasaSchema);

@@ -44,4 +44,4 @@ class CasaService {
     }
 }
 
-export default CasaService
+export default CasaService;

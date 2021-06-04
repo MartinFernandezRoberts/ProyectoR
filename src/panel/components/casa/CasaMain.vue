@@ -15,7 +15,10 @@
             @guardar="createCasa"
         />
 
-        <CasaList :casa="casa" @cargarCasa="loadCasa" />
+        <CasaList 
+            :casa="casa" 
+            @cargarCasa="loadCasa" 
+        />
     </div>
 </template>
 

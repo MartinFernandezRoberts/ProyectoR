@@ -1,6 +1,6 @@
 <template>
     <div class="container mx-auto">
-        <button @click="images.length = featured = 0">reset</button>
+        <button @click="$emit('update', [])">reset</button>
 
         <div
             :class="'zone' + (hovering ? '-active' : '')"
@@ -61,7 +61,7 @@
 
                     <img
                         class="object-cover h-full"
-                        :src="image.preview"
+                        :src="preview[i]"
                         :alt="`imagen ${i}`"
                     />
                 </div>
@@ -92,7 +92,7 @@
                     v-show="i == curSlide"
                     @click="modal = false"
                     class="w-full h-full object-contain"
-                    :src="image.preview"
+                    :src="preview[i]"
                     :alt="`imagen ${i}`"
                 />
             </div>
@@ -101,13 +101,11 @@
                 >&#10095;</a
             >
         </div>
-
-        <button @click="upload">enviar</button>
     </div>
 </template>
 
 <script>
-import Compressor from 'compressorjs';
+//import Compressor from 'compressorjs';
 import axios from 'axios';
 import UploadIcon from '../components/svg/UploadIcon';
 import DeleteIcon from './svg/DeleteIcon';
@@ -122,9 +120,13 @@ export default {
         ZoomIcon,
         StarIcon,
     },
+    props: {
+        images: Array,
+    },
+    emits: ['update'],
     data() {
         return {
-            images: [],
+            preview: [],
             hovering: false,
             modal: false,
             curSlide: 0,
@@ -142,20 +144,26 @@ export default {
             this.hovering = false;
         },
         addFiles(files) {
+            const buff = this.images;
             const data = this;
 
             files.forEach((file) => {
-                new Compressor(file, {
+                /*new Compressor(file, {
                     quality: 0.8,
                     success(res) {
-                        res.preview = URL.createObjectURL(res);
+                        data.preview.push(URL.createObjectURL(res));
                         data.images.push(res);
                     },
                     error(err) {
                         console.error(err.message);
                     },
-                });
+                });*/
+
+                data.preview.push(URL.createObjectURL(file));
+                buff.push(file);
             });
+
+            this.$emit('update', buff);
         },
         rmvFile(i) {
             if (i < this.featured) {
@@ -164,20 +172,21 @@ export default {
                 this.featured = 0;
             }
 
-            this.images.splice(i, 1);
+            const buff = this.images;
+            buff.splice(i, 1);
         },
         upload() {
             let formData = new FormData();
-            formData.append('files', this.images);
+            this.images.forEach((image) => {
+                formData.append('files', image);
+            });
 
             if (this.images.length > 0) {
                 axios
                     .post(
                         'http://localhost:3000/api/imagen/file-upload',
                         formData,
-                        {
-                            headers: { 'content-type': 'multipart/form-data' },
-                        }
+                        {}
                     )
                     .then((res) => console.log(res))
                     .catch((err) => console.error(err));

@@ -61,7 +61,11 @@
                 v-model="fechaCasa"
             />
         </div>
-
+        <ImgDrop
+            class="mb-6"
+            :images="imagenCasa"
+            @update="(data) => (imagenCasa = data)"
+        />
         <div class="float-right space-x-2">
             <button
                 class="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200"
@@ -94,13 +98,18 @@
 </template>
 
 <script>
+import ImgDrop from '../ImgDrop'
 export default {
     name: 'CasaForm',
+    components: {
+        ImgDrop,
+    },
     props: {
         casa: {
             type: Object,
             default: function () {
                 return {
+                    imagenCasa: [],
                     tituloCasa: '',
                     descripcionCasa: '',
                     ubicacionCasa: '',
@@ -113,6 +122,7 @@ export default {
     emits: ['close', 'guardar'],
     data() {
         return {
+            imagenCasa: this.casa.imagenCasa,
             tituloCasa: this.casa.tituloCasa,
             descripcionCasa: this.casa.descripcionCasa,
             ubicacionCasa: this.casa.ubicacionCasa,
@@ -121,12 +131,17 @@ export default {
     },
     methods: {
         handleSubmit() {
-            this.$emit('guardar', {
-                tituloCasa: this.tituloCasa,
-                descripcionCasa: this.descripcionCasa,
-                ubicacionCasa: this.ubicacionCasa,
-                fechaCasa: this.fechaCasa,
+            let formData = new FormData();
+            
+            this.imagenCasa.forEach((imagen) => {
+                formData.append('files', imagen);
             });
+            formData.set('tituloCasa', this.tituloCasa);
+            formData.set('descripcionCasa', this.descripcionCasa);
+            formData.set('ubicacionCasa', this.ubicacionCasa);
+            formData.set('fechaCasa', this.fechaCasa);
+
+            this.$emit('guardar', formData);
         },
     },
 };

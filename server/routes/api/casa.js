@@ -4,15 +4,20 @@ const router = express.Router();
 const connectDB = require('../../config/db')
 const { ensureAuth } = require('../../middleware/auth') */
 const Casa = require('../../models/Casa');
+const Imagen = require('../../models/Imagen');
+
+const ImageUploader = require('./ImageUploader');
+const imgUp = new ImageUploader('casa');
 
 // @desc api/Private page
-// @route GET /panel/api/casa
+// @route GET /staff/api/casa
 
 //GET
-
 router.get('/', async (req, res) => {
     try {
-        const casa = await Casa.find().lean();
+        const casa = await Casa.find()
+            .populate('imagenCasa')
+            .lean();
         res.send({
             casa,
         });
@@ -23,16 +28,31 @@ router.get('/', async (req, res) => {
 
 // @desc api/Private page
 // @route POST /panel/api/casa
-router.post('/', async (req, res) => {
+router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
     try {
+        const fileIds = [];
+        const url = req.protocol + '://' + req.get('host');
+
+        await req.files.forEach(async function(file) {
+            const img = new Imagen({
+                url: url + '/img/casa/' + (await file.filename),
+            });
+            img.save();
+            console.log(img);
+            fileIds.push(img._id);
+        });
+
+        console.log(fileIds);
+
         console.log(req.body);
-        await Casa.create(req.body);
+        await Casa.create({ ...req.body, imagenCasa: fileIds });
 
         res.status(201).send('Registro Agregado');
     } catch (err) {
         console.error(err);
     }
 });
+
 // @desc api/Update
 // @route PUT /panel/api/casa
 router.put('/editar/:id', async (req, res) => {

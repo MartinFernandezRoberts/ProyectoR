@@ -22,6 +22,12 @@
                 }}</small>
             </div>
 
+            <img
+                v-if="item.imagenCasa"
+                :src="getImage(item.imagenCasa)"
+                :alt="item.tituloCasa"
+            />
+
             <h4 class="text-lg">{{ item.descripcionCasa }}</h4>
             <p>{{ item.ubicacionCasa }}</p>
             <p>{{ item.fechaCasa }}</p>
@@ -77,7 +83,6 @@ export default {
             this.guardando = true;
             await CasaService.update(this.edit, data);
             this.guardando = false;
-            this.edit = '';
             this.$emit('cargarCasa');
         },
         async deleteCasa(id) {
@@ -85,6 +90,13 @@ export default {
             await CasaService.delete(id);
             this.eliminando = '';
             this.$emit('cargarCasa');
+        },
+        getImage(imagenCasa) {
+            if (imagenCasa.length > 0) {
+                return imagenCasa[0].url;
+            } else {
+                return 'https://i.kym-cdn.com/entries/icons/original/000/019/092/sada.gif';
+            }
         },
     },
 };
