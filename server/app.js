@@ -59,6 +59,7 @@ app.use('/panel', require('./routes/panel'));
 
 //rutas API
 app.use('/api/casa', require('./routes/api/casa'));
+app.use('/api/banners', require('./routes/api/banners'));
 
 //kewea la consola onlydev mode
 if (process.env.NODE_ENV === 'development') {
