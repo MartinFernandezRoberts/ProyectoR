@@ -1,5 +1,5 @@
 <template>
-    
+ 
     <div class="block h-96 w-full bg-white" 
     v-for="item in casa"
     :key="item._id"
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import CasaService from '../../../panel/CasaService'
+import CasaService from '../../../panel/components/casa/CasaService'
 export default {
     name: 'CasasDestacadas',
     
@@ -47,12 +47,11 @@ export default {
         async loadCasa() {
             try {
                 const desordenado = await CasaService.index();
-                this.casa = desordenado.sort(this.compararFecha)[0];
+                this.casa = desordenado.sort(this.compararFecha).slice(0,3);
             } catch (err) {
-                this.error = err.message;
+                console.error(err.message);
             }
         },
-    
         getImage(imagenCasa) {
             if (imagenCasa.length > 0) {
                 return imagenCasa[0].url;
@@ -60,9 +59,9 @@ export default {
                 return 'https://i.kym-cdn.com/entries/icons/original/000/019/092/sada.gif';
             }
         },
-        created() {
-            this.loadCasa();
-        },
-     },
+    },
+    created() {
+        this.loadCasa();
+    },
 }
 </script>
