@@ -10,10 +10,7 @@ const path = require('path')
  *@route GET panel
 */
 /* router.get('/', ensureAuth, (req, res) => {
-    res.send('staff', {
-        brvmer: req.user.firstName,
-    })
-    
+
 }) */
 router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/panel.html'))

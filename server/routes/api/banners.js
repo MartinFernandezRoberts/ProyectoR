@@ -30,9 +30,25 @@ router.post('/',  async (req, res, next) => {
     }
 });
 
+//delete
+router.delete('/:id', async (req, res) => {
+    try {
+        await Banner.findOneAndDelete({
+            _id: req.params.id
+        });
+        //findOneAndDELETE
+        res.status(201).send('Registro Eliminado');
+        
+    } catch (err) {
+        console.error(err);
+    }
+});
 
 
 
+
+
+// Agenda
 
 const archivoAgenda = path.join(__dirname, '../../jobs/agenda.json');
 if (!fs.existsSync(archivoAgenda))
