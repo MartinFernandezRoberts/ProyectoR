@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const passport = require('passport');
@@ -34,8 +34,9 @@ app.use(
         secret: 'lokesea',
         resave: false,
         saveUninitialized: false,
-        store: MongoStore.create({ 
-            mongoUrl: process.env.MONGO_URI}),
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGO_URI,
+        }),
     })
 );
 
@@ -59,8 +60,9 @@ app.use('/auth', require('./routes/auth'));
 app.use('/panel', require('./routes/panel'));
 
 //rutas API
-app.use('/api/casa', require('./routes/api/casa'));
 app.use('/api/banners', require('./routes/api/banners'));
+app.use('/api/casa', require('./routes/api/casa'));
+app.use('/api/ubicaciones', require('./routes/api/ubicaciones'));
 
 //kewea la consola onlydev mode
 if (process.env.NODE_ENV === 'development') {

@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import CasaService from '../../CasaService';
+import CasaService from './CasaService';
 import CasaForm from './CasaForm';
 import DeleteIcon from '../svg/DeleteIcon';
 import EditIcon from '../svg/EditIcon';

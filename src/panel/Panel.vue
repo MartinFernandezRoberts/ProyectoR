@@ -20,10 +20,10 @@
             <span class="mx-2">|</span>
 
             <router-link
-                to="/panel/imagenes"
+                to="/panel/banners"
                 active-class="text-pink-600 font-bold"
             >
-                Imágenes
+                Banners
             </router-link>
         </div>
     </nav>

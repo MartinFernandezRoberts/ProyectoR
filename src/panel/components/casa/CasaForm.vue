@@ -61,7 +61,7 @@
                 v-model="fechaCasa"
             />
         </div>
-        <ImgDrop
+        <ImgDropMulti
             class="mb-6"
             :images="imagenCasa"
             @update="(data) => (imagenCasa = data)"
@@ -98,16 +98,17 @@
 </template>
 
 <script>
-import ImgDrop from '../ImgDrop'
+import ImgDropMulti from '../ImgDropMulti';
+
 export default {
     name: 'CasaForm',
     components: {
-        ImgDrop,
+        ImgDropMulti,
     },
     props: {
         casa: {
             type: Object,
-            default: function () {
+            default: function() {
                 return {
                     imagenCasa: [],
                     tituloCasa: '',
@@ -132,7 +133,7 @@ export default {
     methods: {
         handleSubmit() {
             let formData = new FormData();
-            
+
             this.imagenCasa.forEach((imagen) => {
                 formData.append('files', imagen);
             });

@@ -1,21 +1,23 @@
 <template>
-    <div class="container mx-auto">
-        <button @click="$emit('update', [])">reset</button>
+    <div class="mx-auto">
+        <button type="button" @click="$emit('update', [])">reset</button>
 
         <div
-            :class="'zone' + (hovering ? '-active' : '')"
-            @dragover.prevent="hovering = true"
-            @dragleave.prevent="hovering = false"
+            :class="
+                'w-full h-full bg-gray-50 border-4 border-dashed border-gray-300 rounded-lg p-12 transition-colors duration-200 ease-out' +
+                    (dragging ? ' border-blue-200' : '')
+            "
+            @dragover.prevent="dragging = true"
+            @dragleave.prevent="dragging = false"
             @drop.prevent="drop($event)"
         >
-            <div id="upload" :class="{ notEmpty: notEmpty }">
+            <div id="upload" :class="{ notEmpty }">
                 <UploadIcon />
 
                 <input
+                    class="w-full h-full opacity-0 absolute inset-0 z-20 cursor-pointer"
                     type="file"
-                    style="z-index: 1"
                     accept="image/*"
-                    ref="uploadInput"
                     @change="(e) => addFiles(e.target.files)"
                     multiple
                 />
@@ -106,14 +108,13 @@
 
 <script>
 //import Compressor from 'compressorjs';
-import axios from 'axios';
 import UploadIcon from '../components/svg/UploadIcon';
 import DeleteIcon from './svg/DeleteIcon';
 import ZoomIcon from './svg/ZoomIcon';
 import StarIcon from './svg/StarIcon';
 
 export default {
-    name: 'ImgDrop',
+    name: 'MultiImgDrop',
     components: {
         UploadIcon,
         DeleteIcon,
@@ -127,7 +128,7 @@ export default {
     data() {
         return {
             preview: [],
-            hovering: false,
+            dragging: false,
             modal: false,
             curSlide: 0,
             featured: 0,
@@ -141,7 +142,7 @@ export default {
     methods: {
         drop(event) {
             this.addFiles(event.dataTransfer.files);
-            this.hovering = false;
+            this.dragging = false;
         },
         addFiles(files) {
             const buff = this.images;
@@ -174,23 +175,6 @@ export default {
 
             const buff = this.images;
             buff.splice(i, 1);
-        },
-        upload() {
-            let formData = new FormData();
-            this.images.forEach((image) => {
-                formData.append('files', image);
-            });
-
-            if (this.images.length > 0) {
-                axios
-                    .post(
-                        'http://localhost:3000/api/imagen/file-upload',
-                        formData,
-                        {}
-                    )
-                    .then((res) => console.log(res))
-                    .catch((err) => console.error(err));
-            }
         },
         openLightbox(i) {
             this.curSlide = i;
@@ -237,20 +221,6 @@ export default {
         display: block;
     }
 
-    input {
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: red;
-
-        &:hover {
-            cursor: pointer;
-        }
-    }
-
     &.notEmpty {
         display: flex;
         justify-content: center;
@@ -262,12 +232,5 @@ export default {
             margin-right: 1rem;
         }
     }
-}
-
-.box__dragndrop,
-.box__uploading,
-.box__success,
-.box__error {
-    display: none;
 }
 </style>

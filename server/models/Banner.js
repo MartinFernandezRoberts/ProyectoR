@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 
-
 const BannerSchema = new mongoose.Schema({
-    rutaImagen: {
+    tituloBanner: {
         type: String,
-        required: true,
+        required: false,
+    },
+    imagenBanner: {
+        ref: 'Imagen',
+        type: mongoose.Schema.Types.ObjectId,
     },
     urlBanner: {
         type: String,

@@ -6,22 +6,24 @@ const dayjs = require('dayjs');
 const customParseFormat = require('dayjs/plugin/customParseFormat');
 dayjs.extend(customParseFormat);
 
+let isCancelled = false;
+
 if (parentPort) {
     parentPort.once('message', (message) => {
         if (message === 'cancel') isCancelled = true;
     });
 }
 
-const archivoBanners = path.join(__dirname, 'banners.json');
-const archivoAgenda = path.join(__dirname, 'agenda.json');
-if (!fs.existsSync(archivoAgenda)) {
-    cabin.info(`Aún no existe el archivo de agenda: ${archivoAgenda}`);
+const rutaBanners = path.join(__dirname, 'banners.json');
+const rutaAgenda = path.join(__dirname, 'agenda.json');
+if (!fs.existsSync(rutaAgenda)) {
+    console.info(`Aún no existe el archivo de agenda: ${rutaAgenda}`);
     if (parentPort) parentPort.postMessage('done');
     else process.exit(0);
 }
 
-const banners = require(archivoBanners);
-const agenda = require(archivoAgenda);
+const banners = require(rutaBanners);
+const agenda = require(rutaAgenda);
 const bufferAgenda = [...agenda];
 
 const eliminarEvento = (index) => {
@@ -105,14 +107,11 @@ const eliminarEvento = (index) => {
     });
 
     if (actualizarBanners) {
-        await fs.promises.writeFile(archivoBanners, JSON.stringify(banners));
+        await fs.promises.writeFile(rutaBanners, JSON.stringify(banners));
     }
 
     if (actualizarAgenda) {
-        await fs.promises.writeFile(
-            archivoAgenda,
-            JSON.stringify(bufferAgenda)
-        );
+        await fs.promises.writeFile(rutaAgenda, JSON.stringify(bufferAgenda));
     }
 
     if (parentPort) parentPort.postMessage('done');

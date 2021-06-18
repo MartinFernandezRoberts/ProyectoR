@@ -1,70 +1,65 @@
 <template>
     <div class="container mx-auto space-y-4">
+        <div class="text-center bg-red-200 p-4 rounded shadow" v-if="error">
+            {{ error }}
+        </div>
+
         <button
             class="w-full border border-pink-600 rounded px-5 hover:bg-pink-600 hover:shadow text-pink-600 hover:text-white text-xl uppercase font-bold"
             v-if="!nuevo"
             @click="nuevo = true"
         >
-            Nueva Casa
+            Nuevo Banner
         </button>
 
-        <CasaForm
+        <BannerForm
             v-else
             :guardando="guardando"
             @close="nuevo = false"
-            @guardar="createCasa"
+            @guardar="crearBanner"
         />
 
-        <CasaList :casa="casa" @cargarCasa="loadCasa" />
+        <BannerList :banners="banners" @cargarBanner="cargarBanners" />
     </div>
 </template>
 
 <script>
-import CasaService from './CasaService';
-import CasaForm from './CasaForm';
-import CasaList from './CasaList';
+import BannerService from './BannerService';
+import BannerForm from './BannerForm';
+import BannerList from './BannerList';
 
 export default {
-    name: 'CasaMain',
+    name: 'BannerMain',
     components: {
-        CasaForm,
-        CasaList,
+        BannerForm,
+        BannerList,
     },
     data() {
         return {
-            casa: [],
+            banners: [],
             nuevo: false,
             guardando: false,
+            error: '',
         };
     },
     methods: {
-        compararFecha(a, b) {
-            if (a.fechaCasa > b.fechaCasa) {
-                return -1;
-            } else if (b.fechaCasa > a.fechaCasa) {
-                return 1;
-            } else {
-                return 0;
-            }
-        },
-        async loadCasa() {
+        async cargarBanners() {
             try {
-                const desordenado = await CasaService.index();
-                this.casa = desordenado.sort(this.compararFecha);
+                this.banners = await BannerService.index();
             } catch (err) {
                 this.error = err.message;
             }
         },
-        async createCasa(data) {
+        async crearBanner(data) {
             this.guardando = true;
-            await CasaService.create(data);
+            await BannerService.create(data);
             this.guardando = false;
             this.nuevo = false;
-            this.loadCasa();
+            this.cargarBanners();
         },
     },
     created() {
-        this.loadCasa();
+        this.cargarBanners();
     },
 };
 </script>
