@@ -8,7 +8,21 @@
                 Título
             </label>
             <input
-                class="appearance-none border rounded border-pink-200 w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200"
+                class="
+                    appearance-none
+                    border
+                    rounded
+                    border-pink-200
+                    w-full
+                    py-1
+                    px-2
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none
+                    focus:shadow-outline
+                    focus:ring-2
+                    focus:ring-pink-200
+                "
                 id="tituloCasa"
                 type="text"
                 placeholder="Título"
@@ -24,7 +38,21 @@
                 Descripción
             </label>
             <textarea
-                class="appearance-none border rounded border-pink-200 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200"
+                class="
+                    appearance-none
+                    border
+                    rounded
+                    border-pink-200
+                    w-full
+                    py-2
+                    px-3
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none
+                    focus:shadow-outline
+                    focus:ring-2
+                    focus:ring-pink-200
+                "
                 id="descripcionCasa"
                 type="text"
                 placeholder="Descripción"
@@ -40,7 +68,21 @@
                 Ubicación
             </label>
             <input
-                class="appearance-none border rounded border-pink-200 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200"
+                class="
+                    appearance-none
+                    border
+                    rounded
+                    border-pink-200
+                    w-full
+                    py-2
+                    px-3
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none
+                    focus:shadow-outline
+                    focus:ring-2
+                    focus:ring-pink-200
+                "
                 id="ubicacionCasa"
                 placeholder="Descripción"
                 v-model="ubicacionCasa"
@@ -55,20 +97,48 @@
                 Fecha
             </label>
             <input
-                class="appearance-none border rounded border-pink-200 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200"
+                class="
+                    appearance-none
+                    border
+                    rounded
+                    border-pink-200
+                    w-full
+                    py-2
+                    px-3
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none
+                    focus:shadow-outline
+                    focus:ring-2
+                    focus:ring-pink-200
+                "
                 id="fechaCasa"
                 type="date"
                 v-model="fechaCasa"
             />
         </div>
+
         <ImgDropMulti
             class="mb-6"
             :images="imagenCasa"
             @update="(data) => (imagenCasa = data)"
         />
+
         <div class="float-right space-x-2">
             <button
-                class="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200"
+                class="
+                    bg-gray-400
+                    hover:bg-gray-600
+                    text-white
+                    font-bold
+                    py-2
+                    px-4
+                    rounded
+                    focus:outline-none
+                    focus:shadow-outline
+                    focus:ring-2
+                    focus:ring-pink-200
+                "
                 type="button"
                 @click="$emit('close')"
             >
@@ -76,16 +146,7 @@
             </button>
             <button
                 :class="[
-                    'bg-pink-400',
-                    'hover:bg-pink-600',
-                    'text-white',
-                    'font-bold',
-                    'py-2',
-                    'px-4',
-                    'rounded',
-                    'focus:outline-none',
-                    'focus:ring-2',
-                    'focus:ring-pink-200',
+                    'bg-pink-400 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-pink-200',
                     { 'animate-pulse': guardando },
                 ]"
                 type="button"
@@ -98,7 +159,7 @@
 </template>
 
 <script>
-import ImgDropMulti from '../ImgDropMulti';
+import ImgDropMulti from '../ImgDropMulti.vue';
 
 export default {
     name: 'CasaForm',
@@ -108,7 +169,7 @@ export default {
     props: {
         casa: {
             type: Object,
-            default: function() {
+            default: function () {
                 return {
                     imagenCasa: [],
                     tituloCasa: '',

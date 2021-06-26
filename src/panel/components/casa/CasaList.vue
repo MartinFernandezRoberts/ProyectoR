@@ -32,16 +32,14 @@
             <p>{{ item.ubicacionCasa }}</p>
             <p>{{ item.fechaCasa }}</p>
 
-            <div class="flex justify-end pt-3">
+            <div class="flex justify-end pt-3 space-x-2">
                 <EditIcon
-                    color="gold"
-                    class="cursor-pointer ml-2"
+                    class="text-yellow-400 cursor-pointer"
                     @click="edit = item._id"
                 />
                 <DeleteIcon
-                    color="red"
                     :class="[
-                        'ml-2',
+                        'text-red-500',
                         eliminando == item._id
                             ? 'animate-bounce'
                             : 'cursor-pointer',
@@ -55,9 +53,9 @@
 
 <script>
 import CasaService from './CasaService';
-import CasaForm from './CasaForm';
-import DeleteIcon from '../svg/DeleteIcon';
-import EditIcon from '../svg/EditIcon';
+import CasaForm from './CasaForm.vue';
+import DeleteIcon from '../svg/DeleteIcon.vue';
+import EditIcon from '../svg/EditIcon.vue';
 
 export default {
     name: 'CasaList',

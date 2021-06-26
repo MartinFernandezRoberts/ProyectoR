@@ -2,7 +2,7 @@
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        stroke="#303c42"
+        stroke="currentColor"
     >
         <g data-name="Upload Image">
             <g data-name="&lt;Group&gt;">

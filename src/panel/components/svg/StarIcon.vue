@@ -4,7 +4,7 @@
         width="24"
         height="24"
         fill="none"
-        :stroke="color"
+        stroke="currentColor"
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -18,8 +18,5 @@
 <script>
 export default {
     name: 'StarIcon',
-    props: {
-        color: String,
-    },
 };
 </script>

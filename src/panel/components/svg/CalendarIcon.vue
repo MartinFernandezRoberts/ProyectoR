@@ -8,14 +8,15 @@
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
+        class="feather feather-calendar"
     >
-        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
-        <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+        <path d="M16 2v4M8 2v4M3 10h18" />
     </svg>
 </template>
 
 <script>
 export default {
-    name: 'EditIcon',
+    name: 'CalendarIcon',
 };
 </script>

@@ -8,7 +8,21 @@
                 Título
             </label>
             <input
-                class="appearance-none border rounded border-pink-200 w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200"
+                class="
+                    appearance-none
+                    border
+                    rounded
+                    border-pink-200
+                    w-full
+                    py-1
+                    px-2
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none
+                    focus:shadow-outline
+                    focus:ring-2
+                    focus:ring-pink-200
+                "
                 id="tituloBanner"
                 type="text"
                 placeholder="Título"
@@ -30,7 +44,21 @@
                 Url
             </label>
             <input
-                class="appearance-none border rounded border-pink-200 w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200"
+                class="
+                    appearance-none
+                    border
+                    rounded
+                    border-pink-200
+                    w-full
+                    py-1
+                    px-2
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none
+                    focus:shadow-outline
+                    focus:ring-2
+                    focus:ring-pink-200
+                "
                 id="urlBanner"
                 type="text"
                 placeholder="Url"
@@ -40,7 +68,19 @@
 
         <div class="float-right space-x-2">
             <button
-                class="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200"
+                class="
+                    bg-gray-400
+                    hover:bg-gray-600
+                    text-white
+                    font-bold
+                    py-2
+                    px-4
+                    rounded
+                    focus:outline-none
+                    focus:shadow-outline
+                    focus:ring-2
+                    focus:ring-pink-200
+                "
                 type="button"
                 @click="$emit('close')"
             >
@@ -61,7 +101,7 @@
 </template>
 
 <script>
-import ImgDropSingle from '../ImgDropSingle';
+import ImgDropSingle from '../ImgDropSingle.vue';
 
 export default {
     name: 'BannerForm',
@@ -71,7 +111,7 @@ export default {
     props: {
         banner: {
             type: Object,
-            default: function() {
+            default: function () {
                 return {
                     tituloBanner: '',
                     imagenBanner: '',

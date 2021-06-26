@@ -14,8 +14,14 @@
             @guardar="actualizarBanner"
         />
 
+        <BannerAgenda
+            v-else-if="calendarizar === banner._id"
+            :banner="banner"
+            @cerrar="calendarizar = ''"
+        />
+
         <div v-else class="text-center">
-            <h3 class="text-xl mb-2">{{ banner.tituloBanner }}</h3>
+            <h2 class="text-xl mb-2">{{ banner.tituloBanner }}</h2>
 
             <img
                 class="mb-2 mx-auto rounded-lg"
@@ -25,16 +31,18 @@
 
             <a :href="banner.urlBanner">{{ banner.urlBanner }}</a>
 
-            <div class="flex justify-end pt-3">
+            <div class="flex justify-end pt-3 space-x-2">
+                <CalendarIcon
+                    class="text-blue-400 cursor-pointer"
+                    @click="calendarizar = banner._id"
+                />
                 <EditIcon
-                    color="gold"
-                    class="cursor-pointer ml-2"
+                    class="text-yellow-400 cursor-pointer"
                     @click="edit = banner._id"
                 />
                 <DeleteIcon
-                    color="red"
                     :class="[
-                        'ml-2',
+                        'text-red-500',
                         eliminando == banner._id
                             ? 'animate-bounce'
                             : 'cursor-pointer',
@@ -48,16 +56,20 @@
 
 <script>
 import BannerService from './BannerService';
-import BannerForm from './BannerForm';
-import DeleteIcon from '../svg/DeleteIcon';
-import EditIcon from '../svg/EditIcon';
+import BannerForm from './BannerForm.vue';
+import BannerAgenda from './BannerAgenda.vue';
+import EditIcon from '../svg/EditIcon.vue';
+import DeleteIcon from '../svg/DeleteIcon.vue';
+import CalendarIcon from '../svg/CalendarIcon.vue';
 
 export default {
     name: 'BannerList',
     components: {
         BannerForm,
+        BannerAgenda,
         EditIcon,
         DeleteIcon,
+        CalendarIcon,
     },
     props: {
         banners: Array,
@@ -65,10 +77,11 @@ export default {
     emits: ['cargarBanner'],
     data() {
         return {
-            error: '',
             edit: '',
             guardando: false,
             eliminando: '',
+            error: '',
+            calendarizar: '',
         };
     },
     methods: {

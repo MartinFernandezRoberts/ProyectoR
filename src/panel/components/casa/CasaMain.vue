@@ -1,7 +1,18 @@
 <template>
-    <div class="container mx-auto space-y-4">
+    <div class="container mx-auto pb-10 space-y-4">
         <button
-            class="w-full border border-pink-600 rounded px-5 hover:bg-pink-600 hover:shadow text-pink-600 hover:text-white text-xl uppercase font-bold"
+            class="
+                w-full
+                border border-pink-600
+                rounded
+                px-5
+                hover:bg-pink-600 hover:shadow
+                text-pink-600
+                hover:text-white
+                text-xl
+                uppercase
+                font-bold
+            "
             v-if="!nuevo"
             @click="nuevo = true"
         >
@@ -21,8 +32,8 @@
 
 <script>
 import CasaService from './CasaService';
-import CasaForm from './CasaForm';
-import CasaList from './CasaList';
+import CasaForm from './CasaForm.vue';
+import CasaList from './CasaList.vue';
 
 export default {
     name: 'CasaMain',
