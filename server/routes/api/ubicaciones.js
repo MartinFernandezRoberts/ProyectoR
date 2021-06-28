@@ -9,9 +9,7 @@ const banners = require(rutaBanners);
 router.get('/', async (req, res) => {
     try {
         const ubicaciones = Object.keys(banners);
-        res.send({
-            ubicaciones,
-        });
+        res.json(ubicaciones);
     } catch (err) {
         console.error(err);
     }

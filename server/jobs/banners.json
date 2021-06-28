@@ -1,10 +1,10 @@
 {
     "principal": {
-        "default": "",
+        "default": "60d765b60189e61140509030",
         "bannerId": ""
     },
-    "el ladito": {
-        "default": "",
+    "ladito": {
+        "default": "60d765b60189e61140509030",
         "bannerId": ""
     }
 }

@@ -6,6 +6,7 @@ const dayjs = require('dayjs');
 const customParseFormat = require('dayjs/plugin/customParseFormat');
 dayjs.extend(customParseFormat);
 
+console.log('Actualizando banners...');
 let isCancelled = false;
 
 if (parentPort) {

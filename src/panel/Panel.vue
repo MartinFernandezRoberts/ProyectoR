@@ -1,6 +1,15 @@
 <template>
     <nav
-        class="flex items-center justify-between flex-wrap bg-black p-6 mb-10 text-white"
+        class="
+            flex
+            items-center
+            justify-between
+            flex-wrap
+            bg-black
+            p-6
+            mb-10
+            text-white
+        "
     >
         <div class="flex items-center">
             <h1 class="text-xl font-bold">ProyectoR</h1>
@@ -25,6 +34,15 @@
             >
                 Banners
             </router-link>
+
+            <span class="mx-2">|</span>
+
+            <router-link
+                to="/panel/banner_test"
+                active-class="text-pink-600 font-bold"
+            >
+                Banner Test
+            </router-link>
         </div>
     </nav>
     <router-view></router-view>
@@ -33,5 +51,5 @@
 <script>
 export default {
     name: 'Panel',
-}
+};
 </script>
