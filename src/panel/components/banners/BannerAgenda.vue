@@ -17,18 +17,17 @@
                 id="ubicacion"
                 v-model="ubicacion"
             >
-                <option value="" disabled selected hidden
-                    >Selecciona una ubicación</option
-                >
+                <option value="" disabled selected hidden>
+                    Selecciona una ubicación
+                </option>
                 <option
                     v-for="(ubicacion, i) in ubicaciones"
                     class="text-gray-700"
                     :key="i"
                     :value="ubicacion"
-                    >{{
-                        `${ubicacion[0].toUpperCase()}${ubicacion.slice(1)}`
-                    }}</option
                 >
+                    {{ `${ubicacion[0].toUpperCase()}${ubicacion.slice(1)}` }}
+                </option>
             </select>
         </div>
 
@@ -52,7 +51,18 @@
                         <input
                             :value="inputValue.start"
                             v-on="inputEvents.start"
-                            class="border rounded border-pink-200 py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-pink-200"
+                            class="
+                                border
+                                rounded
+                                border-pink-200
+                                py-1
+                                px-2
+                                text-gray-700
+                                leading-tight
+                                focus:outline-none
+                                focus:ring-2
+                                focus:ring-pink-200
+                            "
                         />
                         <svg
                             class="w-4 h-4 mx-2"
@@ -70,7 +80,18 @@
                         <input
                             :value="inputValue.end"
                             v-on="inputEvents.end"
-                            class="border rounded border-pink-200 py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-pink-200"
+                            class="
+                                border
+                                rounded
+                                border-pink-200
+                                py-1
+                                px-2
+                                text-gray-700
+                                leading-tight
+                                focus:outline-none
+                                focus:ring-2
+                                focus:ring-pink-200
+                            "
                         />
                     </div>
                 </template>
@@ -79,7 +100,15 @@
 
         <div class="mb-4">
             <input
-                class="border rounded border-pink-200 h-4 w-4 text-gray-700 focus:ring-2 focus:ring-pink-200"
+                class="
+                    border
+                    rounded
+                    border-pink-200
+                    h-4
+                    w-4
+                    text-gray-700
+                    focus:ring-2 focus:ring-pink-200
+                "
                 id="horario"
                 type="checkbox"
                 v-model="horario"
@@ -107,18 +136,19 @@
                 id="recurrencia"
                 v-model="recurrencia"
             >
-                <option value="" disabled selected hidden
-                    >Selecciona un tipo de recurrencia</option
-                >
+                <option value="" disabled selected hidden>
+                    Selecciona un tipo de recurrencia
+                </option>
                 <option
                     v-for="(recurrencia, i) in recurrencias"
                     class="text-gray-700"
                     :key="i"
                     :value="recurrencia"
-                    >{{
-                        `${recurrencia[0].toUpperCase()}${recurrencia.slice(1)}`
-                    }}</option
                 >
+                    {{
+                        `${recurrencia[0].toUpperCase()}${recurrencia.slice(1)}`
+                    }}
+                </option>
             </select>
         </div>
 
@@ -130,7 +160,17 @@
                 Repeticiones
             </label>
             <input
-                class="border rounded border-pink-200 w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-pink-200"
+                class="
+                    border
+                    rounded
+                    border-pink-200
+                    w-full
+                    py-1
+                    px-2
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none focus:ring-2 focus:ring-pink-200
+                "
                 id="iteracion"
                 type="number"
                 placeholder="Número de repeticiones"
@@ -140,7 +180,19 @@
 
         <div class="float-right space-x-2">
             <button
-                class="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200"
+                class="
+                    bg-gray-400
+                    hover:bg-gray-600
+                    text-white
+                    font-bold
+                    py-2
+                    px-4
+                    rounded
+                    focus:outline-none
+                    focus:shadow-outline
+                    focus:ring-2
+                    focus:ring-pink-200
+                "
                 type="button"
                 @click="$emit('cerrar')"
             >
@@ -173,7 +225,7 @@ export default {
         banner: Object,
         agenda: {
             type: Object,
-            default: function() {
+            default: function () {
                 return {
                     ubicacion: '',
                     fechaIni: '',
@@ -201,25 +253,24 @@ export default {
             iteracion: this.agenda.iteracion,
         };
     },
-    mounted() {
+    created() {
         axios('http://localhost:3000/api/ubicaciones')
             .then((res) => (this.ubicaciones = res.data))
             .catch((err) => console.error(err));
     },
     methods: {
         handleSubmit() {
-            let formData = new FormData();
+            let formData = {
+                ubicacion: this.ubicacion,
+                idBanner: this.banner._id,
+                fechaIni: this.fechas.start.toISOString(),
+                fechaFin: this.fechas.end.toISOString(),
+                horario: this.horario,
+                recurrencia: this.recurrencia,
+                iteracion: this.iteracion,
+            };
 
-            formData.set('ubicacion', this.ubicacion);
-            formData.set('idBanner', this.banner._id);
-            formData.set('fechaIni', this.fechas.start.toISOString());
-            formData.set('fechaFin', this.fechas.end.toISOString());
-            formData.set('horario', this.horario);
-            formData.set('recurrencia', this.recurrencia);
-            formData.set('iteracion', this.iteracion);
-
-            console.log(formData);
-            // this.$emit('guardar', formData);
+            this.$emit('guardar', formData);
         },
     },
 };

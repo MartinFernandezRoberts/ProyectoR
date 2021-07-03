@@ -1,34 +1,39 @@
 <template>
- 
-    <div class="block h-96 w-full bg-white" 
-    v-for="item in casa"
-    :key="item._id"
+    <!-- <div
+        class="block h-96 w-full bg-white"
+        v-for="item in casa"
+        :key="item._id"
     >
-            <div class="flex justify-between">
-                <h3 class="text-xl">{{ item.tituloCasa }}</h3>
+        <div class="flex justify-between">
+            <h3 class="text-xl">{{ item.tituloCasa }}</h3>
 
-                <small class="text-sm text-gray-600">{{
-                    item.estadoCasa
-                }}</small>
-            </div>
+            <small class="text-sm text-gray-600">{{ item.estadoCasa }}</small>
+        </div>
 
-            <img
-                v-if="item.imagenCasa"
-                :src="getImage(item.imagenCasa)"
-                :alt="item.tituloCasa"
-            />
+        <img
+            v-if="item.imagenCasa"
+            :src="getImage(item.imagenCasa)"
+            :alt="item.tituloCasa"
+        />
 
-            <h4 class="text-lg">{{ item.descripcionCasa }}</h4>
-            <p>{{ item.ubicacionCasa }}</p>
-            <p>{{ item.fechaCasa }}</p>
-    </div>
+        <h4 class="text-lg">{{ item.descripcionCasa }}</h4>
+        <p>{{ item.ubicacionCasa }}</p>
+        <p>{{ item.fechaCasa }}</p>
+    </div> -->
+
+    <section
+        id="destacadas"
+        class="flex justify-center items-center bg-blue-400"
+    >
+        <h2 class="text-4xl text-white font-bold">Aquí irá el carrusel</h2>
+    </section>
 </template>
 
 <script>
-import CasaService from '../../../panel/components/casa/CasaService'
+import CasaService from '../../../panel/components/casa/CasaService';
+
 export default {
     name: 'CasasDestacadas',
-    
     data() {
         return {
             casa: [],
@@ -47,7 +52,7 @@ export default {
         async loadCasa() {
             try {
                 const desordenado = await CasaService.index();
-                this.casa = desordenado.sort(this.compararFecha).slice(0,3);
+                this.casa = desordenado.sort(this.compararFecha).slice(0, 3);
             } catch (err) {
                 console.error(err.message);
             }
@@ -63,5 +68,5 @@ export default {
     created() {
         this.loadCasa();
     },
-}
+};
 </script>

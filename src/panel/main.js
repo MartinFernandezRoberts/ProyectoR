@@ -3,12 +3,16 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Panel from './Panel.vue';
 import CasaMain from './components/casa/CasaMain.vue';
 import BannerMain from './components/banners/BannerMain.vue';
+import BannerTest from './components/banners/BannerTest.vue';
+import NotFound from './components/NotFound.vue';
 
 import '../index.css';
 
 const routes = [
     { path: '/panel/casa', component: CasaMain },
     { path: '/panel/banners', component: BannerMain },
+    { path: '/panel/banner_test', component: BannerTest },
+    { path: '/panel/:pathMatch(.*)', component: NotFound },
 ];
 
 const router = createRouter({

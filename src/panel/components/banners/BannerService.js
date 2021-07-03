@@ -20,9 +20,9 @@ class BannerService {
     }
 
     // Agendar
-    static async agendar(id, data) {
+    static async agendar(data) {
         return await axios
-            .post(`${url}agendar/${id}`, data)
+            .post(`${url}agendar`, data)
             .then((res) => console.log(res))
             .catch((err) => console.error(err));
     }

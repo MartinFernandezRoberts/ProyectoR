@@ -4,7 +4,7 @@
     <div
         v-for="banner in banners"
         :key="banner._id"
-        class="border rounded p-5 bg-gray-100 shadow divide-y"
+        class="border rounded mb-10 p-5 bg-gray-100 shadow divide-y"
     >
         <BannerForm
             v-if="edit == banner._id"
@@ -18,6 +18,7 @@
             v-else-if="calendarizar === banner._id"
             :banner="banner"
             @cerrar="calendarizar = ''"
+            @guardar="agendar"
         />
 
         <div v-else class="text-center">
@@ -95,6 +96,10 @@ export default {
             this.eliminando = id;
             await BannerService.delete(id);
             this.eliminando = '';
+            this.$emit('cargarBanner');
+        },
+        async agendar(data) {
+            await BannerService.agendar(data);
             this.$emit('cargarBanner');
         },
     },

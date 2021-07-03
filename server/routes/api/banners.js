@@ -8,20 +8,38 @@ const Imagen = require('../../models/Imagen');
 const ImageUploader = require('./ImageUploader');
 const imgUp = new ImageUploader('banners');
 
-//GET
+// GET
 router.get('/', async (req, res) => {
     try {
-        const banners = await Banner.find()
-            .populate('imagenBanner')
-            .lean();
-        res.send({
+        const banners = await Banner.find().populate('imagenBanner').lean();
+        res.status(200).send({
             banners,
         });
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 });
 
+// GET (por ubicación)
+router.get('/:ubicacion', async (req, res) => {
+    try {
+        const rutaBanners = path.join(__dirname, '../../jobs/banners.json');
+        const banners = require(rutaBanners);
+        const ubicacion = banners[req.params.ubicacion];
+        const bannerId = ubicacion.bannerId || ubicacion.default;
+
+        const banner = await Banner.findById(bannerId)
+            .populate('imagenBanner')
+            .lean();
+        res.status(200).send(banner.imagenBanner.url);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+});
+
+// POST
 router.post('/', imgUp.upload.single('file'), async (req, res) => {
     try {
         const url = req.protocol + '://' + req.get('host');
@@ -38,6 +56,7 @@ router.post('/', imgUp.upload.single('file'), async (req, res) => {
         res.status(201).send('Banner añadido.');
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 });
 
@@ -48,52 +67,29 @@ router.delete('/:id', async (req, res) => {
             _id: req.params.id,
         });
         //findOneAndDELETE
-        res.status(201).send('Registro Eliminado');
+        res.status(200).send('Registro Eliminado');
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 });
 
 // Agenda
-const rutaAgenda = path.join(__dirname, '../../jobs/agenda.json');
-if (!fs.existsSync(rutaAgenda))
-    fs.writeFileSync(rutaAgenda, JSON.stringify([]));
-const agenda = require(rutaAgenda);
+router.post('/agendar', async (req, res) => {
+    const rutaAgenda = path.join(__dirname, '../../jobs/agenda.json');
+    if (!fs.existsSync(rutaAgenda))
+        fs.writeFileSync(rutaAgenda, JSON.stringify([]));
+    const agenda = require(rutaAgenda);
 
-router.post('/agendar', async (req) => {
     try {
-        console.log('algún día podré agendar banners');
-        // ubicación    string
-        // id_banner    id
-        // fecha_ini    string (ISO 8601)
-        // fecha_fin    string (ISO 8601)
-        // horario      bool
-        // recurrencia  enum ['continuado', 'semanal']
-        // iteración    num
-        const {
-            ubicación,
-            idBanner,
-            fechaIni,
-            fechaFin,
-            horario,
-            recurrencia,
-            iteración,
-        } = req.body;
-
-        let newAgenda = {
-            ubicación,
-            idBanner,
-            fechaIni,
-            fechaFin,
-            horario,
-            recurrencia,
-            iteración,
-        };
-
-        agenda.push(newAgenda);
+        agenda.push(req.body);
         await fs.promises.writeFile(rutaAgenda, JSON.stringify(agenda));
+
+        console.log('Banner agendado.');
+        res.status(201).send('Banner agendado.');
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 });
 
