@@ -12,7 +12,7 @@
 
 <script>
 import Header from './components/Header.vue';
-import Inicio from './components/Inicio.vue';
+import Inicio from './components/inicio/Inicio.vue';
 import CasasDestacadas from './components/casasDestacadas/CasasDestacadas.vue';
 import ComoParticipar from './components/ComoParticipar.vue';
 import Contacto from './components/Contacto.vue';

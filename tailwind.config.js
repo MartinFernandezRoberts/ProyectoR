@@ -16,6 +16,10 @@ module.exports = {
             },
             borderWidth: {
                 3: '3px',
+                6: '6px',
+            },
+            fontSize: {
+                '3xs': '.45rem',
             },
         },
     },
