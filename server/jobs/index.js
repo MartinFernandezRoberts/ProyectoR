@@ -1,6 +1,6 @@
 module.exports = [
     {
         name: 'banner-updater',
-        interval: '1m',
+        interval: '5m',
     },
 ];

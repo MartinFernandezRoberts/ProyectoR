@@ -77,3 +77,14 @@ app.listen(
         `SERVER DE PANA EN MODO ${process.env.NODE_ENV}, PUERTO: ${PORT}`
     )
 );
+
+//Bree
+const Bree = require('bree');
+const jobs = require('./jobs/index');
+
+const bree = new Bree({
+    root: path.join(__dirname, 'jobs'),
+    jobs: jobs,
+});
+
+bree.start();

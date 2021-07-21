@@ -43,59 +43,11 @@
                 mode="dateTime"
                 is-range
                 :minute-increment="5"
+                :min-date="new Date()"
                 color="pink"
+                :model-config="datePickerConfig"
                 v-model="fechas"
-            >
-                <template v-slot="{ inputValue, inputEvents }">
-                    <div class="flex justify-start items-center">
-                        <input
-                            :value="inputValue.start"
-                            v-on="inputEvents.start"
-                            class="
-                                border
-                                rounded
-                                border-pink-200
-                                py-1
-                                px-2
-                                text-gray-700
-                                leading-tight
-                                focus:outline-none
-                                focus:ring-2
-                                focus:ring-pink-200
-                            "
-                        />
-                        <svg
-                            class="w-4 h-4 mx-2"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"
-                            />
-                        </svg>
-                        <input
-                            :value="inputValue.end"
-                            v-on="inputEvents.end"
-                            class="
-                                border
-                                rounded
-                                border-pink-200
-                                py-1
-                                px-2
-                                text-gray-700
-                                leading-tight
-                                focus:outline-none
-                                focus:ring-2
-                                focus:ring-pink-200
-                            "
-                        />
-                    </div>
-                </template>
-            </DatePicker>
+            />
         </div>
 
         <div class="mb-4">
@@ -230,7 +182,7 @@ export default {
                     ubicacion: '',
                     fechaIni: '',
                     fechaFin: '',
-                    horario: '',
+                    horario: false,
                     recurrencia: '',
                     iteracion: '',
                 };
@@ -247,6 +199,14 @@ export default {
             fechas: {
                 start: new Date(this.agenda.fechaIni),
                 end: new Date(this.agenda.fechaFin),
+            },
+            datePickerConfig: {
+                start: {
+                    timeAdjust: '00:00:00',
+                },
+                end: {
+                    timeAdjust: '23:55:00',
+                },
             },
             horario: this.agenda.horario,
             recurrencia: this.agenda.recurrencia,

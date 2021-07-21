@@ -27,9 +27,9 @@ router.get('/:ubicacion', async (req, res) => {
         const rutaBanners = path.join(__dirname, '../../jobs/banners.json');
         const banners = require(rutaBanners);
         const ubicacion = banners[req.params.ubicacion];
-        const bannerId = ubicacion.bannerId || ubicacion.default;
+        const idBanner = ubicacion.idBanner || ubicacion.default;
 
-        const banner = await Banner.findById(bannerId)
+        const banner = await Banner.findById(idBanner)
             .populate('imagenBanner')
             .lean();
         res.status(200).send(banner.imagenBanner.url);
@@ -51,7 +51,6 @@ router.post('/', imgUp.upload.single('file'), async (req, res) => {
         console.log(img);
 
         console.log(req.body);
-        // un banner tiene ruta_imagen, url
         await Banner.create({ ...req.body, imagenBanner: img._id });
         res.status(201).send('Banner añadido.');
     } catch (err) {
@@ -63,10 +62,10 @@ router.post('/', imgUp.upload.single('file'), async (req, res) => {
 // DELETE
 router.delete('/:id', async (req, res) => {
     try {
-        await Banner.findOneAndDelete({
+        const banner = await Banner.findOneAndDelete({
             _id: req.params.id,
         });
-        //findOneAndDELETE
+        Imagen.findOneAndDelete(banner.imagenBanner);
         res.status(200).send('Registro Eliminado');
     } catch (err) {
         console.error(err);
