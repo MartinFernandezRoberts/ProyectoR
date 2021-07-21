@@ -1,10 +1,1 @@
-{
-    "principal": {
-        "default": "60d765b60189e61140509030",
-        "bannerId": ""
-    },
-    "ladito": {
-        "default": "60d765b60189e61140509030",
-        "bannerId": ""
-    }
-}
+{"principal":{"default":"60d765b60189e61140509030","idBanner":""},"ladito":{"default":"60d765b60189e61140509030","idBanner":""}}

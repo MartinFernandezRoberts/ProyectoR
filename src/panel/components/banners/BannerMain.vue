@@ -57,6 +57,9 @@ export default {
             error: '',
         };
     },
+    created() {
+        this.cargarBanners();
+    },
     methods: {
         async cargarBanners() {
             try {
@@ -72,9 +75,6 @@ export default {
             this.nuevo = false;
             this.cargarBanners();
         },
-    },
-    created() {
-        this.cargarBanners();
     },
 };
 </script>
