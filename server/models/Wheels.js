@@ -33,8 +33,8 @@ const WheelsSchema = new mongoose.Schema({
     },
     imagenWheels: [
         {
-            ref: 'Imagen',
-            type: mongoose.Schema.Types.ObjectId,
+            type: String,
+            required: true,
         },
     ],
 });

@@ -7,7 +7,7 @@ class CasaService {
     static async index() {
         return await axios
             .get(url)
-            .then((res) => res.data.casa)
+            .then((res) => res.data)
             .catch((err) => console.error(err));
     }
 

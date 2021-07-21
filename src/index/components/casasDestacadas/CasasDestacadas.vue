@@ -22,7 +22,7 @@
                 @click="correrCarrusel(-3)"
             />
 
-            <ul class="flex justify-center space-x-10">
+            <ul class="grid grid-cols-3 gap-10">
                 <li
                     v-for="casa in casas"
                     :key="casa._id"
@@ -88,7 +88,7 @@
                     <img
                         :src="
                             casa.imagenCasa
-                                ? casa.imagenCasa[0].url
+                                ? casa.imagenCasa[0]
                                 : 'https://i.pinimg.com/originals/b7/af/94/b7af941d973a200a5c553e74357eab14.jpg'
                         "
                         alt="imagen casa"

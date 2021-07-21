@@ -33,8 +33,8 @@ const CasaSchema = new mongoose.Schema({
     },
     imagenCasa: [
         {
-            ref: 'Imagen',
-            type: mongoose.Schema.Types.ObjectId,
+            type: String,
+            required: true,
         },
     ],
 });

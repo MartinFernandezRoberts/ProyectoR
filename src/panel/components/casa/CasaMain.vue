@@ -23,10 +23,10 @@
             v-else
             :guardando="guardando"
             @close="nuevo = false"
-            @guardar="createCasa"
+            @guardar="crearCasa"
         />
 
-        <CasaList :casa="casa" @cargarCasa="loadCasa" />
+        <CasaList :casas="casas" @cargarCasas="cargarCasas" />
     </div>
 </template>
 
@@ -43,7 +43,7 @@ export default {
     },
     data() {
         return {
-            casa: [],
+            casas: [],
             nuevo: false,
             guardando: false,
         };
@@ -58,24 +58,24 @@ export default {
                 return 0;
             }
         },
-        async loadCasa() {
+        async cargarCasas() {
             try {
                 const desordenado = await CasaService.index();
-                this.casa = desordenado.sort(this.compararFecha);
+                this.casas = desordenado.sort(this.compararFecha);
             } catch (err) {
                 this.error = err.message;
             }
         },
-        async createCasa(data) {
+        async crearCasa(data) {
             this.guardando = true;
             await CasaService.create(data);
             this.guardando = false;
             this.nuevo = false;
-            this.loadCasa();
+            this.cargarCasas();
         },
     },
     created() {
-        this.loadCasa();
+        this.cargarCasas();
     },
 };
 </script>

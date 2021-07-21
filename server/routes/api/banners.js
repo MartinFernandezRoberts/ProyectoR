@@ -3,15 +3,20 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 const Banner = require('../../models/Banner');
-const Imagen = require('../../models/Imagen');
 
 const ImageUploader = require('./ImageUploader');
 const imgUp = new ImageUploader('banners');
 
+const urlDe = (ruta) => process.env.HOST_URL + ruta;
+
 // GET
 router.get('/', async (req, res) => {
     try {
-        const banners = await Banner.find().populate('imagenBanner').lean();
+        let banners = await Banner.find().lean();
+        banners.forEach(
+            (banner) => (banner.imagenBanner = urlDe(banner.imagenBanner))
+        );
+
         res.status(200).send({
             banners,
         });
@@ -24,15 +29,14 @@ router.get('/', async (req, res) => {
 // GET (por ubicación)
 router.get('/:ubicacion', async (req, res) => {
     try {
-        const rutaBanners = path.join(__dirname, '../../jobs/banners.json');
-        const banners = require(rutaBanners);
+        // const rutaBanners = path.join(__dirname, '../../jobs/banners.json');
+        const banners = require('../../jobs/banners.json');
         const ubicacion = banners[req.params.ubicacion];
         const idBanner = ubicacion.idBanner || ubicacion.default;
 
-        const banner = await Banner.findById(idBanner)
-            .populate('imagenBanner')
-            .lean();
-        res.status(200).send(banner.imagenBanner.url);
+        const banner = await Banner.findById(idBanner).lean();
+
+        res.status(200).send(urlDe(banner.imagenBanner));
     } catch (err) {
         console.error(err);
         res.status(500).send(err);
@@ -42,16 +46,13 @@ router.get('/:ubicacion', async (req, res) => {
 // POST
 router.post('/', imgUp.upload.single('file'), async (req, res) => {
     try {
-        const url = req.protocol + '://' + req.get('host');
-
-        const img = new Imagen({
-            url: url + '/img/banners/' + (await req.file.filename),
-        });
-        img.save();
-        console.log(img);
-
         console.log(req.body);
-        await Banner.create({ ...req.body, imagenBanner: img._id });
+
+        await Banner.create({
+            ...req.body,
+            imagenBanner: 'img/banners/' + req.file.filename,
+        });
+
         res.status(201).send('Banner añadido.');
     } catch (err) {
         console.error(err);
@@ -65,7 +66,17 @@ router.delete('/:id', async (req, res) => {
         const banner = await Banner.findOneAndDelete({
             _id: req.params.id,
         });
-        Imagen.findOneAndDelete(banner.imagenBanner);
+
+        const rutaImagen = path.join(
+            __dirname,
+            '../../public/',
+            banner.imagenBanner
+        );
+        fs.unlink(rutaImagen, (err) => {
+            if (err) console.error(err);
+            console.log(`archivo eliminado: ${banner.imagenBanner}`);
+        });
+
         res.status(200).send('Registro Eliminado');
     } catch (err) {
         console.error(err);
@@ -84,7 +95,6 @@ router.post('/agendar', async (req, res) => {
         agenda.push(req.body);
         await fs.promises.writeFile(rutaAgenda, JSON.stringify(agenda));
 
-        console.log('Banner agendado.');
         res.status(201).send('Banner agendado.');
     } catch (err) {
         console.error(err);

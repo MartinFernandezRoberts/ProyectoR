@@ -6,8 +6,8 @@ const BannerSchema = new mongoose.Schema({
         required: false,
     },
     imagenBanner: {
-        ref: 'Imagen',
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
+        required: true,
     },
     urlBanner: {
         type: String,

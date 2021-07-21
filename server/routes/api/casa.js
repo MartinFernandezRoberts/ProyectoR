@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
+const path = require('path');
 /* const mongodb = require('mongodb')
 const connectDB = require('../../config/db')
 const { ensureAuth } = require('../../middleware/auth') */
 const Casa = require('../../models/Casa');
-const Imagen = require('../../models/Imagen');
 
 const ImageUploader = require('./ImageUploader');
 const imgUp = new ImageUploader('casa');
+
+const urlDe = (ruta) => process.env.HOST_URL + ruta;
 
 // @desc api/Private page
 // @route GET /staff/api/casa
@@ -15,14 +18,18 @@ const imgUp = new ImageUploader('casa');
 //GET
 router.get('/', async (req, res) => {
     try {
-        const casa = await Casa.find()
-            .populate('imagenCasa')
-            .lean();
-        res.send({
-            casa,
-        });
+        let casas = await Casa.find().lean();
+        casas.forEach(
+            (casa) =>
+                (casa.imagenCasa = casa.imagenCasa.map((imagen) =>
+                    urlDe(imagen)
+                ))
+        );
+
+        res.send(casas);
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 });
 
@@ -30,26 +37,17 @@ router.get('/', async (req, res) => {
 // @route POST /panel/api/casa
 router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
     try {
-        const fileIds = [];
-        const url = req.protocol + '://' + req.get('host');
-
-        await req.files.forEach(async function(file) {
-            const img = new Imagen({
-                url: url + '/img/casa/' + (await file.filename),
-            });
-            img.save();
-            console.log(img);
-            fileIds.push(img._id);
-        });
-
-        console.log(fileIds);
+        const rutasImagenes = req.files.map(
+            (file) => 'img/casa/' + file.filename
+        );
 
         console.log(req.body);
-        await Casa.create({ ...req.body, imagenCasa: fileIds });
+        await Casa.create({ ...req.body, imagenCasa: rutasImagenes });
 
         res.status(201).send('Registro Agregado');
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 });
 
@@ -77,19 +75,29 @@ router.put('/editar/:id', async (req, res) => {
         res.status(201).send('Registro Actualizado');
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 });
 //delete
 router.delete('/:id', async (req, res) => {
     try {
-        await Casa.findOneAndDelete({
-            _id: req.params.id
+        const casa = await Casa.findOneAndDelete({
+            _id: req.params.id,
         });
-        //findOneAndDELETE
+
+        casa.imagenCasa.forEach((imagen) => {
+            const rutaImagen = path.join(__dirname, '../../public/', imagen);
+
+            fs.unlink(rutaImagen, (err) => {
+                if (err) console.error(err);
+                console.log(`archivo eliminado: ${imagen}`);
+            });
+        });
+
         res.status(201).send('Registro Eliminado');
-        
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 });
 
