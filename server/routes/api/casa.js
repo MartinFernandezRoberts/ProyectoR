@@ -78,6 +78,7 @@ router.put('/editar/:id', async (req, res) => {
         res.status(500).send(err);
     }
 });
+
 //delete
 router.delete('/:id', async (req, res) => {
     try {

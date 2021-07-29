@@ -7,19 +7,23 @@ const Banner = require('../../models/Banner');
 const ImageUploader = require('./ImageUploader');
 const imgUp = new ImageUploader('banners');
 
+const rutaAgenda = path.join(__dirname, '../../jobs/agenda.json');
+const agenda = require(rutaAgenda);
+
 const urlDe = (ruta) => process.env.HOST_URL + ruta;
 
 // GET
 router.get('/', async (req, res) => {
     try {
         let banners = await Banner.find().lean();
-        banners.forEach(
-            (banner) => (banner.imagenBanner = urlDe(banner.imagenBanner))
-        );
-
-        res.status(200).send({
-            banners,
+        banners.forEach((banner) => {
+            banner.agenda = agenda.filter(
+                (evento) => evento.idBanner == banner._id
+            );
+            banner.imagenBanner = urlDe(banner.imagenBanner);
         });
+
+        res.status(200).send(banners);
     } catch (err) {
         console.error(err);
         res.status(500).send(err);
@@ -78,24 +82,6 @@ router.delete('/:id', async (req, res) => {
         });
 
         res.status(200).send('Registro Eliminado');
-    } catch (err) {
-        console.error(err);
-        res.status(500).send(err);
-    }
-});
-
-// Agenda
-router.post('/agendar', async (req, res) => {
-    const rutaAgenda = path.join(__dirname, '../../jobs/agenda.json');
-    if (!fs.existsSync(rutaAgenda))
-        fs.writeFileSync(rutaAgenda, JSON.stringify([]));
-    const agenda = require(rutaAgenda);
-
-    try {
-        agenda.push(req.body);
-        await fs.promises.writeFile(rutaAgenda, JSON.stringify(agenda));
-
-        res.status(201).send('Banner agendado.');
     } catch (err) {
         console.error(err);
         res.status(500).send(err);
