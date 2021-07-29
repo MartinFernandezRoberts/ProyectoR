@@ -1,237 +1,148 @@
 <template>
-    <h2 class="mb-2 text-xl text-center">{{ banner.tituloBanner }}</h2>
+    <button
+        class="
+            mb-5
+            px-4
+            py-2
+            bg-pink-400
+            text-white
+            font-bold
+            rounded
+            hover:bg-pink-600
+        "
+        v-if="!nuevo"
+        @click="nuevo = true"
+    >
+        Agregar Evento
+    </button>
 
-    <form class="bg-white shadow rounded px-8 pt-6 pb-8 mb-4 flow-root">
-        <div class="mb-4">
-            <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="ubicacion"
-            >
-                Ubicación
-            </label>
-            <select
+    <EventoForm
+        v-else
+        :idBanner="idBanner"
+        :guardando="guardando"
+        @guardar="agendar"
+        @cerrar="nuevo = false"
+    />
+
+    <div
+        v-for="(evento, i) in agenda"
+        :key="i"
+        class="bg-white shadow rounded px-8 py-6 mb-4"
+    >
+        <ul class="divide-y">
+            <li>
+                Ubicación: <span>{{ evento.ubicacion }}</span>
+            </li>
+            <li>
+                Fecha de inicio: <span>{{ formatFecha(evento.fechaIni) }}</span>
+            </li>
+            <li>
+                Fecha de fin: <span>{{ formatFecha(evento.fechaFin) }}</span>
+            </li>
+            <li>
+                Con horario: <span>{{ evento.horario ? 'Sí' : 'No' }}</span>
+            </li>
+            <li>
+                Recurrencia: <span>{{ evento.recurrencia }}</span>
+            </li>
+            <li v-if="evento.recurrencia === 'semanal'">
+                Semanas restantes: <span>{{ evento.iteracion }}</span>
+            </li>
+        </ul>
+
+        <div class="mt-auto flex justify-end pt-3 space-x-2">
+            <DeleteIcon
                 :class="[
-                    'border rounded border-pink-200 w-full py-1 px-2 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200',
-                    ubicacion ? 'text-gray-700' : 'text-gray-400',
+                    'text-red-500',
+                    eliminando == evento._id
+                        ? 'animate-bounce'
+                        : 'cursor-pointer',
                 ]"
-                id="ubicacion"
-                v-model="ubicacion"
-            >
-                <option value="" disabled selected hidden>
-                    Selecciona una ubicación
-                </option>
-                <option
-                    v-for="(ubicacion, i) in ubicaciones"
-                    class="text-gray-700"
-                    :key="i"
-                    :value="ubicacion"
-                >
-                    {{ `${ubicacion[0].toUpperCase()}${ubicacion.slice(1)}` }}
-                </option>
-            </select>
-        </div>
-
-        <div class="mb-4">
-            <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="fechas"
-            >
-                Rango de fechas
-            </label>
-            <DatePicker
-                id="fechas"
-                mode="dateTime"
-                is-range
-                :minute-increment="5"
-                :min-date="new Date()"
-                color="pink"
-                :model-config="datePickerConfig"
-                v-model="fechas"
+                @click="eliminarEvento(evento._id)"
             />
         </div>
+    </div>
 
-        <div class="mb-4">
-            <input
-                class="
-                    border
-                    rounded
-                    border-pink-200
-                    h-4
-                    w-4
-                    text-gray-700
-                    focus:ring-2 focus:ring-pink-200
-                "
-                id="horario"
-                type="checkbox"
-                v-model="horario"
-            />
-            <label
-                class="ml-3 text-gray-700 text-sm font-bold mb-2"
-                for="horario"
-            >
-                Aplicar horario cada día
-            </label>
-        </div>
-
-        <div class="mb-4">
-            <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="recurrencia"
-            >
-                Recurrencia
-            </label>
-            <select
-                :class="[
-                    'border rounded border-pink-200 w-full py-1 px-2 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200',
-                    recurrencia ? 'text-gray-700' : 'text-gray-400',
-                ]"
-                id="recurrencia"
-                v-model="recurrencia"
-            >
-                <option value="" disabled selected hidden>
-                    Selecciona un tipo de recurrencia
-                </option>
-                <option
-                    v-for="(recurrencia, i) in recurrencias"
-                    class="text-gray-700"
-                    :key="i"
-                    :value="recurrencia"
-                >
-                    {{
-                        `${recurrencia[0].toUpperCase()}${recurrencia.slice(1)}`
-                    }}
-                </option>
-            </select>
-        </div>
-
-        <div v-show="recurrencia && recurrencia !== 'continuado'" class="mb-4">
-            <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="iteracion"
-            >
-                Repeticiones
-            </label>
-            <input
-                class="
-                    border
-                    rounded
-                    border-pink-200
-                    w-full
-                    py-1
-                    px-2
-                    text-gray-700
-                    leading-tight
-                    focus:outline-none focus:ring-2 focus:ring-pink-200
-                "
-                id="iteracion"
-                type="number"
-                placeholder="Número de repeticiones"
-                v-model="iteracion"
-            />
-        </div>
-
-        <div class="float-right space-x-2">
-            <button
-                class="
-                    bg-gray-400
-                    hover:bg-gray-600
-                    text-white
-                    font-bold
-                    py-2
-                    px-4
-                    rounded
-                    focus:outline-none
-                    focus:shadow-outline
-                    focus:ring-2
-                    focus:ring-pink-200
-                "
-                type="button"
-                @click="$emit('cerrar')"
-            >
-                Cerrar
-            </button>
-            <button
-                :class="[
-                    'bg-pink-400 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-pink-200',
-                    { 'animate-pulse': guardando },
-                ]"
-                type="button"
-                @click="handleSubmit"
-            >
-                Guardar
-            </button>
-        </div>
-    </form>
+    <button
+        class="
+            mt-auto
+            px-4
+            py-2
+            bg-gray-400
+            text-white
+            font-bold
+            rounded
+            hover:bg-gray-600
+        "
+        type="button"
+        @click="$emit('cerrar')"
+    >
+        Volver
+    </button>
 </template>
 
 <script>
-import axios from 'axios';
-import { DatePicker } from 'v-calendar';
+import DeleteIcon from '../svg/DeleteIcon.vue';
+import AgendaService from './AgendaService';
+import EventoForm from './EventoForm.vue';
 
 export default {
     name: 'BannerAgenda',
     components: {
-        DatePicker,
+        EventoForm,
+        DeleteIcon,
     },
     props: {
-        banner: Object,
-        agenda: {
-            type: Object,
-            default: function () {
-                return {
-                    ubicacion: '',
-                    fechaIni: '',
-                    fechaFin: '',
-                    horario: false,
-                    recurrencia: '',
-                    iteracion: '',
-                };
-            },
-        },
-        guardando: Boolean,
+        idBanner: String,
+        agenda: Array,
     },
-    emits: ['cerrar', 'guardar'],
+    emits: ['cargarBanners'],
     data() {
         return {
-            ubicaciones: [],
-            recurrencias: ['continuado', 'semanal'],
-            ubicacion: this.agenda.ubicacion,
-            fechas: {
-                start: new Date(this.agenda.fechaIni),
-                end: new Date(this.agenda.fechaFin),
-            },
-            datePickerConfig: {
-                start: {
-                    timeAdjust: '00:00:00',
-                },
-                end: {
-                    timeAdjust: '23:55:00',
-                },
-            },
-            horario: this.agenda.horario,
-            recurrencia: this.agenda.recurrencia,
-            iteracion: this.agenda.iteracion,
+            nuevo: false,
+            guardando: false,
+            eliminando: '',
+            error: '',
         };
     },
-    created() {
-        axios('http://localhost:3000/api/ubicaciones')
-            .then((res) => (this.ubicaciones = res.data))
-            .catch((err) => console.error(err));
-    },
     methods: {
-        handleSubmit() {
-            let formData = {
-                ubicacion: this.ubicacion,
-                idBanner: this.banner._id,
-                fechaIni: this.fechas.start.toISOString(),
-                fechaFin: this.fechas.end.toISOString(),
-                horario: this.horario,
-                recurrencia: this.recurrencia,
-                iteracion: this.iteracion,
-            };
+        formatFecha(fechaIso) {
+            return new Date(fechaIso).toLocaleString();
+        },
+        async agendar(data) {
+            this.guardando = true;
 
-            this.$emit('guardar', formData);
+            try {
+                await AgendaService.create(data);
+                this.nuevo = false;
+                this.$emit('cargarBanners');
+            } catch (error) {
+                console.error(error);
+            }
+
+            this.guardando = false;
+        },
+        async eliminarEvento(id) {
+            this.eliminando = id;
+
+            if (window.confirm('¿Eliminar evento?')) {
+                try {
+                    await AgendaService.delete(id);
+                    this.$emit('cargarBanners');
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
+            this.eliminando = '';
         },
     },
 };
 </script>
+
+<style scoped>
+li {
+    display: flex;
+    justify-content: space-between;
+}
+</style>

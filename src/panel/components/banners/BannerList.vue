@@ -5,8 +5,10 @@
         <div
             v-for="banner in banners"
             :key="banner._id"
-            class="border rounded mb-10 p-5 bg-gray-100 shadow divide-y"
+            class="flex flex-col border rounded p-5 bg-gray-100 shadow"
         >
+            <h2 class="text-xl mb-2">{{ banner.tituloBanner }}</h2>
+
             <BannerForm
                 v-if="edit == banner._id"
                 :banner="banner"
@@ -16,27 +18,31 @@
             />
 
             <BannerAgenda
-                v-else-if="calendarizar === banner._id"
-                :banner="banner"
-                @cerrar="calendarizar = ''"
-                @guardar="agendar"
+                v-else-if="agenda === banner._id"
+                :idBanner="banner._id"
+                :agenda="banner.agenda"
+                @cerrar="agenda = ''"
+                @cargarBanners="$emit('cargarBanners')"
             />
 
-            <div v-else class="text-center">
-                <h2 class="text-xl mb-2">{{ banner.tituloBanner }}</h2>
+            <div
+                v-else
+                class="flex-grow flex flex-col justify-between text-center"
+            >
+                <div>
+                    <img
+                        class="mb-2 mx-auto rounded-lg"
+                        :src="banner.imagenBanner"
+                        :alt="banner.tituloBanner"
+                    />
 
-                <img
-                    class="mb-2 mx-auto rounded-lg"
-                    :src="banner.imagenBanner"
-                    :alt="banner.tituloBanner"
-                />
+                    <a :href="banner.urlBanner">{{ banner.urlBanner }}</a>
+                </div>
 
-                <a :href="banner.urlBanner">{{ banner.urlBanner }}</a>
-
-                <div class="flex justify-end pt-3 space-x-2">
+                <div class="mt-auto flex justify-end pt-3 space-x-2">
                     <CalendarIcon
                         class="text-blue-400 cursor-pointer"
-                        @click="calendarizar = banner._id"
+                        @click="agenda = banner._id"
                     />
                     <EditIcon
                         class="text-yellow-400 cursor-pointer"
@@ -77,32 +83,42 @@ export default {
     props: {
         banners: Array,
     },
-    emits: ['cargarBanner'],
+    emits: ['cargarBanners'],
     data() {
         return {
             edit: '',
             guardando: false,
             eliminando: '',
             error: '',
-            calendarizar: '',
+            agenda: '',
         };
     },
     methods: {
         async actualizarBanner(data) {
             this.guardando = true;
-            await BannerService.update(this.edit, data);
+
+            try {
+                await BannerService.update(this.edit, data);
+                this.$emit('cargarBanners');
+            } catch (error) {
+                console.error(error);
+            }
+
             this.guardando = false;
-            this.$emit('cargarBanner');
         },
         async borrarBanner(id) {
             this.eliminando = id;
-            await BannerService.delete(id);
+
+            if (window.confirm('¿Eliminar banner?')) {
+                try {
+                    await BannerService.delete(id);
+                    this.$emit('cargarBanners');
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
             this.eliminando = '';
-            this.$emit('cargarBanner');
-        },
-        async agendar(data) {
-            await BannerService.agendar(data);
-            this.$emit('cargarBanner');
         },
     },
 };

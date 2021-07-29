@@ -34,7 +34,7 @@
             @guardar="crearBanner"
         />
 
-        <BannerList :banners="banners" @cargarBanner="cargarBanners" />
+        <BannerList :banners="banners" @cargarBanners="cargarBanners" />
     </div>
 </template>
 

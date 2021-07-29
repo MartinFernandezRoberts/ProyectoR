@@ -1,17 +1,9 @@
 <template>
     <form
-        class="
-            mx-auto
-            w-1/2
-            bg-white
-            shadow
-            rounded
-            px-8
-            pt-6
-            pb-8
-            mb-4
-            flow-root
-        "
+        :class="[
+            'bg-white shadow rounded px-8 pt-6 pb-8 mb-4 flow-root',
+            { 'mx-auto w-1/2': banner.tituloBanner.length === 0 },
+        ]"
     >
         <div class="mb-4">
             <label
@@ -43,11 +35,13 @@
             />
         </div>
 
-        <ImgDropSingle
-            class="mb-6"
-            :images="imagenBanner"
-            @update="(data) => (imagenBanner = data)"
-        />
+        <div>
+            <ImgDropSingle
+                class="mb-6"
+                :images="imagenBanner"
+                @update="(data) => (imagenBanner = data)"
+            />
+        </div>
 
         <div class="mb-4">
             <label
@@ -97,7 +91,7 @@
                 type="button"
                 @click="$emit('close')"
             >
-                Cerrar
+                Cancelar
             </button>
             <button
                 :class="[
