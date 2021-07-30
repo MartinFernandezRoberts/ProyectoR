@@ -92,6 +92,7 @@ router.put('/editar/:id', async (req, res) => {
     }
 
 });
+
 //delete
 router.delete('/:id', async (req, res) => {
     try {

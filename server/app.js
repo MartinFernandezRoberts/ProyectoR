@@ -60,6 +60,7 @@ app.use('/auth', require('./routes/auth'));
 app.use('/panel', require('./routes/panel'));
 
 //rutas API
+app.use('/api/agenda', require('./routes/api/agenda'));
 app.use('/api/banners', require('./routes/api/banners'));
 app.use('/api/casa', require('./routes/api/casa'));
 app.use('/api/ubicaciones', require('./routes/api/ubicaciones'));
