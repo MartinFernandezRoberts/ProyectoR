@@ -55,7 +55,7 @@ router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
 // @route PUT /panel/api/casa
 router.put('/editar/:id', async (req, res) => {
     try {
-        await Casa.findOneAndUpdate(
+         await Casa.findOneAndUpdate(
             {
                 _id: req.params.id,
             },
@@ -67,16 +67,30 @@ router.put('/editar/:id', async (req, res) => {
                     estadoCasa: req.body.estadoCasa,
                     fechaCasa: req.body.fechaCasa,
                 },
+                $push: {
+                    imagenCasa: req.body.imagenCasa
+                }
             },
             {
                 upsert: true,
             }
         );
+/*        const casa =
+             casa.imagenCasa.forEach((imagen) => {
+            const rutaImagen = path.join(__dirname, '../../public/', imagen);
+
+            fs.unlink(rutaImagen, (err) => {
+                if (err) console.error(err);
+                console.log(`archivo eliminado: ${imagen}`);
+            });
+        }); */
+
         res.status(201).send('Registro Actualizado');
     } catch (err) {
         console.error(err);
         res.status(500).send(err);
     }
+
 });
 //delete
 router.delete('/:id', async (req, res) => {
