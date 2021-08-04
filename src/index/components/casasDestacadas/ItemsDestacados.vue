@@ -24,8 +24,8 @@
 
             <ul class="grid grid-cols-3 gap-10">
                 <li
-                    v-for="casa in casas"
-                    :key="casa._id"
+                    v-for="destacado in destacados"
+                    :key="destacado.itemDestacado._id"
                     class="border-6 border-claro rounded-lg"
                 >
                     <div
@@ -86,12 +86,8 @@
                     </div>
 
                     <img
-                        :src="
-                            casa.imagenCasa
-                                ? casa.imagenCasa[0]
-                                : 'https://i.pinimg.com/originals/b7/af/94/b7af941d973a200a5c553e74357eab14.jpg'
-                        "
-                        alt="imagen casa"
+                        :src="destacado.itemDestacado.imagen"
+                        alt="imagen destacado"
                         class="w-80 h-60 object-cover"
                     />
 
@@ -120,80 +116,26 @@
                                 text-lg text-center text-gris
                             "
                         >
-                            {{ casa.tituloCasa }}
+                            {{ destacado.itemDestacado.titulo }}
                         </h3>
 
-                        <ul class="py-7 text-lg font-bold space-y-1">
-                            <li class="flex items-center space-x-1">
-                                <div class="w-14 text-gris">
-                                    <AreaIcon />
-                                </div>
+                        <InfoCasa
+                            v-if="destacado.categoriaDestacado === 'Casa'"
+                            :casa="destacado.itemDestacado"
+                        />
 
-                                <div class="text-dorado">
-                                    <p class="leading-tight">
-                                        {{ parche.area }} m2 total
-                                    </p>
-
-                                    <p
-                                        class="
-                                            text-base
-                                            font-light
-                                            leading-tight
-                                        "
-                                    >
-                                        {{ parche.construido }} m2 construidos
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="flex items-center space-x-1">
-                                <div class="w-14 text-gris">
-                                    <DormitoriosIcon />
-                                </div>
-
-                                <p class="text-dorado">
-                                    {{ parche.dormitorios }} dormitorios
-                                </p>
-                            </li>
-
-                            <li class="flex items-center space-x-1">
-                                <div class="w-14 text-gris">
-                                    <TinaIcon />
-                                </div>
-
-                                <p class="text-dorado">
-                                    {{ parche.baños }} baños
-                                </p>
-                            </li>
-
-                            <li
-                                v-if="parche.estacionamiento"
-                                class="flex items-center space-x-1"
-                            >
-                                <div class="w-14 text-gris">
-                                    <CocheraIcon />
-                                </div>
-
-                                <p class="text-dorado">estacionamiento</p>
-                            </li>
-
-                            <li
-                                v-if="parche.mascotas"
-                                class="flex items-center space-x-1"
-                            >
-                                <div class="w-14 text-gris">
-                                    <MascotasIcon />
-                                </div>
-
-                                <p class="text-dorado">apto mascotas</p>
-                            </li>
-                        </ul>
+                        <InfoWheels
+                            v-else-if="
+                                destacado.categoriaDestacado === 'Wheels'
+                            "
+                            :wheels="destacado.itemDestacado"
+                        />
                     </div>
                 </li>
             </ul>
 
             <FlechitaIcon
-                v-show="sliceStart < casasLength - 3"
+                v-show="sliceStart < destacadosLength - 3"
                 class="
                     w-6
                     text-dorado
@@ -230,64 +172,51 @@
 </template>
 
 <script>
+import DestacadoService from '../../../panel/components/DestacadoService';
+
 import Cargando from '../Cargando.vue';
 import FlechitaIcon from '../svg/FlechitaIcon.vue';
-import MascotasIcon from '../svg/MascotasIcon.vue';
-import CocheraIcon from '../svg/CocheraIcon.vue';
-import TinaIcon from '../svg/TinaIcon.vue';
-import DormitoriosIcon from '../svg/DormitoriosIcon.vue';
-import AreaIcon from '../svg/AreaIcon.vue';
 import ParticiparIcon from '../svg/ParticiparIcon.vue';
 import RelojArenaIcon from '../svg/RelojArenaIcon.vue';
-import CasaService from '../../../panel/components/casa/CasaService';
+import InfoCasa from './InfoCasa.vue';
+import InfoWheels from './InfoWheels.vue';
 
 export default {
-    name: 'CasasDestacadas',
+    name: 'ItemsDestacados',
     components: {
         RelojArenaIcon,
         ParticiparIcon,
-        AreaIcon,
-        DormitoriosIcon,
-        TinaIcon,
-        CocheraIcon,
-        MascotasIcon,
         FlechitaIcon,
         Cargando,
+        InfoCasa,
+        InfoWheels,
     },
     data() {
         return {
             cargando: true,
-            casas: [],
+            destacados: [],
             parche: {
                 numerosComprados: '132',
                 valoracion: '3.5',
-                area: '1500',
-                construido: '1000',
-                baños: '2',
-                estacionamiento: '1',
-                mascotas: '1',
             },
             sliceStart: 0,
-            casasLength: 0,
+            destacadosLength: 0,
         };
     },
     methods: {
         compararFecha(a, b) {
-            if (a.fechaCasa > b.fechaCasa) {
+            if (a.fecha > b.fecha) {
                 return -1;
-            } else if (b.fechaCasa > a.fechaCasa) {
+            } else if (b.fecha > a.fecha) {
                 return 1;
             } else {
                 return 0;
             }
         },
-        async loadCasa() {
+        async cargarDestacados() {
             try {
-                const desordenado = await CasaService.index();
-                this.casasLength = desordenado.length;
-                this.casas = desordenado
-                    .sort(this.compararFecha)
-                    .slice(this.sliceStart, this.sliceStart + 3);
+                const desordenado = await DestacadoService.index();
+                this.destacados = desordenado.sort(this.compararFecha);
                 this.cargando = false;
             } catch (err) {
                 console.error(err.message);
@@ -296,11 +225,11 @@ export default {
         correrCarrusel(n) {
             this.cargando = true;
             this.sliceStart += n;
-            this.loadCasa();
+            this.cargarDestacados();
         },
     },
     created() {
-        this.loadCasa();
+        this.cargarDestacados();
     },
 };
 </script>

@@ -9,29 +9,29 @@ function formatDate(date) {
 }
 
 const WheelsSchema = new mongoose.Schema({
-    tituloWheels: {
+    titulo: {
         type: String,
         required: true,
         trim: true,
     },
-    descripcionWheels: {
+    descripcion: {
         type: String,
         required: true,
     },
-    ubicacionWheels: {
+    ubicacion: {
         type: String,
         required: true,
     },
-    estadoWheels: {
+    estado: {
         type: String,
         default: 'borrador',
         enum: ['borrador', 'publicado'],
     },
-    fechaWheels: {
+    fecha: {
         type: String,
         default: formatDate(new Date()),
     },
-    imagenWheels: [
+    imagen: [
         {
             type: String,
             required: true,

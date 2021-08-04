@@ -6,6 +6,7 @@ const path = require('path');
 const connectDB = require('../../config/db')
 const { ensureAuth } = require('../../middleware/auth') */
 const Casa = require('../../models/Casa');
+const Destacado = require('../../models/Destacado');
 
 const ImageUploader = require('./ImageUploader');
 const imgUp = new ImageUploader('casa');
@@ -20,10 +21,7 @@ router.get('/', async (req, res) => {
     try {
         let casas = await Casa.find().lean();
         casas.forEach(
-            (casa) =>
-                (casa.imagenCasa = casa.imagenCasa.map((imagen) =>
-                    urlDe(imagen)
-                ))
+            (casa) => (casa.imagen = casa.imagen.map((imagen) => urlDe(imagen)))
         );
 
         res.send(casas);
@@ -42,7 +40,7 @@ router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
         );
 
         console.log(req.body);
-        await Casa.create({ ...req.body, imagenCasa: rutasImagenes });
+        await Casa.create({ ...req.body, imagen: rutasImagenes });
 
         res.status(201).send('Registro Agregado');
     } catch (err) {
@@ -61,11 +59,11 @@ router.put('/editar/:id', async (req, res) => {
             },
             {
                 $set: {
-                    tituloCasa: req.body.tituloCasa,
-                    descripcionCasa: req.body.descripcionCasa,
-                    ubicacionCasa: req.body.ubicacionCasa,
-                    estadoCasa: req.body.estadoCasa,
-                    fechaCasa: req.body.fechaCasa,
+                    titulo: req.body.titulo,
+                    descripcion: req.body.descripcion,
+                    ubicacion: req.body.ubicacion,
+                    estado: req.body.estado,
+                    fecha: req.body.fecha,
                 },
                 $push: {
                     imagenCasa: req.body.imagenCasa
@@ -96,11 +94,14 @@ router.put('/editar/:id', async (req, res) => {
 //delete
 router.delete('/:id', async (req, res) => {
     try {
+        await Destacado.deleteOne({
+            itemDestacado: req.params.id,
+        });
         const casa = await Casa.findOneAndDelete({
             _id: req.params.id,
         });
 
-        casa.imagenCasa.forEach((imagen) => {
+        casa.imagen.forEach((imagen) => {
             const rutaImagen = path.join(__dirname, '../../public/', imagen);
 
             fs.unlink(rutaImagen, (err) => {

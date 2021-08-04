@@ -4,7 +4,7 @@
     <main class="text-gris">
         <Inicio :style="{ height: contentHeight + 'px' }" />
 
-        <CasasDestacadas class="h-screen" />
+        <ItemsDestacados class="h-screen" />
         <ComoParticipar class="h-screen" />
         <Contacto class="h-screen" />
     </main>
@@ -13,7 +13,7 @@
 <script>
 import Header from './components/Header.vue';
 import Inicio from './components/inicio/Inicio.vue';
-import CasasDestacadas from './components/casasDestacadas/CasasDestacadas.vue';
+import ItemsDestacados from './components/casasDestacadas/ItemsDestacados.vue';
 import ComoParticipar from './components/ComoParticipar.vue';
 import Contacto from './components/Contacto.vue';
 
@@ -22,7 +22,7 @@ export default {
     components: {
         Header,
         Inicio,
-        CasasDestacadas,
+        ItemsDestacados,
         ComoParticipar,
         Contacto,
     },
