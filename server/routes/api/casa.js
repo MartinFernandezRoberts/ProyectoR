@@ -64,24 +64,26 @@ router.put('/editar/:id', async (req, res) => {
                     ubicacion: req.body.ubicacion,
                     estado: req.body.estado,
                     fecha: req.body.fecha,
+                    imagen: req.body.imagen
                 },
-                $push: {
-                    imagenCasa: req.body.imagenCasa
-                }
             },
             {
-                upsert: true,
+                new: true,
             }
         );
-/*        const casa =
-             casa.imagenCasa.forEach((imagen) => {
-            const rutaImagen = path.join(__dirname, '../../public/', imagen);
+            if (req.body.paBorrar){
+                console.log('no hay pa borrar pero salgo igual')
+                req.body.paBorrar.forEach((imagen) => {
+                    
+                    const rutaImagen = path.join(__dirname, '../../public/', imagen);
+        
+                    fs.unlink(rutaImagen, (err) => {
+                        if (err) console.error(err);
+                        console.log(`archivo eliminado: ${imagen}`);
+                    });
+                });
+            }
 
-            fs.unlink(rutaImagen, (err) => {
-                if (err) console.error(err);
-                console.log(`archivo eliminado: ${imagen}`);
-            });
-        }); */
 
         res.status(201).send('Registro Actualizado');
     } catch (err) {
