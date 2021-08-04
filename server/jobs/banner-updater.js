@@ -6,7 +6,7 @@ const dayjs = require('dayjs');
 const customParseFormat = require('dayjs/plugin/customParseFormat');
 dayjs.extend(customParseFormat);
 
-console.log('Actualizando banners...');
+// console.log('Actualizando banners...');
 let isCancelled = false;
 
 if (parentPort) {
@@ -40,15 +40,14 @@ const eliminarEvento = (index) => {
 };
 
 (async () => {
-    console.log('ya...');
     let actualizarAgenda = false;
     let actualizarBanners = false;
 
     agenda.map(async (evento, index) => {
-        console.log(`revisando evento ${index}:`);
-        console.log(evento);
-        console.log('banner actual:');
-        console.log(banners[evento.ubicacion]);
+        // console.log(`revisando evento ${index}:`);
+        // console.log(evento);
+        // console.log('banner actual:');
+        // console.log(banners[evento.ubicacion]);
 
         if (isCancelled) return;
 
@@ -68,56 +67,56 @@ const eliminarEvento = (index) => {
         let revisarRecurrencia = false;
 
         if (evento.idBanner === banners[evento.ubicacion].idBanner) {
-            console.log('banner actualmente asignado');
+            // console.log('banner actualmente asignado');
 
             if (evento.horario) {
                 if (ahora.isAfter(horaFin)) {
                     bufferBanners[evento.ubicacion].idBanner = '';
                     actualizarBanners = true;
-                    console.log('desasignar banner');
+                    // console.log('desasignar banner');
 
                     revisarRecurrencia = ahora.isAfter(fechaFin);
                 }
             } else if (ahora.isAfter(fechaFin)) {
                 bufferBanners[evento.ubicacion].idBanner = '';
                 actualizarBanners = true;
-                console.log('desasignar banner');
+                // console.log('desasignar banner');
 
                 revisarRecurrencia = true;
             }
         } else if (ahora.isAfter(fechaFin)) {
-            console.log('evento pasado');
+            // console.log('evento pasado');
             eliminarEvento(index);
             actualizarAgenda = true;
-            console.log('evento eliminado');
+            // console.log('evento eliminado');
         } else if (ahora.isAfter(fechaIni)) {
-            console.log('fecha de inicio pasada');
+            // console.log('fecha de inicio pasada');
 
             if (evento.horario) {
                 if (ahora.isAfter(horaIni) && ahora.isBefore(horaFin)) {
-                    console.log('dentro de horario');
+                    // console.log('dentro de horario');
                     bufferBanners[evento.ubicacion].idBanner = evento.idBanner;
                     actualizarBanners = true;
-                    console.log('asignar banner');
+                    // console.log('asignar banner');
                 } else {
-                    console.log('fuera de horario');
+                    // console.log('fuera de horario');
                 }
             } else {
                 bufferBanners[evento.ubicacion].idBanner = evento.idBanner;
                 actualizarBanners = true;
-                console.log('asignar banner');
+                // console.log('asignar banner');
             }
         } else {
-            console.log('banner no asignado, fecha de inicio aún no llega');
+            // console.log('banner no asignado, fecha de inicio aún no llega');
         }
 
         if (revisarRecurrencia) {
-            console.log('revisando recurrencia...');
+            // console.log('revisando recurrencia...');
             switch (evento.recurrencia) {
                 case 'continuado':
                     eliminarEvento(index);
                     actualizarAgenda = true;
-                    console.log('evento eliminado');
+                    // console.log('evento eliminado');
                     break;
 
                 case 'semanal':
@@ -126,11 +125,11 @@ const eliminarEvento = (index) => {
                             .add(1, 'week')
                             .toISOString();
                         actualizarBanners = true;
-                        console.log('evento reagendado');
+                        // console.log('evento reagendado');
                     } else {
                         eliminarEvento(index);
                         actualizarAgenda = true;
-                        console.log('evento eliminado');
+                        // console.log('evento eliminado');
                     }
                     break;
 

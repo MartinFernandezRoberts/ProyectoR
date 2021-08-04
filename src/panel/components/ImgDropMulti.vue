@@ -210,7 +210,6 @@ export default {
     },
     methods: {
         drop(event) {
-            console.log('image dropped');
             this.addFiles(event.dataTransfer.files);
             this.dragging = false;
         },
@@ -221,16 +220,13 @@ export default {
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
 
-                console.log('adding image ' + i);
                 data.previews.push(URL.createObjectURL(file));
                 buff.push(file);
             }
 
-            console.log('updating images...');
             this.$emit('update', buff);
 
             setTimeout(() => {
-                console.log('updating scrollbar...');
                 this.scrollbar.update();
             }, 100);
         },
