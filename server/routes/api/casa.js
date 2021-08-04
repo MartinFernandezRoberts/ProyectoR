@@ -72,7 +72,7 @@ router.put('/editar/:id', async (req, res) => {
             }
         );
             if (req.body.paBorrar){
-                console.log('no hay pa borrar pero salgo igual')
+                console.log('no hay pa borrar pero salgo igual y el if no anda')
                 req.body.paBorrar.forEach((imagen) => {
                     
                     const rutaImagen = path.join(__dirname, '../../public/', imagen);
