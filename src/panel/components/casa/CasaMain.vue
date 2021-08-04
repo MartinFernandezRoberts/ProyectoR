@@ -32,6 +32,7 @@
 
 <script>
 import CasaService from './CasaService';
+import DestacadoService from '../DestacadoService';
 import CasaForm from './CasaForm.vue';
 import CasaList from './CasaList.vue';
 
@@ -59,12 +60,15 @@ export default {
             }
         },
         async cargarCasas() {
-            try {
-                const desordenado = await CasaService.index();
-                this.casas = desordenado.sort(this.compararFecha);
-            } catch (err) {
-                this.error = err.message;
-            }
+            const desordenado = await CasaService.index();
+            this.casas = desordenado.sort(this.compararFecha);
+
+            const destacados = await DestacadoService.lista();
+            const esDestacado = (id) =>
+                destacados.some((destacado) => destacado.itemDestacado === id);
+            this.casas.forEach(
+                (casa) => (casa.destacado = esDestacado(casa._id))
+            );
         },
         async crearCasa(data) {
             this.guardando = true;

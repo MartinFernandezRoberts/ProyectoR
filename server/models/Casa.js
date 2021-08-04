@@ -9,29 +9,29 @@ function formatDate(date) {
 }
 
 const CasaSchema = new mongoose.Schema({
-    tituloCasa: {
+    titulo: {
         type: String,
         required: true,
         trim: true,
     },
-    descripcionCasa: {
+    descripcion: {
         type: String,
         required: true,
     },
-    ubicacionCasa: {
+    ubicacion: {
         type: String,
         required: true,
     },
-    estadoCasa: {
+    estado: {
         type: String,
         default: 'borrador',
         enum: ['borrador', 'publicado'],
     },
-    fechaCasa: {
+    fecha: {
         type: String,
         default: formatDate(new Date()),
     },
-    imagenCasa: [
+    imagen: [
         {
             type: String,
             required: true,
@@ -46,10 +46,19 @@ const CasaSchema = new mongoose.Schema({
     orientacion: {
         type: String,
         default: '',
-        enum: ['Oriente', 'Poniente','Norte','Sur', 'Nororiente', 'Norponiente','Suroriente', 'Surponiente'],
+        enum: [
+            'Oriente',
+            'Poniente',
+            'Norte',
+            'Sur',
+            'Nororiente',
+            'Norponiente',
+            'Suroriente',
+            'Surponiente',
+        ],
     },
     estacionamiento: {
-        type: Number
+        type: Number,
     },
     dormitorio: {
         type: Number,
@@ -59,62 +68,58 @@ const CasaSchema = new mongoose.Schema({
     },
     bodega: {
         type: Boolean,
-        default: false
+        default: false,
     },
     mascotas: {
         type: Boolean,
-        default: false
+        default: false,
     },
     calefaccion: {
         type: Boolean,
-        default: false
+        default: false,
     },
     cocina: {
         type: Boolean,
-        default: false
+        default: false,
     },
     terraza: {
         type: Boolean,
-        default: false
+        default: false,
     },
     balcon: {
         type: Boolean,
-        default: false
+        default: false,
     },
     piscina: {
         type: Boolean,
-        default: false
+        default: false,
     },
     quincho: {
         type: Boolean,
-        default: false
+        default: false,
     },
     gastosComunes: {
         type: Number,
     },
     piscinaE: {
         type: Boolean,
-        default: false
+        default: false,
     },
     gimnasioE: {
         type: Boolean,
-        default: false
+        default: false,
     },
     lavanderiaE: {
         type: Boolean,
-        default: false
+        default: false,
     },
     eventosE: {
         type: Boolean,
-        default: false
+        default: false,
     },
     quinchoE: {
         type: Boolean,
-        default: false
-    },
-    terraza: {
-        type: Boolean,
-        default: false
+        default: false,
     },
 });
 

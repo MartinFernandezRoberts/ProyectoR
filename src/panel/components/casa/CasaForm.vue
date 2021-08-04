@@ -3,7 +3,7 @@
         <div class="mb-4">
             <label
                 class="block text-gray-700 text-sm font-bold mb-2"
-                for="tituloCasa"
+                for="titulo"
             >
                 Título
             </label>
@@ -23,17 +23,17 @@
                     focus:ring-2
                     focus:ring-pink-200
                 "
-                id="tituloCasa"
+                id="titulo"
                 type="text"
                 placeholder="Título"
-                v-model="tituloCasa"
+                v-model="titulo"
             />
         </div>
 
         <div class="mb-4">
             <label
                 class="block text-gray-700 text-sm font-bold mb-2"
-                for="descripcionCasa"
+                for="descripcion"
             >
                 Descripción
             </label>
@@ -53,17 +53,17 @@
                     focus:ring-2
                     focus:ring-pink-200
                 "
-                id="descripcionCasa"
+                id="descripcion"
                 type="text"
                 placeholder="Descripción"
-                v-model="descripcionCasa"
+                v-model="descripcion"
             />
         </div>
 
         <div class="mb-4">
             <label
                 class="block text-gray-700 text-sm font-bold mb-2"
-                for="ubicacionCasa"
+                for="ubicacion"
             >
                 Ubicación
             </label>
@@ -83,16 +83,16 @@
                     focus:ring-2
                     focus:ring-pink-200
                 "
-                id="ubicacionCasa"
+                id="ubicacion"
                 placeholder="Descripción"
-                v-model="ubicacionCasa"
+                v-model="ubicacion"
             />
         </div>
 
         <div class="mb-6">
             <label
                 class="block text-gray-700 text-sm font-bold mb-2"
-                for="fechaCasa"
+                for="fecha"
             >
                 Fecha
             </label>
@@ -112,16 +112,49 @@
                     focus:ring-2
                     focus:ring-pink-200
                 "
-                id="fechaCasa"
+                id="fecha"
                 type="date"
-                v-model="fechaCasa"
+                v-model="fecha"
             />
+        </div>
+
+        <div class="mb-4">
+            <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="orientacion"
+            >
+                Orientación
+            </label>
+
+            <select
+                :class="[
+                    'border rounded border-pink-200 w-full py-1 px-2 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200',
+                    orientacion ? 'text-gray-700' : 'text-gray-400',
+                ]"
+                id="orientacion"
+                v-model="orientacion"
+            >
+                <option value="" disabled selected hidden>
+                    Selecciona una orientación
+                </option>
+
+                <option
+                    v-for="(orientacion, i) in orientaciones"
+                    class="text-gray-700"
+                    :key="i"
+                    :value="orientacion"
+                >
+                    {{
+                        `${orientacion[0].toUpperCase()}${orientacion.slice(1)}`
+                    }}
+                </option>
+            </select>
         </div>
 
         <ImgDropMulti
             class="mb-6"
-            :images="imagenCasa"
-            @update="(data) => (imagenCasa = data)"
+            :images="imagen"
+            @update="(data) => (imagen = data)"
         />
 
         <div class="float-right space-x-2">
@@ -171,11 +204,12 @@ export default {
             type: Object,
             default: function () {
                 return {
-                    imagenCasa: [],
-                    tituloCasa: '',
-                    descripcionCasa: '',
-                    ubicacionCasa: '',
-                    fechaCasa: '',
+                    imagen: [],
+                    titulo: '',
+                    descripcion: '',
+                    ubicacion: '',
+                    fecha: '',
+                    orientacion: '',
                 };
             },
         },
@@ -184,24 +218,36 @@ export default {
     emits: ['close', 'guardar'],
     data() {
         return {
-            imagenCasa: this.casa.imagenCasa,
-            tituloCasa: this.casa.tituloCasa,
-            descripcionCasa: this.casa.descripcionCasa,
-            ubicacionCasa: this.casa.ubicacionCasa,
-            fechaCasa: this.casa.fechaCasa,
+            imagen: this.casa.imagen,
+            titulo: this.casa.titulo,
+            descripcion: this.casa.descripcion,
+            ubicacion: this.casa.ubicacion,
+            fecha: this.casa.fecha,
+            orientacion: this.casa.orientacion,
+            orientaciones: [
+                'Oriente',
+                'Poniente',
+                'Norte',
+                'Sur',
+                'Nororiente',
+                'Norponiente',
+                'Suroriente',
+                'Surponiente',
+            ],
         };
     },
     methods: {
         handleSubmit() {
             let formData = new FormData();
 
-            this.imagenCasa.forEach((imagen) => {
+            this.imagen.forEach((imagen) => {
                 formData.append('files', imagen);
             });
-            formData.set('tituloCasa', this.tituloCasa);
-            formData.set('descripcionCasa', this.descripcionCasa);
-            formData.set('ubicacionCasa', this.ubicacionCasa);
-            formData.set('fechaCasa', this.fechaCasa);
+            formData.set('titulo', this.titulo);
+            formData.set('descripcion', this.descripcion);
+            formData.set('ubicacion', this.ubicacion);
+            formData.set('fecha', this.fecha);
+            formData.set('orientacion', this.orientacion);
 
             this.$emit('guardar', formData);
         },

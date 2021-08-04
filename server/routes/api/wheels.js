@@ -6,6 +6,7 @@ const path = require('path');
 const connectDB = require('../../config/db')
 const { ensureAuth } = require('../../middleware/auth') */
 const Wheels = require('../../models/Wheels');
+const Destacado = require('../../models/Destacado');
 
 const ImageUploader = require('./ImageUploader');
 const imgUp = new ImageUploader('wheels');
@@ -21,7 +22,7 @@ router.get('/', async (req, res) => {
         const wheels = await Wheels.find().lean();
         wheels.forEach(
             (wheels) =>
-                (wheels.imagenWheels = wheels.imagenCasa.map((imagen) =>
+                (wheels.imagen = wheels.imagenCasa.map((imagen) =>
                     urlDe(imagen)
                 ))
         );
@@ -44,7 +45,7 @@ router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
         );
 
         console.log(req.body);
-        await Wheels.create({ ...req.body, imagenWheels: rutasImagenes });
+        await Wheels.create({ ...req.body, imagen: rutasImagenes });
 
         res.status(201).send('Registro Agregado');
     } catch (err) {
@@ -63,11 +64,11 @@ router.put('/editar/:id', async (req, res) => {
             },
             {
                 $set: {
-                    tituloWheels: req.body.tituloWheels,
-                    descripcionWheels: req.body.descripcionWheels,
-                    ubicacionWheels: req.body.ubicacionWheels,
-                    estadoWheels: req.body.estadoWheels,
-                    fechaWheels: req.body.fechaWheels,
+                    titulo: req.body.titulo,
+                    descripcion: req.body.descripcion,
+                    ubicacion: req.body.ubicacion,
+                    estado: req.body.estado,
+                    fecha: req.body.fecha,
                 },
             },
             {
@@ -83,6 +84,9 @@ router.put('/editar/:id', async (req, res) => {
 //delete
 router.delete('/:id', async (req, res) => {
     try {
+        await Destacado.deleteOne({
+            itemDestacado: req.params.id,
+        });
         const wheels = await Wheels.findOneAndDelete({
             _id: req.params.id,
         });
