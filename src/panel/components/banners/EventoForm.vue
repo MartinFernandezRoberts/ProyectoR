@@ -220,7 +220,7 @@ export default {
         };
     },
     created() {
-        axios('http://localhost:3000/api/ubicaciones')
+        axios(`http://localhost:3000/api/ubicaciones`)
             .then((res) => (this.ubicaciones = res.data))
             .catch((err) => console.error(err));
     },

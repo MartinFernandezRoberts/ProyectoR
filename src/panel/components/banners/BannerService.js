@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:3000/api/banners/';
+const url = `http://localhost:3000/api/banners/`;
 
 class BannerService {
     // Index

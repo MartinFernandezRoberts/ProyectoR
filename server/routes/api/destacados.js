@@ -2,20 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Destacado = require('../../models/Destacado');
 
-const urlDe = (ruta) => process.env.HOST_URL + ruta;
-
 router.get('/', async (req, res) => {
     try {
         let destacados = await Destacado.find()
             .populate('itemDestacado')
             .lean();
-        destacados.forEach(
-            (destacado) =>
-                (destacado.itemDestacado.imagen =
-                    destacado.itemDestacado.imagen.map((imagen) =>
-                        urlDe(imagen)
-                    ))
-        );
 
         res.send(destacados);
     } catch (err) {

@@ -32,7 +32,7 @@
                 <div>
                     <img
                         class="mb-2 mx-auto rounded-lg"
-                        :src="banner.imagenBanner"
+                        :src="urlDev(banner.imagenBanner)"
                         :alt="banner.tituloBanner"
                     />
 
@@ -94,6 +94,9 @@ export default {
         };
     },
     methods: {
+        urlDev(path) {
+            return 'http://localhost:3000/' + path;
+        },
         async actualizarBanner(data) {
             this.guardando = true;
 

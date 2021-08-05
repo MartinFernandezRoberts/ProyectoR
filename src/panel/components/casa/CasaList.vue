@@ -5,10 +5,13 @@
         <div
             v-for="casa in casas"
             :key="casa._id"
-            class="border rounded p-5 bg-gray-100 shadow"
+            :class="[
+                'border rounded p-5 bg-gray-100 shadow',
+                { 'col-span-full order-first': edit === casa._id },
+            ]"
         >
             <CasaForm
-                v-if="edit == casa._id"
+                v-if="edit === casa._id"
                 :casa="casa"
                 :guardando="guardando"
                 @close="edit = ''"
@@ -26,7 +29,7 @@
 
                 <img
                     v-if="casa.imagen"
-                    :src="casa.imagen[0]"
+                    :src="urlDev(casa.imagen[0])"
                     :alt="casa.titulo"
                 />
 
@@ -45,7 +48,10 @@
                         ]"
                         @click="cambiarDestacado(casa._id, casa.destacado)"
                     />
-                    <EditIcon class="text-blue-400" @click="edit = casa._id" />
+                    <EditIcon
+                        class="text-blue-400 cursor-pointer"
+                        @click="edit = casa._id"
+                    />
                     <DeleteIcon
                         :class="[
                             'text-rojo',
@@ -91,9 +97,14 @@ export default {
         };
     },
     methods: {
+        urlDev(path) {
+            return 'http://localhost:3000/' + path;
+        },
         async actualizarCasa(data) {
             this.guardando = true;
+            console.log(data.get('paBorrar'));
             await CasaService.update(this.edit, data);
+            this.edit = '';
             this.guardando = false;
             this.$emit('cargarCasas');
         },

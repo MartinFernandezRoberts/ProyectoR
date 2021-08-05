@@ -10,8 +10,6 @@ const imgUp = new ImageUploader('banners');
 const rutaAgenda = path.join(__dirname, '../../jobs/agenda.json');
 const agenda = require(rutaAgenda);
 
-const urlDe = (ruta) => process.env.HOST_URL + ruta;
-
 // GET
 router.get('/', async (req, res) => {
     try {
@@ -20,7 +18,6 @@ router.get('/', async (req, res) => {
             banner.agenda = agenda.filter(
                 (evento) => evento.idBanner == banner._id
             );
-            banner.imagenBanner = urlDe(banner.imagenBanner);
         });
 
         res.status(200).send(banners);
@@ -40,7 +37,7 @@ router.get('/:ubicacion', async (req, res) => {
 
         const banner = await Banner.findById(idBanner).lean();
 
-        res.status(200).send(urlDe(banner.imagenBanner));
+        res.status(200).send(banner.imagenBanner);
     } catch (err) {
         console.error(err);
         res.status(500).send(err);

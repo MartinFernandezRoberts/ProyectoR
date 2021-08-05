@@ -22,7 +22,7 @@
                     hover:border-0 hover:bg-gray-300 hover:text-white
                 "
                 type="button"
-                @click="limpiar"
+                @click="clear"
             >
                 limpiar
             </button>
@@ -65,7 +65,7 @@
                     class="relative px-3 py-4 z-20 flex h-52 flex-nowrap"
                 >
                     <div
-                        v-for="(image, i) in images"
+                        v-for="(preview, i) in previews"
                         :key="i"
                         :class="[
                             'relative h-full flex-none',
@@ -111,7 +111,7 @@
 
                         <img
                             class="object-cover h-full rounded"
-                            :src="previews[i]"
+                            :src="preview"
                             :alt="`imagen ${i}`"
                         />
                     </div>
@@ -155,12 +155,12 @@
 
             <div class="w-4/5 h-full">
                 <img
-                    v-for="(image, i) in images"
+                    v-for="(preview, i) in previews"
                     :key="i"
                     v-show="i == curSlide"
                     @click="modal = false"
                     class="w-full h-full object-contain cursor-pointer"
-                    :src="previews[i]"
+                    :src="preview"
                     :alt="`imagen ${i}`"
                 />
             </div>
@@ -190,12 +190,24 @@ export default {
         StarIcon,
     },
     props: {
-        images: Array,
+        images: {
+            type: Array,
+            default: function () {
+                return [];
+            },
+        },
+        paBorrar: {
+            type: Array,
+            default: function () {
+                return [];
+            },
+        },
     },
-    emits: ['update'],
+    emits: ['update:images', 'update:paBorrar'],
     data() {
         return {
-            previews: [],
+            storedImages: this.images,
+            previews: this.images.map((path) => this.urlDev(path)),
             dragging: false,
             modal: false,
             curSlide: 0,
@@ -205,10 +217,17 @@ export default {
     },
     computed: {
         notEmpty() {
-            return this.images.length > 0;
+            return this.previews.length > 0;
         },
     },
+    mounted() {
+        this.scrollbar = new PerfectScrollbar('#previews');
+        this.$emit('update:images', []);
+    },
     methods: {
+        urlDev(path) {
+            return 'http://localhost:3000/' + path;
+        },
         drop(event) {
             this.addFiles(event.dataTransfer.files);
             this.dragging = false;
@@ -224,7 +243,7 @@ export default {
                 buff.push(file);
             }
 
-            this.$emit('update', buff);
+            this.$emit('update:images', buff);
 
             setTimeout(() => {
                 this.scrollbar.update();
@@ -237,18 +256,26 @@ export default {
                 this.featured = 0;
             }
 
-            const buff = this.images;
-            buff.splice(i, 1);
+            if (i >= this.storedImages.length) {
+                const buff = this.images;
+                buff.splice(i, 1);
+                this.$emit('update:images', buff);
+            } else {
+                const buff = this.paBorrar.concat(
+                    this.storedImages.splice(i, 1)
+                );
+                this.$emit('update:paBorrar', buff);
+            }
+
             this.previews.splice(i, 1);
-            this.$emit('update', buff);
 
             this.$nextTick(function () {
                 this.scrollbar.update();
             });
         },
-        limpiar() {
+        clear() {
             this.previews.length = 0;
-            this.$emit('update', []);
+            this.$emit('update:images', []);
         },
         openLightbox(i) {
             this.curSlide = i;
@@ -265,9 +292,6 @@ export default {
 
             this.curSlide = n;
         },
-    },
-    mounted() {
-        this.scrollbar = new PerfectScrollbar('#previews');
     },
 };
 </script>

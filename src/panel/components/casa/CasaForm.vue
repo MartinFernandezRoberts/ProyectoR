@@ -153,8 +153,8 @@
 
         <ImgDropMulti
             class="mb-6"
-            :images="imagen"
-            @update="(data) => (imagen = data)"
+            v-model:images="imagen"
+            v-model:paBorrar="paBorrar"
         />
 
         <div class="float-right space-x-2">
@@ -219,6 +219,7 @@ export default {
     data() {
         return {
             imagen: this.casa.imagen,
+            paBorrar: [],
             titulo: this.casa.titulo,
             descripcion: this.casa.descripcion,
             ubicacion: this.casa.ubicacion,
@@ -242,6 +243,9 @@ export default {
 
             this.imagen.forEach((imagen) => {
                 formData.append('files', imagen);
+            });
+            this.paBorrar.forEach((imagen) => {
+                formData.append('paBorrar', imagen);
             });
             formData.set('titulo', this.titulo);
             formData.set('descripcion', this.descripcion);

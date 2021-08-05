@@ -11,8 +11,6 @@ const Destacado = require('../../models/Destacado');
 const ImageUploader = require('./ImageUploader');
 const imgUp = new ImageUploader('casa');
 
-const urlDe = (ruta) => process.env.HOST_URL + ruta;
-
 // @desc api/Private page
 // @route GET /staff/api/casa
 
@@ -20,9 +18,6 @@ const urlDe = (ruta) => process.env.HOST_URL + ruta;
 router.get('/', async (req, res) => {
     try {
         let casas = await Casa.find().lean();
-        casas.forEach(
-            (casa) => (casa.imagen = casa.imagen.map((imagen) => urlDe(imagen)))
-        );
 
         res.send(casas);
     } catch (err) {
@@ -51,32 +46,52 @@ router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
 
 // @desc api/Update
 // @route PUT /panel/api/casa
-router.put('/editar/:id', async (req, res) => {
-    try {
-         await Casa.findOneAndUpdate(
-            {
-                _id: req.params.id,
-            },
-            {
-                $set: {
-                    titulo: req.body.titulo,
-                    descripcion: req.body.descripcion,
-                    ubicacion: req.body.ubicacion,
-                    estado: req.body.estado,
-                    fecha: req.body.fecha,
-                    imagen: req.body.imagen
+router.post(
+    '/editar/:id',
+    imgUp.upload.array('files', 10),
+    async (req, res) => {
+        try {
+            console.log(req.body);
+            let paBorrar = req.body.paBorrar || [];
+            if (!Array.isArray(paBorrar)) paBorrar = [paBorrar];
+            const casa = await Casa.findById(req.params.id).exec();
+            let imagenes = casa.get('imagen');
+            imagenes = imagenes.filter((imagen) => !paBorrar.includes(imagen));
+
+            const rutasImagenes = req.files.map(
+                (file) => 'img/casa/' + file.filename
+            );
+
+            imagenes = imagenes.concat(rutasImagenes);
+
+            // aquí se podría definir la destacada.
+
+            await Casa.findOneAndUpdate(
+                {
+                    _id: req.params.id,
                 },
-            },
-            {
-                new: true,
-            }
-        );
-            if (req.body.paBorrar){
-                console.log('no hay pa borrar pero salgo igual y el if no anda')
-                req.body.paBorrar.forEach((imagen) => {
-                    
-                    const rutaImagen = path.join(__dirname, '../../public/', imagen);
-        
+                {
+                    $set: {
+                        titulo: req.body.titulo,
+                        descripcion: req.body.descripcion,
+                        ubicacion: req.body.ubicacion,
+                        estado: req.body.estado,
+                        fecha: req.body.fecha,
+                        imagen: imagenes,
+                    },
+                }
+            );
+            if (paBorrar.length > 0) {
+                console.log(
+                    'no hay pa borrar pero salgo igual y el if no anda'
+                );
+                paBorrar.forEach((imagen) => {
+                    const rutaImagen = path.join(
+                        __dirname,
+                        '../../public/',
+                        imagen
+                    );
+
                     fs.unlink(rutaImagen, (err) => {
                         if (err) console.error(err);
                         console.log(`archivo eliminado: ${imagen}`);
@@ -84,14 +99,13 @@ router.put('/editar/:id', async (req, res) => {
                 });
             }
 
-
-        res.status(201).send('Registro Actualizado');
-    } catch (err) {
-        console.error(err);
-        res.status(500).send(err);
+            res.status(201).send('Registro Actualizado');
+        } catch (err) {
+            console.error(err);
+            res.status(500).send(err);
+        }
     }
-
-});
+);
 
 //delete
 router.delete('/:id', async (req, res) => {

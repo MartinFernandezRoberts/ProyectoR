@@ -11,8 +11,6 @@ const Destacado = require('../../models/Destacado');
 const ImageUploader = require('./ImageUploader');
 const imgUp = new ImageUploader('wheels');
 
-const urlDe = (ruta) => process.env.HOST_URL + ruta;
-
 // @desc api/Private page
 // @route GET /panel/api/wheels
 
@@ -20,13 +18,6 @@ const urlDe = (ruta) => process.env.HOST_URL + ruta;
 router.get('/', async (req, res) => {
     try {
         const wheels = await Wheels.find().lean();
-        wheels.forEach(
-            (wheels) =>
-                (wheels.imagen = wheels.imagenCasa.map((imagen) =>
-                    urlDe(imagen)
-                ))
-        );
-
         res.send({
             wheels,
         });

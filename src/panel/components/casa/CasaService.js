@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:3000/api/casa/';
+const url = `http://localhost:3000/api/casa/`;
 
 class CasaService {
     // Index
@@ -26,7 +26,7 @@ class CasaService {
         console.log(data);
 
         return await axios
-            .put(`${url}editar/${id}`, data)
+            .post(`${url}editar/${id}`, data)
             .then((res) => console.log(res))
             .catch((err) => console.error(err));
     }
