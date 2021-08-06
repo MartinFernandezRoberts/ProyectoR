@@ -64,7 +64,7 @@
                     ease-out
                 "
             >
-                Mi cuenta
+                <a href="/panel/">Mi cuenta</a>
             </button>
         </div>
     </header>

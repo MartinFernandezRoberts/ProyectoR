@@ -12,7 +12,7 @@
         "
     >
         <div class="flex items-center">
-            <h1 class="text-xl font-bold">ProyectoR</h1>
+            <a class="text-xl font-bold" href="/">ProyectoR</a>
             <h2>
                 <span class="text-pink-600 font-bold mx-1"> ></span>Panel de
                 Control

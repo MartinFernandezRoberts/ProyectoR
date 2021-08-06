@@ -3,7 +3,7 @@
         id="destacadas"
         class="flex flex-col justify-center items-center overflow-hidden"
     >
-        <h2 class="mb-6 text-3xl font-bold">Últimas propiedades en sorteo</h2>
+        <h2 class="mb-6 text-3xl font-bold">Sorteos destacados</h2>
 
         <Cargando v-show="cargando" class="mb-6 h-2/4" />
 
@@ -86,7 +86,7 @@
                     </div>
 
                     <img
-                        :src="destacado.itemDestacado.imagen"
+                        :src="urlDev(destacado.itemDestacado.imagen[0])"
                         alt="imagen destacado"
                         class="w-80 h-60 object-cover"
                     />
@@ -204,6 +204,9 @@ export default {
         };
     },
     methods: {
+        urlDev(path) {
+            return 'http://localhost:3000/' + path;
+        },
         compararFecha(a, b) {
             if (a.fecha > b.fecha) {
                 return -1;

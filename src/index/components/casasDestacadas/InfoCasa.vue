@@ -37,19 +37,10 @@
 
             <p class="text-dorado">estacionamiento</p>
         </li>
-
-        <li v-if="casa.mascotas" class="flex items-center space-x-1">
-            <div class="w-14 text-gris">
-                <MascotasIcon />
-            </div>
-
-            <p class="text-dorado">apto mascotas</p>
-        </li>
     </ul>
 </template>
 
 <script>
-import MascotasIcon from '../svg/MascotasIcon.vue';
 import CocheraIcon from '../svg/CocheraIcon.vue';
 import TinaIcon from '../svg/TinaIcon.vue';
 import DormitoriosIcon from '../svg/DormitoriosIcon.vue';
@@ -62,7 +53,6 @@ export default {
         DormitoriosIcon,
         TinaIcon,
         CocheraIcon,
-        MascotasIcon,
     },
     props: ['casa'],
 };

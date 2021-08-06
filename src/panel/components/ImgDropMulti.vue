@@ -94,7 +94,10 @@
                             "
                         >
                             <StarIcon
-                                class="text-yellow-300 cursor-pointer"
+                                :class="[
+                                    'text-yellow-300 cursor-pointer',
+                                    { 'fill-current': featured === i },
+                                ]"
                                 @click="featured = i"
                             />
 

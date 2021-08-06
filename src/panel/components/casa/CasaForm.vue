@@ -175,7 +175,7 @@
                 type="button"
                 @click="$emit('close')"
             >
-                Cerrar
+                Cancelar
             </button>
             <button
                 :class="[
