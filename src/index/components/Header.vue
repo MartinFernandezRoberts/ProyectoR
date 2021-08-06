@@ -4,7 +4,9 @@
         class="container mx-auto p-4 flex items-start bg-white text-lg"
     >
         <div class="flex-1">
-            <LogoRifalapp class="w-64" />
+            <router-link to="/">
+                <LogoRifalapp class="w-64" />
+            </router-link>
         </div>
 
         <nav>
@@ -17,7 +19,7 @@
                         ease-out
                     "
                 >
-                    <a href="#destacadas">Destacadas</a>
+                    <a href="/#destacadas">Destacadas</a>
                 </li>
 
                 <li>|</li>
@@ -30,7 +32,7 @@
                         ease-out
                     "
                 >
-                    <a href="#como-funciona">Cómo funciona</a>
+                    <a href="/#como-funciona">Cómo funciona</a>
                 </li>
 
                 <li>|</li>
@@ -43,7 +45,7 @@
                         ease-out
                     "
                 >
-                    <a href="#contacto">Contacto</a>
+                    <a href="/#contacto">Contacto</a>
                 </li>
             </ul>
         </nav>

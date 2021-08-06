@@ -41,10 +41,10 @@
 </template>
 
 <script>
-import CocheraIcon from '../svg/CocheraIcon.vue';
-import TinaIcon from '../svg/TinaIcon.vue';
-import DormitoriosIcon from '../svg/DormitoriosIcon.vue';
-import AreaIcon from '../svg/AreaIcon.vue';
+import CocheraIcon from '../../svg/CocheraIcon.vue';
+import TinaIcon from '../../svg/TinaIcon.vue';
+import DormitoriosIcon from '../../svg/DormitoriosIcon.vue';
+import AreaIcon from '../../svg/AreaIcon.vue';
 
 export default {
     name: 'InfoCasa',

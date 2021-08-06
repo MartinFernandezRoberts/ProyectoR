@@ -1,30 +1,18 @@
 <template>
     <Header @measured="setContentHeight" />
 
-    <main class="text-gris">
-        <Inicio :style="{ height: contentHeight + 'px' }" />
-
-        <ItemsDestacados class="h-screen" />
-        <ComoParticipar class="h-screen" />
-        <Contacto class="h-screen" />
+    <main class="text-gris" :style="{ height: contentHeight + 'px' }">
+        <router-view></router-view>
     </main>
 </template>
 
 <script>
 import Header from './components/Header.vue';
-import Inicio from './components/inicio/Inicio.vue';
-import ItemsDestacados from './components/casasDestacadas/ItemsDestacados.vue';
-import ComoParticipar from './components/ComoParticipar.vue';
-import Contacto from './components/Contacto.vue';
 
 export default {
     name: 'Index',
     components: {
         Header,
-        Inicio,
-        ItemsDestacados,
-        ComoParticipar,
-        Contacto,
     },
     data() {
         return {

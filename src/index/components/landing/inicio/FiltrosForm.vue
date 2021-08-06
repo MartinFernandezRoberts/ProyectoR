@@ -48,8 +48,8 @@
 </template>
 
 <script>
-import CustomInput from '../form/CustomInput.vue';
-import CustomRadioInput from '../form/CustomRadioInput.vue';
+import CustomInput from '../../form/CustomInput.vue';
+import CustomRadioInput from '../../form/CustomRadioInput.vue';
 
 export default {
     name: 'FiltrosForm',

@@ -9,8 +9,8 @@
 
             <h2 class="mt-12 text-3xl font-bold">
                 Ajusta tus parámetros o
-                <a
-                    href="#"
+                <router-link
+                    to="/buscador"
                     class="
                         text-dorado
                         underline
@@ -19,7 +19,7 @@
                         duration-200
                         ease-out
                     "
-                    >vitrinea todo</a
+                    >vitrinea todo</router-link
                 >
             </h2>
 
@@ -77,13 +77,13 @@
 </template>
 
 <script>
-import BoletosIcon from '../svg/BoletosIcon.vue';
+import BoletosIcon from '../../svg/BoletosIcon.vue';
 import FiltrosForm from './FiltrosForm.vue';
 import MarqueeText from './MarqueeText.vue';
-import BrilloIcon from '../svg/BrilloIcon.vue';
-import LlaveCasaIcon from '../svg/LlaveCasaIcon.vue';
-import ManoIcon from '../svg/ManoIcon.vue';
-import TrebolIcon from '../svg/TrebolIcon.vue';
+import BrilloIcon from '../../svg/BrilloIcon.vue';
+import LlaveCasaIcon from '../../svg/LlaveCasaIcon.vue';
+import ManoIcon from '../../svg/ManoIcon.vue';
+import TrebolIcon from '../../svg/TrebolIcon.vue';
 
 export default {
     name: 'Inicio',
@@ -98,20 +98,3 @@ export default {
     },
 };
 </script>
-
-<style>
-/* .marquee {
-    display: inline-block;
-    padding-left: 100%;
-    animation: marquee 10s linear infinite;
-}
-
-@keyframes marquee {
-    0% {
-        transform: translate(0, 0);
-    }
-    100% {
-        transform: translate(-100%, 0);
-    }
-} */
-</style>

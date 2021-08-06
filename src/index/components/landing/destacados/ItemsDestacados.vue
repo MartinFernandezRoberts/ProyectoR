@@ -172,12 +172,12 @@
 </template>
 
 <script>
-import DestacadoService from '../../../panel/components/DestacadoService';
+import DestacadoService from '../../../../panel/components/DestacadoService';
 
-import Cargando from '../Cargando.vue';
-import FlechitaIcon from '../svg/FlechitaIcon.vue';
-import ParticiparIcon from '../svg/ParticiparIcon.vue';
-import RelojArenaIcon from '../svg/RelojArenaIcon.vue';
+import Cargando from '../../Cargando.vue';
+import FlechitaIcon from '../../svg/FlechitaIcon.vue';
+import ParticiparIcon from '../../svg/ParticiparIcon.vue';
+import RelojArenaIcon from '../../svg/RelojArenaIcon.vue';
 import InfoCasa from './InfoCasa.vue';
 import InfoWheels from './InfoWheels.vue';
 
