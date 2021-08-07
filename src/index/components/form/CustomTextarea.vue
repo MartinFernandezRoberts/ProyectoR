@@ -1,5 +1,5 @@
 <template>
-    <input
+    <textarea
         class="
             appearance-none
             border-3

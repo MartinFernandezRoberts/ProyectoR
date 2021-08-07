@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
+import { createStore } from 'vuex';
 import '../index.css';
 
 import Index from './Index.vue';
@@ -16,4 +17,21 @@ const router = createRouter({
     routes,
 });
 
-createApp(Index).use(router).mount('#index');
+const store = createStore({
+    state() {
+        return {
+            headerHeight: 80,
+            footerHeight: 80,
+        };
+    },
+    mutations: {
+        setHeaderHeight(state, payload) {
+            state.headerHeight = payload;
+        },
+        setFooterHeight(state, payload) {
+            state.footerHeight = payload;
+        },
+    },
+});
+
+createApp(Index).use(router).use(store).mount('#index');

@@ -1,28 +1,22 @@
 <template>
-    <Header @measured="setContentHeight" />
+    <Header />
 
-    <main class="text-gris" :style="{ height: contentHeight + 'px' }">
+    <main class="text-gris">
         <router-view></router-view>
     </main>
+
+    <Footer />
 </template>
 
 <script>
+import Footer from './components/landing/Footer.vue';
 import Header from './components/Header.vue';
 
 export default {
     name: 'Index',
     components: {
         Header,
-    },
-    data() {
-        return {
-            contentHeight: 80,
-        };
-    },
-    methods: {
-        setContentHeight(headerHeight) {
-            this.contentHeight = window.innerHeight - headerHeight;
-        },
+        Footer,
     },
 };
 </script>

@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import LogoRifalapp from './svg/LogoRifalapp.vue';
 
 export default {
@@ -80,20 +81,11 @@ export default {
     components: {
         LogoRifalapp,
     },
-    emits: ['measured'],
-    created() {
-        window.addEventListener('resize', this.sendHeight);
-    },
-    unmounted() {
-        window.removeEventListener('resize', this.sendHeight);
-    },
     mounted() {
-        this.sendHeight();
+        this.setHeaderHeight(this.$refs.header.offsetHeight);
     },
     methods: {
-        sendHeight() {
-            this.$emit('measured', this.$refs.header.offsetHeight);
-        },
+        ...mapMutations(['setHeaderHeight']),
     },
 };
 </script>
