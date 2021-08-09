@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = `http://localhost:3000/api/casa/`;
+const url = `http://localhost:3000/api/casas/`;
 
 class CasaService {
     // Index
@@ -21,12 +21,16 @@ class CasaService {
 
     // Update
     static async update(id, data) {
-        console.log('id: ' + id);
-        console.log('data:');
-        console.log(data);
-
         return await axios
-            .post(`${url}editar/${id}`, data)
+            .post(`${url}${id}/editar`, data)
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err));
+    }
+
+    // Destacar
+    static async destacar(id, data) {
+        return await axios
+            .post(`${url}${id}/destacar`, data)
             .then((res) => console.log(res))
             .catch((err) => console.error(err));
     }

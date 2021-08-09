@@ -7,6 +7,7 @@
             >
                 Título
             </label>
+
             <input
                 class="
                     appearance-none
@@ -26,7 +27,7 @@
                 id="titulo"
                 type="text"
                 placeholder="Título"
-                v-model="titulo"
+                v-model="infoItem.titulo"
             />
         </div>
 
@@ -37,6 +38,7 @@
             >
                 Descripción
             </label>
+
             <textarea
                 class="
                     appearance-none
@@ -44,8 +46,8 @@
                     rounded
                     border-pink-200
                     w-full
-                    py-2
-                    px-3
+                    py-1
+                    px-2
                     text-gray-700
                     leading-tight
                     focus:outline-none
@@ -56,8 +58,47 @@
                 id="descripcion"
                 type="text"
                 placeholder="Descripción"
-                v-model="descripcion"
+                v-model="infoItem.descripcion"
             />
+        </div>
+
+        <div class="mb-4">
+            <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="comuna"
+            >
+                Comuna
+            </label>
+
+            <input
+                class="
+                    appearance-none
+                    border
+                    rounded
+                    border-pink-200
+                    w-full
+                    py-1
+                    px-2
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none
+                    focus:shadow-outline
+                    focus:ring-2
+                    focus:ring-pink-200
+                "
+                id="comuna"
+                placeholder="Comuna"
+                list="lista-comuna"
+                v-model="infoItem.comuna"
+            />
+
+            <datalist id="lista-comuna">
+                <option
+                    v-for="(comuna, i) in comunas"
+                    :key="i"
+                    :value="comuna"
+                />
+            </datalist>
         </div>
 
         <div class="mb-4">
@@ -67,6 +108,7 @@
             >
                 Ubicación
             </label>
+
             <input
                 class="
                     appearance-none
@@ -74,8 +116,8 @@
                     rounded
                     border-pink-200
                     w-full
-                    py-2
-                    px-3
+                    py-1
+                    px-2
                     text-gray-700
                     leading-tight
                     focus:outline-none
@@ -85,7 +127,7 @@
                 "
                 id="ubicacion"
                 placeholder="Descripción"
-                v-model="ubicacion"
+                v-model="infoCasa.ubicacion"
             />
         </div>
 
@@ -96,25 +138,12 @@
             >
                 Fecha
             </label>
-            <input
-                class="
-                    appearance-none
-                    border
-                    rounded
-                    border-pink-200
-                    w-full
-                    py-2
-                    px-3
-                    text-gray-700
-                    leading-tight
-                    focus:outline-none
-                    focus:shadow-outline
-                    focus:ring-2
-                    focus:ring-pink-200
-                "
+
+            <DatePicker
+                v-model="infoItem.fecha"
                 id="fecha"
-                type="date"
-                v-model="fecha"
+                mode="dateTime"
+                color="pink"
             />
         </div>
 
@@ -129,10 +158,10 @@
             <select
                 :class="[
                     'border rounded border-pink-200 w-full py-1 px-2 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-pink-200',
-                    orientacion ? 'text-gray-700' : 'text-gray-400',
+                    infoCasa.orientacion ? 'text-gray-700' : 'text-gray-400',
                 ]"
                 id="orientacion"
-                v-model="orientacion"
+                v-model="infoCasa.orientacion"
             >
                 <option value="" disabled selected hidden>
                     Selecciona una orientación
@@ -153,7 +182,7 @@
 
         <ImgDropMulti
             class="mb-6"
-            v-model:images="imagen"
+            v-model:images="imagenes"
             v-model:paBorrar="paBorrar"
         />
 
@@ -177,6 +206,7 @@
             >
                 Cancelar
             </button>
+
             <button
                 :class="[
                     'bg-pink-400 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-pink-200',
@@ -192,23 +222,28 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { DatePicker } from 'v-calendar';
+
 import ImgDropMulti from '../ImgDropMulti.vue';
 
 export default {
     name: 'CasaForm',
     components: {
         ImgDropMulti,
+        DatePicker,
     },
     props: {
         casa: {
             type: Object,
             default: function () {
                 return {
-                    imagen: [],
                     titulo: '',
                     descripcion: '',
+                    comuna: '',
                     ubicacion: '',
-                    fecha: '',
+                    fecha: new Date(),
+                    imagenes: [],
                     orientacion: '',
                 };
             },
@@ -218,13 +253,19 @@ export default {
     emits: ['close', 'guardar'],
     data() {
         return {
-            imagen: this.casa.imagen,
+            infoItem: {
+                titulo: this.casa.titulo,
+                descripcion: this.casa.descripcion,
+                comuna: this.casa.comuna,
+                fecha: this.casa.fecha,
+            },
+            infoCasa: {
+                ubicacion: this.casa.ubicacion,
+                orientacion: this.casa.orientacion,
+            },
+            imagenes: this.casa.imagenes,
             paBorrar: [],
-            titulo: this.casa.titulo,
-            descripcion: this.casa.descripcion,
-            ubicacion: this.casa.ubicacion,
-            fecha: this.casa.fecha,
-            orientacion: this.casa.orientacion,
+            comunas: [],
             orientaciones: [
                 'Oriente',
                 'Poniente',
@@ -237,21 +278,28 @@ export default {
             ],
         };
     },
+    created() {
+        axios('https://apis.digital.gob.cl/dpa/comunas').then(
+            (res) => (this.comunas = res.data.map((comuna) => comuna.nombre))
+        );
+    },
     methods: {
         handleSubmit() {
             let formData = new FormData();
 
-            this.imagen.forEach((imagen) => {
+            this.imagenes.forEach((imagen) => {
                 formData.append('files', imagen);
             });
             this.paBorrar.forEach((imagen) => {
                 formData.append('paBorrar', imagen);
             });
-            formData.set('titulo', this.titulo);
-            formData.set('descripcion', this.descripcion);
-            formData.set('ubicacion', this.ubicacion);
-            formData.set('fecha', this.fecha);
-            formData.set('orientacion', this.orientacion);
+
+            for (const [key, value] of Object.entries(this.infoItem)) {
+                formData.set(`item[${key}]`, value);
+            }
+            for (const [key, value] of Object.entries(this.infoCasa)) {
+                formData.set(`casa[${key}]`, value);
+            }
 
             this.$emit('guardar', formData);
         },
