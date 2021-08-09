@@ -28,14 +28,14 @@
                 </div>
 
                 <img
-                    v-if="casa.imagen"
-                    :src="urlDev(casa.imagen[0])"
+                    v-if="casa.imagenes"
+                    :src="urlDev(casa.imagenes[0])"
                     :alt="casa.titulo"
                 />
 
-                <h4 class="text-lg">{{ casa.descripcion }}</h4>
-                <p>{{ casa.ubicacion }}</p>
-                <p>{{ casa.fecha }}</p>
+                <h4 class="text-lg">{{ casa.item.descripcion }}</h4>
+                <p>{{ casa.item.ubicacion }}</p>
+                <p>{{ formatFecha(casa.fecha) }}</p>
 
                 <div class="flex justify-end pt-3 space-x-2">
                     <StarIcon
@@ -46,7 +46,7 @@
                                 : 'cursor-pointer',
                             { 'fill-current': casa.destacado },
                         ]"
-                        @click="cambiarDestacado(casa._id, casa.destacado)"
+                        @click="cambiarDestacado(casa._id, !casa.destacado)"
                     />
                     <EditIcon
                         class="text-blue-400 cursor-pointer"
@@ -70,7 +70,6 @@
 <script>
 import StarIcon from '../svg/StarIcon.vue';
 import CasaService from './CasaService';
-import DestacadoService from '../DestacadoService';
 import CasaForm from './CasaForm.vue';
 import DeleteIcon from '../svg/DeleteIcon.vue';
 import EditIcon from '../svg/EditIcon.vue';
@@ -100,9 +99,12 @@ export default {
         urlDev(path) {
             return 'http://localhost:3000/' + path;
         },
+        formatFecha(fechaIso) {
+            const fechaLocal = new Date(fechaIso);
+            return fechaLocal.toLocaleString();
+        },
         async actualizarCasa(data) {
             this.guardando = true;
-            console.log(data.get('paBorrar'));
             await CasaService.update(this.edit, data);
             this.edit = '';
             this.guardando = false;
@@ -114,17 +116,12 @@ export default {
             this.eliminando = '';
             this.$emit('cargarCasas');
         },
-        async cambiarDestacado(id, esDestacado) {
+        async cambiarDestacado(id, destacado) {
             this.destacando = id;
 
-            if (esDestacado) {
-                await DestacadoService.delete(id);
-            } else {
-                await DestacadoService.create({
-                    categoriaDestacado: 'Casa',
-                    itemDestacado: id,
-                });
-            }
+            const data = new FormData();
+            data.set('destacado', destacado);
+            await CasaService.destacar(id, data);
 
             this.destacando = '';
             this.$emit('cargarCasas');

@@ -5,8 +5,8 @@ const path = require('path');
 /* const mongodb = require('mongodb')
 const connectDB = require('../../config/db')
 const { ensureAuth } = require('../../middleware/auth') */
+const Item = require('../../models/Item');
 const Casa = require('../../models/Casa');
-const Destacado = require('../../models/Destacado');
 
 const ImageUploader = require('./ImageUploader');
 const imgUp = new ImageUploader('casa');
@@ -17,7 +17,13 @@ const imgUp = new ImageUploader('casa');
 //GET
 router.get('/', async (req, res) => {
     try {
-        let casas = await Casa.find().lean();
+        const casas = await Item.find({
+            tipo: 'Casa',
+            estado: { $ne: 'bajado' },
+        })
+            .sort('-fecha')
+            .populate('item')
+            .lean();
 
         res.send(casas);
     } catch (err) {
@@ -30,14 +36,21 @@ router.get('/', async (req, res) => {
 // @route POST /panel/api/casa
 router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
     try {
+        console.log(req.body);
+
+        const casa = await Casa.create(req.body.casa);
+
         const rutasImagenes = req.files.map(
             (file) => 'img/casa/' + file.filename
         );
+        await Item.create({
+            tipo: 'Casa',
+            item: casa._id,
+            ...req.body.item,
+            imagenes: rutasImagenes,
+        });
 
-        console.log(req.body);
-        await Casa.create({ ...req.body, imagen: rutasImagenes });
-
-        res.status(201).send('Registro Agregado');
+        res.status(201).send('Casa agregada');
     } catch (err) {
         console.error(err);
         res.status(500).send(err);
@@ -47,15 +60,15 @@ router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
 // @desc api/Update
 // @route PUT /panel/api/casa
 router.post(
-    '/editar/:id',
+    '/:id/editar',
     imgUp.upload.array('files', 10),
     async (req, res) => {
         try {
             console.log(req.body);
             let paBorrar = req.body.paBorrar || [];
             if (!Array.isArray(paBorrar)) paBorrar = [paBorrar];
-            const casa = await Casa.findById(req.params.id).exec();
-            let imagenes = casa.get('imagen');
+            const item = await Item.findById(req.params.id).exec();
+            let imagenes = item.get('imagenes');
             imagenes = imagenes.filter((imagen) => !paBorrar.includes(imagen));
 
             const rutasImagenes = req.files.map(
@@ -66,21 +79,12 @@ router.post(
 
             // aquí se podría definir la destacada.
 
-            await Casa.findOneAndUpdate(
-                {
-                    _id: req.params.id,
-                },
-                {
-                    $set: {
-                        titulo: req.body.titulo,
-                        descripcion: req.body.descripcion,
-                        ubicacion: req.body.ubicacion,
-                        estado: req.body.estado,
-                        fecha: req.body.fecha,
-                        imagen: imagenes,
-                    },
-                }
+            await item.update({ ...req.body.item, imagenes });
+            await Casa.updateOne(
+                { _id: item.item },
+                { ...req.body.casa, imagenes }
             );
+
             if (paBorrar.length > 0) {
                 console.log(
                     'no hay pa borrar pero salgo igual y el if no anda'
@@ -99,7 +103,7 @@ router.post(
                 });
             }
 
-            res.status(201).send('Registro Actualizado');
+            res.status(201).send('Casa actualizada');
         } catch (err) {
             console.error(err);
             res.status(500).send(err);
@@ -107,12 +111,24 @@ router.post(
     }
 );
 
+router.post('/:id/destacar', async (req, res) => {
+    console.log(req.body);
+
+    try {
+        await Item.updateOne(
+            { _id: req.params.id },
+            { destacado: req.body.destacado }
+        );
+        res.status(201).send('Casa actualizada');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+});
+
 //delete
 router.delete('/:id', async (req, res) => {
     try {
-        await Destacado.deleteOne({
-            itemDestacado: req.params.id,
-        });
         const casa = await Casa.findOneAndDelete({
             _id: req.params.id,
         });
