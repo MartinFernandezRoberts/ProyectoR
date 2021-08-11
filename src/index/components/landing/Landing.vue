@@ -8,7 +8,7 @@
 <script>
 import { mapState } from 'vuex';
 
-import Contacto from './Contacto.vue';
+import Contacto from './contacto/Contacto.vue';
 import ComoParticipar from './ComoParticipar.vue';
 import ItemsDestacados from './destacados/ItemsDestacados.vue';
 import Inicio from './inicio/Inicio.vue';
@@ -31,7 +31,6 @@ export default {
     },
     methods: {
         adjustHeight() {
-            console.log('ajustando altura...');
             this.inicioHeight = window.innerHeight - this.headerHeight;
             this.contactoHeight = window.innerHeight - this.footerHeight;
         },
