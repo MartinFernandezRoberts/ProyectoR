@@ -25,7 +25,7 @@
             <ul class="grid grid-cols-3 gap-10">
                 <li
                     v-for="destacado in destacados"
-                    :key="destacado.itemDestacado._id"
+                    :key="destacado._id"
                     class="border-6 border-claro rounded-lg"
                 >
                     <div
@@ -86,7 +86,7 @@
                     </div>
 
                     <img
-                        :src="urlDev(destacado.itemDestacado.imagen[0])"
+                        :src="urlDev(destacado.imagenes[0])"
                         alt="imagen destacado"
                         class="w-80 h-60 object-cover"
                     />
@@ -116,19 +116,17 @@
                                 text-lg text-center text-gris
                             "
                         >
-                            {{ destacado.itemDestacado.titulo }}
+                            {{ destacado.titulo }}
                         </h3>
 
                         <InfoCasa
-                            v-if="destacado.categoriaDestacado === 'Casa'"
-                            :casa="destacado.itemDestacado"
+                            v-if="destacado.tipo === 'Casa'"
+                            :casa="destacado.item"
                         />
 
                         <InfoWheels
-                            v-else-if="
-                                destacado.categoriaDestacado === 'Wheels'
-                            "
-                            :wheels="destacado.itemDestacado"
+                            v-else-if="destacado.tipo === 'Wheels'"
+                            :wheels="destacado.item"
                         />
                     </div>
                 </li>
@@ -172,7 +170,7 @@
 </template>
 
 <script>
-import DestacadoService from '../../../../panel/components/DestacadoService';
+import axios from 'axios';
 
 import Cargando from '../../Cargando.vue';
 import FlechitaIcon from '../../svg/FlechitaIcon.vue';
@@ -207,23 +205,14 @@ export default {
         urlDev(path) {
             return 'http://localhost:3000/' + path;
         },
-        compararFecha(a, b) {
-            if (a.fecha > b.fecha) {
-                return -1;
-            } else if (b.fecha > a.fecha) {
-                return 1;
-            } else {
-                return 0;
-            }
-        },
         async cargarDestacados() {
-            try {
-                const desordenado = await DestacadoService.index();
-                this.destacados = desordenado.sort(this.compararFecha);
-                this.cargando = false;
-            } catch (err) {
-                console.error(err.message);
-            }
+            axios
+                .get(this.urlDev('api/destacados'))
+                .then((res) => {
+                    this.destacados = res.data;
+                    this.cargando = false;
+                })
+                .catch((err) => console.error(err.message));
         },
         correrCarrusel(n) {
             this.cargando = true;
