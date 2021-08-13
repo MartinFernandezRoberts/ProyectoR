@@ -1,16 +1,19 @@
-module.exports ={
+module.exports = {
     ensureAuth: function (req, res, next) {
-        if (req.isAuthenticated()){
-            return next()
+        if (req.isAuthenticated()) {
+            console.log('is');
+            return next();
         } else {
-            res.redirect('/')
+            res.redirect('/');
         }
     },
     ensureGuest: function (req, res, next) {
-        if (req.isAuthenticated()){
-            res.redirect('/panel')
+        if (req.isAuthenticated()) {
+            console.log('not');
+            res.redirect('/panel');
         } else {
-            return next()
+            console.log('not');
+            return next();
         }
     },
-}
+};

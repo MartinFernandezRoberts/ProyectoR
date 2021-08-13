@@ -8,9 +8,11 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const connectDB = require('./config/db');
 const cors = require('cors');
-
+const history = require('connect-history-api-fallback');
 /////////mercadopago
 const mercadopago = require('mercadopago');
+
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 // cargar configuración
 dotenv.config({ path: './server/config/config.env' });
@@ -26,10 +28,6 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
-
-//static
-
-app.use(express.static(path.join(__dirname, './public/')));
 
 //sessions ARRIBADEPASSPORT
 app.use(
@@ -60,6 +58,17 @@ app.use(function (req, res, next) {
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Bree
+const Bree = require('bree');
+const jobs = require('./jobs/index');
+
+const bree = new Bree({
+    root: path.join(__dirname, 'jobs'),
+    jobs: jobs,
+});
+
+bree.start();
+
 //rutas
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
@@ -76,6 +85,16 @@ app.use('/api/ubicaciones', require('./routes/api/ubicaciones'));
 //mercadopago
 app.use('/pago', require('./routes/mercadopago/procPago'));
 
+const staticFileMiddleware = express.static(path.join(__dirname, './public/'));
+app.use(staticFileMiddleware);
+app.use(
+    history({
+        disableDotRule: true,
+        verbose: true,
+    })
+);
+app.use(staticFileMiddleware);
+
 //kewea la consola onlydev mode
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
@@ -89,14 +108,3 @@ app.listen(
         `SERVER DE PANA EN MODO ${process.env.NODE_ENV}, PUERTO: ${PORT}`
     )
 );
-
-//Bree
-const Bree = require('bree');
-const jobs = require('./jobs/index');
-
-const bree = new Bree({
-    root: path.join(__dirname, 'jobs'),
-    jobs: jobs,
-});
-
-bree.start();
