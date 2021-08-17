@@ -18,6 +18,7 @@ module.exports = function (passport) {
                     lastName: profile.name.familyName,
                     image: profile.photos[0].value,
                     email: profile.emails[0].value,
+                    administra: false,
                 };
                 try {
                     let user = await User.findOne({ googleId: profile.id });
@@ -25,6 +26,12 @@ module.exports = function (passport) {
                     if (user) {
                         done(null, user);
                     } else {
+                        let isStaff = newUser.email.split('@').pop();
+                        console.log(isStaff);
+                        if (isStaff === 'brvma.net') {
+                            newUser.administra = true;
+                            console.log(newUser.administra);
+                        }
                         user = await User.create(newUser);
                         done(null, user);
                     }

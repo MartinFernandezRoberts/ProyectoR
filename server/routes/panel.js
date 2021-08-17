@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 // const mongodb = require('mongodb');
-const { ensureAuth, ensureGuest } = require('../middleware/auth');
+const { ensureAuth, ensureAdmin } = require('../middleware/auth');
 const path = require('path');
 
 /**
@@ -12,7 +12,7 @@ const path = require('path');
 
 }) */
 
-router.get('/*', ensureAuth, (req, res) => {
+router.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/panel/index.html'));
 });
 

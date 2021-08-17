@@ -16,4 +16,13 @@ module.exports = {
             return next();
         }
     },
+    ensureAdmin: function (req, res, next) {
+        if (!req.user.administra) {
+            console.log(req.user.administra);
+            res.redirect('/');
+        } else {
+            console.log('Welcome mr. Admin');
+            return next();
+        }
+    },
 };

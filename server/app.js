@@ -69,6 +69,17 @@ const bree = new Bree({
 
 bree.start();
 
+const staticFileMiddleware = express.static(path.join(__dirname, './public/'));
+app.use(staticFileMiddleware);
+app.use(
+    history({
+        disableDotRule: true,
+        verbose: true,
+        exclusions: ['*/api/*'],
+    })
+);
+app.use(staticFileMiddleware);
+
 //rutas
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
@@ -84,16 +95,6 @@ app.use('/api/ubicaciones', require('./routes/api/ubicaciones'));
 
 //mercadopago
 app.use('/pago', require('./routes/mercadopago/procPago'));
-
-const staticFileMiddleware = express.static(path.join(__dirname, './public/'));
-app.use(staticFileMiddleware);
-app.use(
-    history({
-        disableDotRule: true,
-        verbose: true,
-    })
-);
-app.use(staticFileMiddleware);
 
 //kewea la consola onlydev mode
 if (process.env.NODE_ENV === 'development') {
