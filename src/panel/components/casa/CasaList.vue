@@ -119,9 +119,7 @@ export default {
         async cambiarDestacado(id, destacado) {
             this.destacando = id;
 
-            const data = new FormData();
-            data.set('destacado', destacado);
-            await CasaService.destacar(id, data);
+            await CasaService.destacar(id, { destacado: destacado });
 
             this.destacando = '';
             this.$emit('cargarCasas');

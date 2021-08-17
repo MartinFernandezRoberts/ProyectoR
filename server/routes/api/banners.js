@@ -61,6 +61,33 @@ router.post('/', imgUp.upload.single('file'), async (req, res) => {
     }
 });
 
+// POST
+router.post('/:id/editar', imgUp.upload.single('file'), async (req, res) => {
+    try {
+        const data = req.body;
+        if (req.file) data.imagenBanner = 'img/banners/' + req.file.filename;
+
+        const banner = await Banner.findByIdAndUpdate(req.params.id, data);
+
+        if (req.file) {
+            const rutaImagen = path.join(
+                __dirname,
+                '../../public/',
+                banner.imagenBanner
+            );
+            fs.unlink(rutaImagen, (err) => {
+                if (err) console.error(err);
+                console.log(`archivo eliminado: ${banner.imagen}`);
+            });
+        }
+
+        res.status(201).send('Banner actualizado.');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+});
+
 // DELETE
 router.delete('/:id', async (req, res) => {
     try {
@@ -78,7 +105,7 @@ router.delete('/:id', async (req, res) => {
             console.log(`archivo eliminado: ${banner.imagenBanner}`);
         });
 
-        res.status(200).send('Registro Eliminado');
+        res.status(200).send('Registro Eliminado.');
     } catch (err) {
         console.error(err);
         res.status(500).send(err);

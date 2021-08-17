@@ -58,19 +58,23 @@ const eliminarEvento = (index) => {
             .clone()
             .year(ahora.year())
             .month(ahora.month())
-            .day(ahora.day());
+            .date(ahora.date());
         const horaFin = fechaFin
             .clone()
             .year(ahora.year())
             .month(ahora.month())
-            .day(ahora.day());
+            .date(ahora.date());
         let revisarRecurrencia = false;
 
         if (evento.idBanner === banners[evento.ubicacion].idBanner) {
             // console.log('banner actualmente asignado');
 
             if (evento.horario) {
+                // console.log('es con horario');
+
                 if (ahora.isAfter(horaFin)) {
+                    // console.log('hora fin pasó');
+
                     bufferBanners[evento.ubicacion].idBanner = '';
                     actualizarBanners = true;
                     // console.log('desasignar banner');
@@ -78,6 +82,8 @@ const eliminarEvento = (index) => {
                     revisarRecurrencia = ahora.isAfter(fechaFin);
                 }
             } else if (ahora.isAfter(fechaFin)) {
+                // console.log('no es con horario');
+
                 bufferBanners[evento.ubicacion].idBanner = '';
                 actualizarBanners = true;
                 // console.log('desasignar banner');
@@ -141,14 +147,14 @@ const eliminarEvento = (index) => {
     });
 
     if (actualizarBanners) {
-        console.log('actualizando archivo banners:');
-        console.log(bufferBanners);
+        // console.log('actualizando archivo banners:');
+        // console.log(bufferBanners);
         await fs.promises.writeFile(rutaBanners, JSON.stringify(bufferBanners));
     }
 
     if (actualizarAgenda) {
-        console.log('actualizando archivo agenda:');
-        console.log(bufferAgenda);
+        // console.log('actualizando archivo agenda:');
+        // console.log(bufferAgenda);
         await fs.promises.writeFile(rutaAgenda, JSON.stringify(bufferAgenda));
     }
 

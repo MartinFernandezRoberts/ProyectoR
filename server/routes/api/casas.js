@@ -129,9 +129,7 @@ router.post('/:id/destacar', async (req, res) => {
 //delete
 router.delete('/:id', async (req, res) => {
     try {
-        const casa = await Casa.findOneAndDelete({
-            _id: req.params.id,
-        });
+        const casa = await Casa.findByIdAndDelete(req.params.id);
 
         casa.imagen.forEach((imagen) => {
             const rutaImagen = path.join(__dirname, '../../public/', imagen);

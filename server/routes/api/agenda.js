@@ -42,7 +42,7 @@ router.delete('/:id', async (req, res) => {
             await fs.promises.writeFile(rutaAgenda, JSON.stringify(agenda));
         }
 
-        res.status(200).send('Registro Eliminado');
+        res.status(200).send('Evento eliminado.');
     } catch (err) {
         console.error(err);
         res.status(500).send(err);

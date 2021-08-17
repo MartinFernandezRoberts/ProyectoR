@@ -38,7 +38,7 @@
         <div>
             <ImgDropSingle
                 class="mb-6"
-                :images="imagenBanner"
+                :image="imagenBanner"
                 @update="(data) => (imagenBanner = data)"
             />
         </div>

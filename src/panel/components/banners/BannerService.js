@@ -21,12 +21,8 @@ class BannerService {
 
     // Update
     static async update(id, data) {
-        console.log('id: ' + id);
-        console.log('data:');
-        console.log(data);
-
         return await axios
-            .put(`${url}editar/${id}`, data)
+            .post(`${url}${id}/editar`, data)
             .then((res) => console.log(res))
             .catch((err) => console.error(err));
     }

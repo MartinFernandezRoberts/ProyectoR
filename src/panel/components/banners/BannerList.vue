@@ -102,6 +102,7 @@ export default {
 
             try {
                 await BannerService.update(this.edit, data);
+                this.edit = '';
                 this.$emit('cargarBanners');
             } catch (error) {
                 console.error(error);

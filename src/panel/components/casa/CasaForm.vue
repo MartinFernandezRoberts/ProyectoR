@@ -126,7 +126,7 @@
                     focus:ring-pink-200
                 "
                 id="ubicacion"
-                placeholder="Descripción"
+                placeholder="Ubicación"
                 v-model="infoCasa.ubicacion"
             />
         </div>

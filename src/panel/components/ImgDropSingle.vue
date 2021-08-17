@@ -54,12 +54,15 @@ export default {
     emits: ['update'],
     data() {
         return {
-            preview: '',
+            preview: this.urlDev(this.image),
             dragging: false,
             hovering: false,
         };
     },
     methods: {
+        urlDev(path) {
+            return 'http://localhost:3000/' + path;
+        },
         drop(event) {
             this.addFile(event.dataTransfer.files[0]);
             this.dragging = false;
