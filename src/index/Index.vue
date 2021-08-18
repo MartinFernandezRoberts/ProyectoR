@@ -1,7 +1,7 @@
 <template>
     <Header />
 
-    <main class="text-gris">
+    <main class="flex-1 text-gris">
         <router-view></router-view>
     </main>
 
@@ -24,5 +24,11 @@ export default {
 <style>
 html {
     scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 </style>

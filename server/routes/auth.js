@@ -1,5 +1,4 @@
 const express = require('express');
-const mongodb = require('mongodb');
 const passport = require('passport');
 
 const router = express.Router();

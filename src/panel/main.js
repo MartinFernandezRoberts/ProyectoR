@@ -20,4 +20,4 @@ const router = createRouter({
     routes,
 });
 
-createApp(Panel).use(router).mount('#panel');
+createApp(Panel).use(router).mount('body');
