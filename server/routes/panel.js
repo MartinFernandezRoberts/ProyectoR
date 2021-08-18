@@ -12,7 +12,7 @@ const path = require('path');
 
 }) */
 
-router.get('/*', (req, res) => {
+router.get('/*', ensureAdmin, (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/panel/index.html'));
 });
 

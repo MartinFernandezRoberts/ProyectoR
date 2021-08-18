@@ -17,8 +17,8 @@ module.exports = {
         }
     },
     ensureAdmin: function (req, res, next) {
-        if (!req.user.administra) {
-            console.log(req.user.administra);
+        if (!req.user.google.administra) {
+            console.log(req.user.google.administra);
             res.redirect('/');
         } else {
             console.log('Welcome mr. Admin');

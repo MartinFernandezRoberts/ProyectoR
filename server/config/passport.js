@@ -10,7 +10,7 @@ module.exports = function (passport) {
                 clientSecret: process.env.GOOGLE_CLIENT_SECRET,
                 callbackURL: '/auth/google/callback',
             },
-            async (accsessToken, refreshToken, profile, done) => {
+            async (req, accsessToken, refreshToken, profile, done) => {
                 const newUser = {
                     googleId: profile.id,
                     displayName: profile.displayName,
@@ -20,20 +20,37 @@ module.exports = function (passport) {
                     email: profile.emails[0].value,
                     administra: false,
                 };
+
                 try {
-                    let user = await User.findOne({ googleId: profile.id });
+                    let user = await User.findOne({
+                        'google.googleId': profile.id,
+                    });
 
                     if (user) {
+                        console.log('encontrado');
                         done(null, user);
                     } else {
-                        let isStaff = newUser.email.split('@').pop();
-                        console.log(isStaff);
-                        if (isStaff === 'brvma.net') {
-                            newUser.administra = true;
-                            console.log(newUser.administra);
+                        if (!req.user) {
+                            let isStaff = newUser.email.split('@').pop();
+                            console.log(isStaff);
+
+                            if (isStaff === 'brvma.net') {
+                                newUser.administra = true;
+                                console.log(newUser.administra);
+                            }
+
+                            user = await User.create({ google: newUser });
+
+                            done(null, user);
+                        } else {
+                            console.log(req.user);
+                            let user = req.user;
+
+                            user.google = newUser;
+                            user.markModified('google');
+                            await user.save();
+                            done(null, user);
                         }
-                        user = await User.create(newUser);
-                        done(null, user);
                     }
                 } catch (err) {
                     console.error(err);
