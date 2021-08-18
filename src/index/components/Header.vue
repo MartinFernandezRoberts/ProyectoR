@@ -5,7 +5,7 @@
     >
         <div class="flex-1">
             <router-link to="/">
-                <LogoRifalapp class="w-64" />
+                <LogoRifasapp class="w-64" />
             </router-link>
         </div>
 
@@ -51,8 +51,7 @@
         </nav>
 
         <div class="flex-1 text-right">
-            <button
-                type="button"
+            <router-link
                 class="
                     px-6
                     py-2
@@ -65,21 +64,21 @@
                     duration-200
                     ease-out
                 "
+                to="/login"
+                >Mi cuenta</router-link
             >
-                <a href="/panel/">Mi cuenta</a>
-            </button>
         </div>
     </header>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
-import LogoRifalapp from './svg/LogoRifalapp.vue';
+import LogoRifasapp from './svg/LogoRifasapp.vue';
 
 export default {
     name: 'Header',
     components: {
-        LogoRifalapp,
+        LogoRifasapp,
     },
     mounted() {
         this.setHeaderHeight(this.$refs.header.offsetHeight);

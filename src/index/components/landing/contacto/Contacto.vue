@@ -3,20 +3,20 @@
         id="contacto"
         class="flex flex-col justify-center items-center overflow-hidden"
     >
-        <h2 class="mb-12 text-3xl 2xl:text-4xl font-bold text-center">
+        <h2 class="mb-10 2xl:mb-12 text-3xl 2xl:text-4xl font-bold text-center">
             Contacto
         </h2>
 
         <div class="w-1/2 2xl:w-2/5 border-6 border-claro rounded-lg">
-            <div class="py-3 text-center">
-                <p class="text-xl font-bold">¿Alguna pregunta?</p>
+            <div class="py-2 2xl:py-3 text-center">
+                <p class="text-lg 2xl:text-xl font-bold">¿Alguna pregunta?</p>
                 <p class="2xl:text-lg">Te respondemos en menos de 24 horas</p>
             </div>
 
             <form class="p-10 flex flex-col bg-claro space-y-1.5" action="">
                 <input
                     :class="[
-                        'appearance-none px-6 py-2 font-light leading-tight rounded-t-lg',
+                        'appearance-none px-4 2xl:px-6 py-1.5 2xl:py-2 text-sm font-light leading-tight rounded-t-lg',
                         {
                             'bg-red-50 ring-1 ring-inset ring-red-400':
                                 errores.nombre,
@@ -44,7 +44,7 @@
 
                 <input
                     :class="[
-                        'appearance-none px-6 py-2 font-light leading-tight',
+                        'appearance-none px-4 2xl:px-6 py-1.5 2xl:py-2 text-sm font-light leading-tight',
                         {
                             'bg-red-50 ring-1 ring-inset ring-red-400':
                                 errores.correo,
@@ -72,7 +72,7 @@
 
                 <input
                     :class="[
-                        'appearance-none px-6 py-2 font-light leading-tight',
+                        'appearance-none px-4 2xl:px-6 py-1.5 2xl:py-2 text-sm font-light leading-tight',
                         {
                             'bg-red-50 ring-1 ring-inset ring-red-400':
                                 errores.telefono,
@@ -81,7 +81,7 @@
                     type="tel"
                     name="telefono"
                     id="telefono"
-                    placeholder="Telefono"
+                    placeholder="Teléfono"
                     v-model="form.telefono"
                     @input="validar('telefono', $event.target.value)"
                 />
@@ -100,7 +100,7 @@
 
                 <textarea
                     :class="[
-                        'appearance-none px-6 py-2 font-light leading-tight rounded-b-lg',
+                        'appearance-none px-4 2xl:px-6 py-1.5 2xl:py-2 text-sm font-light leading-tight rounded-b-lg',
                         {
                             'bg-red-50 ring-1 ring-inset ring-red-400':
                                 errores.mensaje,
@@ -128,20 +128,10 @@
                 <div>
                     <button
                         type="button"
-                        class="
-                            block
-                            mt-4
-                            ml-auto
-                            px-6
-                            py-2
-                            rounded-lg
-                            bg-anaranjado
-                            text-white
-                            hover:bg-rojo
-                            transition-colors
-                            duration-200
-                            ease-out
-                        "
+                        :class="[
+                            'block mt-4 ml-auto px-6 py-2 rounded-lg bg-anaranjado text-white hover:bg-rojo transition-colors duration-200 ease-out',
+                            { 'animate-loading cursor-wait': enviando },
+                        ]"
                         @click="submit"
                     >
                         Enviar
@@ -188,6 +178,7 @@ export default {
             },
             validado: false,
             errores: {},
+            enviando: false,
             notificacion: {
                 mostrar: false,
                 exito: true,
@@ -202,8 +193,10 @@ export default {
         async submit() {
             const res = await validator.validateAll(this.form);
 
-            if (res.valid) {
-                axios
+            if (res.valid && !this.enviando) {
+                this.enviando = true;
+
+                await axios
                     .post('http://localhost:3000/api/contacto', this.form)
                     .then((res) => {
                         console.log(res);
@@ -212,8 +205,10 @@ export default {
                     .catch((err) => {
                         console.error(err);
                         this.notificacion.exito = false;
-                    })
-                    .then((this.notificacion.mostrar = true));
+                    });
+
+                this.enviando = false;
+                this.notificacion.mostrar = true;
             } else {
                 this.errores = res.errors;
             }

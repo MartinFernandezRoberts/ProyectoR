@@ -21,7 +21,6 @@ export default {
             inicioHeight: 1000,
             contactoHeight: 1000,
             posicion: window.scrollY,
-            transito: window.scrollY,
             desplazando: false,
             scrolling: false,
             clicking: false,

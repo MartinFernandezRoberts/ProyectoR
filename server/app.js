@@ -69,6 +69,11 @@ const bree = new Bree({
 
 bree.start();
 
+//rutas
+app.use('/', require('./routes/index'));
+app.use('/auth', require('./routes/auth'));
+app.use('/panel', require('./routes/panel'));
+
 const staticFileMiddleware = express.static(path.join(__dirname, './public/'));
 app.use(staticFileMiddleware);
 app.use(
@@ -79,11 +84,6 @@ app.use(
     })
 );
 app.use(staticFileMiddleware);
-
-//rutas
-app.use('/', require('./routes/index'));
-app.use('/auth', require('./routes/auth'));
-app.use('/panel', require('./routes/panel'));
 
 //rutas API
 app.use('/api/agenda', require('./routes/api/agenda'));

@@ -21,6 +21,9 @@ module.exports = {
             fontSize: {
                 '3xs': '.45rem',
             },
+            animation: {
+                loading: 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            },
         },
     },
     variants: {
