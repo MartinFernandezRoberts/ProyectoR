@@ -32,12 +32,15 @@ app.use(cors());
 //sessions ARRIBADEPASSPORT
 app.use(
     session({
-        secret: 'lokesea',
+        secret: process.env.SECRET_SESSION,
         resave: false,
         saveUninitialized: false,
         store: MongoStore.create({
             mongoUrl: process.env.MONGO_URI,
         }),
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 60 * 24 * 30 * 3,
+        },
     })
 );
 
