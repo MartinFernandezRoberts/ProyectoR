@@ -4,13 +4,13 @@ module.exports = {
             console.log('is');
             return next();
         } else {
-            res.redirect('/');
+            res.redirect('/auth/google');
         }
     },
     ensureGuest: function (req, res, next) {
         if (req.isAuthenticated()) {
             console.log('not');
-            res.redirect('/panel');
+            res.redirect('/');
         } else {
             console.log('not');
             return next();
