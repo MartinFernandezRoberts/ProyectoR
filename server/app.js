@@ -77,17 +77,6 @@ app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 app.use('/panel', require('./routes/panel'));
 
-const staticFileMiddleware = express.static(path.join(__dirname, './public/'));
-app.use(staticFileMiddleware);
-app.use(
-    history({
-        disableDotRule: true,
-        verbose: true,
-        exclusions: ['api/*'],
-    })
-);
-app.use(staticFileMiddleware);
-
 //rutas API
 app.use('/api/agenda', require('./routes/api/agenda'));
 app.use('/api/banners', require('./routes/api/banners'));
@@ -98,6 +87,17 @@ app.use('/api/ubicaciones', require('./routes/api/ubicaciones'));
 
 //mercadopago
 app.use('/pago', require('./routes/mercadopago/procPago'));
+
+const staticFileMiddleware = express.static(path.join(__dirname, './public/'));
+app.use(staticFileMiddleware);
+app.use(
+    history({
+        disableDotRule: true,
+        verbose: true,
+        exclusions: ['*/api/*'],
+    })
+);
+app.use(staticFileMiddleware);
 
 //kewea la consola onlydev mode
 if (process.env.NODE_ENV === 'development') {

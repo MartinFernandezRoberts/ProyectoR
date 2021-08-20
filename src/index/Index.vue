@@ -1,7 +1,7 @@
 <template>
     <Header />
 
-    <main class="flex-1 text-gris">
+    <main class="flex-1 flex flex-col justify-center text-gris">
         <router-view></router-view>
     </main>
 

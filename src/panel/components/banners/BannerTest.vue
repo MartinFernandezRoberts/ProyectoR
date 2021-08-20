@@ -10,7 +10,7 @@
             <figcaption class="mb-2 text-xl capitalize">
                 {{ ubicacion }}
             </figcaption>
-            <img :src="urlDev(url)" :alt="`banner ${ubicacion}`" width="336" />
+            <img :src="url" :alt="`banner ${ubicacion}`" width="336" />
         </figure>
     </div>
 </template>
@@ -29,14 +29,20 @@ export default {
         };
     },
     created() {
-        const hostUrl = 'http://localhost:3000/';
-
-        axios(`${hostUrl}api/banners/principal`)
-            .then((res) => (this.banners.principal = res.data))
+        axios(this.urlDev('api/banners/principal'))
+            .then(
+                (res) =>
+                    (this.banners.principal = this.urlDev(
+                        res.data.imagenBanner
+                    ))
+            )
             .catch((err) => console.error(err));
 
-        axios(`${hostUrl}api/banners/ladito`)
-            .then((res) => (this.banners.ladito = res.data))
+        axios(this.urlDev('api/banners/ladito'))
+            .then(
+                (res) =>
+                    (this.banners.ladito = this.urlDev(res.data.imagenBanner))
+            )
             .catch((err) => console.error(err));
     },
     methods: {

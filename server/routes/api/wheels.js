@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
     try {
         const wheels = await Item.find({
             tipo: 'Wheels',
-            estado: { $ne: 'bajado' },
+            estado: 'publicado',
         })
             .sort('-fecha')
             .populate('item')
@@ -129,11 +129,10 @@ router.post('/:id/destacar', async (req, res) => {
 //delete
 router.delete('/:id', async (req, res) => {
     try {
-        const wheel = await Wheels.findOneAndDelete({
-            _id: req.params.id,
-        });
+        const item = await Item.findByIdAndDelete(req.params.id);
+        await Wheels.findByIdAndDelete(item.item);
 
-        wheel.imagen.forEach((imagen) => {
+        item.imagen.forEach((imagen) => {
             const rutaImagen = path.join(__dirname, '../../public/', imagen);
 
             fs.unlink(rutaImagen, (err) => {
@@ -142,7 +141,7 @@ router.delete('/:id', async (req, res) => {
             });
         });
 
-        res.status(201).send('Registro Eliminado');
+        res.status(201).send('Wheels eliminada');
     } catch (err) {
         console.error(err);
         res.status(500).send(err);

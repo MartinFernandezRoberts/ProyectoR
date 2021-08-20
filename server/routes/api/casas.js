@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
     try {
         const casas = await Item.find({
             tipo: 'Casa',
-            estado: { $ne: 'bajado' },
+            estado: 'publicado',
         })
             .sort('-fecha')
             .populate('item')
@@ -129,9 +129,10 @@ router.post('/:id/destacar', async (req, res) => {
 //delete
 router.delete('/:id', async (req, res) => {
     try {
-        const casa = await Casa.findByIdAndDelete(req.params.id);
+        const item = await Item.findByIdAndDelete(req.params.id);
+        await Casa.findByIdAndDelete(item.item);
 
-        casa.imagen.forEach((imagen) => {
+        item.imagen.forEach((imagen) => {
             const rutaImagen = path.join(__dirname, '../../public/', imagen);
 
             fs.unlink(rutaImagen, (err) => {
@@ -140,7 +141,7 @@ router.delete('/:id', async (req, res) => {
             });
         });
 
-        res.status(201).send('Registro Eliminado');
+        res.status(201).send('Casa eliminada');
     } catch (err) {
         console.error(err);
         res.status(500).send(err);
