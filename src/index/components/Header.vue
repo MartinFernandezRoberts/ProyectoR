@@ -51,7 +51,7 @@
         </nav>
 
         <div class="flex-1 text-right">
-            <router-link to="/login">
+            <a href="/cuenta">
                 <button
                     class="
                         px-6
@@ -70,7 +70,7 @@
                 >
                     Mi cuenta
                 </button>
-            </router-link>
+            </a>
         </div>
     </header>
 </template>
