@@ -37,7 +37,7 @@ router.get('/:ubicacion', async (req, res) => {
 
         const banner = await Banner.findById(idBanner).lean();
 
-        res.status(200).send(banner.imagenBanner);
+        res.status(200).send(banner);
     } catch (err) {
         console.error(err);
         res.status(500).send(err);

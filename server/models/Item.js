@@ -3,17 +3,18 @@ const mongoose = require('mongoose');
 const schema = new mongoose.Schema({
     tipo: {
         type: String,
-
         enum: ['Casa', 'Wheels'],
     },
     item: {
         type: mongoose.Schema.Types.ObjectId,
-
         refPath: 'tipo',
+    },
+    usuario: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
     titulo: {
         type: String,
-
         trim: true,
     },
     descripcion: {

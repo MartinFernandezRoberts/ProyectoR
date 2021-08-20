@@ -51,22 +51,26 @@
         </nav>
 
         <div class="flex-1 text-right">
-            <router-link
-                class="
-                    px-6
-                    py-2
-                    border-3 border-amarillo
-                    rounded-lg
-                    font-bold
-                    text-gris
-                    hover:border-anaranjado hover:bg-anaranjado hover:text-white
-                    transition-colors
-                    duration-200
-                    ease-out
-                "
-                to="/login"
-                >Mi cuenta</router-link
-            >
+            <router-link to="/login">
+                <button
+                    class="
+                        px-6
+                        py-2
+                        border-3 border-amarillo
+                        rounded-lg
+                        font-bold
+                        text-gris
+                        hover:border-anaranjado
+                        hover:bg-anaranjado
+                        hover:text-white
+                        transition-colors
+                        duration-200
+                        ease-out
+                    "
+                >
+                    Mi cuenta
+                </button>
+            </router-link>
         </div>
     </header>
 </template>
