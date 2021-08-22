@@ -24,6 +24,10 @@ module.exports = {
             animation: {
                 loading: 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             },
+            screens: {
+                '3xl': '1890px',
+                '4xl': '3800px',
+            },
         },
     },
     variants: {

@@ -29,6 +29,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
+app.use(express.static(path.join(__dirname, './public/')));
+
 //sessions ARRIBADEPASSPORT
 app.use(
     session({
@@ -87,17 +89,6 @@ app.use('/api/ubicaciones', require('./routes/api/ubicaciones'));
 
 //mercadopago
 app.use('/pago', require('./routes/mercadopago/procPago'));
-
-const staticFileMiddleware = express.static(path.join(__dirname, './public/'));
-app.use(staticFileMiddleware);
-app.use(
-    history({
-        disableDotRule: true,
-        verbose: true,
-        exclusions: ['*/api/*'],
-    })
-);
-app.use(staticFileMiddleware);
 
 //kewea la consola onlydev mode
 if (process.env.NODE_ENV === 'development') {

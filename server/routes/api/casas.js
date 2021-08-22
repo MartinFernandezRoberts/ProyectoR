@@ -17,9 +17,9 @@ const imgUp = new ImageUploader('casa');
 //GET
 router.get('/', async (req, res) => {
     try {
+        console.log('soy el get casa');
         const casas = await Item.find({
             tipo: 'Casa',
-            estado: 'publicado',
         })
             .sort('-fecha')
             .populate('item')
