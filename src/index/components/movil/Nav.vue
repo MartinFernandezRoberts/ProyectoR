@@ -19,10 +19,10 @@
     >
         <ul
             class="
-                space-y-6
+                space-y-4
                 font-bold
                 p-4
-                mt-6
+                mt-10
                 text-gris
                 lg:text-anaranjado
                 lg:space-y-0
@@ -48,7 +48,7 @@
                 <a href="/#contacto">Contacto</a>
             </li>
         </ul>
-        <BotonMiCuenta class="lg:hidden mt-10" />
+        <BotonMiCuenta class="lg:hidden absolute bottom-20 right-4" />
     </nav>
 </template>
 

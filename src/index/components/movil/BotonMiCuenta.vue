@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center">
+    <div class="lg:text-center">
         <a href="/cuenta">
             <button
                 class="
@@ -13,6 +13,7 @@
                     transition-colors
                     duration-200
                     ease-out
+                    lg:mt-6
                 "
             >
                 Mi cuenta
