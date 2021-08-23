@@ -18,11 +18,26 @@
                     transition-colors
                     duration-200
                     ease-out
+                    hidden
+                    lg:block
                 "
                 @click="correrCarrusel(-3)"
             />
+            <FlechitaIcon
+                v-show="sliceStart > 0"
+                class="
+                    w-6
+                    text-dorado
+                    cursor-pointer
+                    hover:text-anaranjado
+                    transition-colors
+                    duration-200
+                    ease-out
+                "
+                @click="correrCarrusel(-1)"
+            />
 
-            <ul class="grid grid-cols-3 gap-10">
+            <ul class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <li
                     v-for="destacado in destacados"
                     :key="destacado._id"
@@ -142,9 +157,26 @@
                     transition-colors
                     duration-200
                     ease-out
+                    hidden
+                    lg:block
                 "
                 transform="scale(-1,1)"
                 @click="correrCarrusel(3)"
+            />
+            <FlechitaIcon
+                v-show="sliceStart < destacadosLength - 1"
+                class="
+                    w-6
+                    text-dorado
+                    cursor-pointer
+                    hover:text-anaranjado
+                    transition-colors
+                    duration-200
+                    ease-out
+                    lg:hidden
+                "
+                transform="scale(-1,1)"
+                @click="correrCarrusel(1)"
             />
         </div>
 

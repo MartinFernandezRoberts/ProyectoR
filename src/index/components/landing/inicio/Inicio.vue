@@ -1,13 +1,23 @@
 <template>
     <section class="flex flex-col overflow-hidden">
         <div class="flex-grow flex flex-col justify-center items-center">
-            <p class="flex items-end text-2xl font-bold text-rojo">
+            <p
+                class="
+                    flex
+                    items-end
+                    text-2xl
+                    font-bold
+                    text-rojo text-center
+                    mt-6
+                    lg:mt-0
+                "
+            >
                 <BrilloIcon class="mb-2 inline w-12" />
                 ¿Crees o creas la buena suerte?
                 <BrilloIcon transform="scale(-1,1)" class="mb-2 inline w-12" />
             </p>
 
-            <h2 class="mt-12 text-3xl font-bold">
+            <h2 class="mt-12 md:text-3xl font-bold text-center">
                 Ajusta tus parámetros o
                 <router-link
                     to="/buscador"
@@ -23,31 +33,31 @@
                 >
             </h2>
 
-            <FiltrosForm class="mt-12" />
+            <FiltrosForm class="mt-12 hidden lg:block" />
 
             <div class="mt-6 w-full flex items-center space-x-8">
                 <div class="flex-1">
-                    <TrebolIcon class="ml-auto w-32 text-dorado" />
+                    <TrebolIcon class="ml-auto text-dorado w-10 md:w-32" />
                 </div>
 
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center text-center">
                     <LlaveCasaIcon class="mb-2 w-28 text-anaranjado" />
 
-                    <h3 class="mb-3 text-4xl font-bold">
+                    <h3 class="mb-3 text-xl font-bold md:text-4xl">
                         Grandes premios merecen una oportunidad
                     </h3>
 
-                    <p class="text-center">
-                        Rifalapp es la aplicación donde debes poner buen ojo y
+                    <p class="text-center text-xs md:text-base">
+                        RifasApp es la aplicación donde debes poner buen ojo y
                         podrás ganar<br />
                         excelentes propiedades, automóviles y más
                     </p>
 
-                    <ManoIcon class="mt-2 w-36 text-anaranjado" />
+                    <ManoIcon class="mt-2 text-anaranjado w-36" />
                 </div>
 
                 <div class="flex-1">
-                    <BoletosIcon class="w-44 text-dorado" />
+                    <BoletosIcon class="text-dorado w-10 md:w-36" />
                 </div>
             </div>
         </div>

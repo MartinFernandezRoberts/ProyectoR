@@ -1,5 +1,5 @@
 <template>
-    <footer ref="footer" class="bg-anaranjado text-white">
+    <footer ref="footer" class="bg-anaranjado text-white relative">
         <div class="container mx-auto pl-6 2xl:pl-0 flex justify-between">
             <div class="text-lg pt-3 pb-6">
                 <nav>

@@ -4,7 +4,7 @@
         <div
             v-if="abierto"
             @click="abierto = !abierto"
-            class="w-screen h-screen fixed bg-gris bg-opacity-30 z-40 lg:hidden"
+            class="w-screen h-screen fixed bg-gris bg-opacity-40 z-40 lg:hidden"
         ></div>
     </transition>
     <header
@@ -44,7 +44,7 @@
                 :abierto="abierto"
                 @abrir="abierto = !abierto"
                 @click="abierto = !abierto"
-                class="lg:hidden w-5/12"
+                class="lg:hidden w-5/12 shadow-2xl"
             />
         </transition>
         <BotonMiCuenta class="hidden lg:block flex-1" />

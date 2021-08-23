@@ -8,66 +8,47 @@
             h-screen
             z-50
             bg-white
-            lg:relative lg:text-center lg:h-auto lg:mx-auto lg:self-center
+            -mt-2
+            lg:mt-0
+            lg:relative
+            lg:text-center
+            lg:h-auto
+            lg:mx-auto
+            lg:self-center
         "
     >
         <ul
             class="
+                space-y-6
                 font-bold
-                space-y-2
+                p-4
+                mt-6
                 text-gris
                 lg:text-anaranjado
                 lg:space-y-0
+                lg:mt-0
                 lg:flex
                 lg:justify-center
                 lg:space-x-4
             "
         >
-            <li
-                class="
-                    border border-dorado border-
-                    lg:border-none
-                    hover:text-rojo
-                    transition-colors
-                    duration-200
-                    ease-out
-                "
-            >
+            <li class="hover:text-rojo transition-colors duration-200 ease-out">
                 <a href="/#destacadas">Destacadas</a>
             </li>
 
             <li class="hidden lg:block">|</li>
 
-            <li
-                class="
-                    border border-dorado
-                    lg:border-none
-                    hover:text-rojo
-                    transition-colors
-                    duration-200
-                    ease-out
-                "
-            >
+            <li class="hover:text-rojo transition-colors duration-200 ease-out">
                 <a href="/#como-funciona">Cómo funciona</a>
             </li>
 
             <li class="hidden lg:block">|</li>
 
-            <li
-                class="
-                    border border-dorado
-                    lg:border-none
-                    hover:text-rojo
-                    transition-colors
-                    duration-200
-                    ease-out
-                "
-            >
+            <li class="hover:text-rojo transition-colors duration-200 ease-out">
                 <a href="/#contacto">Contacto</a>
             </li>
         </ul>
-        <BotonMiCuenta class="lg:hidden" />
-        <button class="lg:hidden text-2xl" @click="$emit('abrir')">X</button>
+        <BotonMiCuenta class="lg:hidden mt-10" />
     </nav>
 </template>
 
