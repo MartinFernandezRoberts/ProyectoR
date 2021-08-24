@@ -1,5 +1,5 @@
 <template>
-    <ul class="py-7 text-lg font-bold space-y-1">
+    <ul class="py-1 text-lg font-bold space-y-1 lg:py-7">
         <li class="flex items-center space-x-1">
             <div class="w-14 text-gris">
                 <AreaIcon />

@@ -7,7 +7,15 @@
             Contacto
         </h2>
 
-        <div class="w-1/2 2xl:w-2/5 border-6 border-claro rounded-lg">
+        <div
+            class="
+                border-6 border-claro
+                rounded-lg
+                md:w-5/6
+                lg:w-7/12
+                2xl:w-2/5
+            "
+        >
             <div class="py-2 2xl:py-3 text-center">
                 <p class="text-lg 2xl:text-xl font-bold">¿Alguna pregunta?</p>
                 <p class="2xl:text-lg">Te respondemos en menos de 24 horas</p>
