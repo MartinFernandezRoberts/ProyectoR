@@ -33,15 +33,40 @@
                     transition-colors
                     duration-200
                     ease-out
+                    hidden
+                    md:block
                     lg:hidden
+                "
+                @click="correrCarrusel(-2)"
+            />
+            <FlechitaIcon
+                v-show="sliceStart > 0"
+                class="
+                    w-6
+                    text-dorado
+                    cursor-pointer
+                    hover:text-anaranjado
+                    transition-colors
+                    duration-200
+                    ease-out
+                    md:hidden
                 "
                 @click="correrCarrusel(-1)"
             />
 
-            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <ul
+                class="
+                    grid grid-cols-1
+                    md:grid-cols-2 md:gap-6
+                    lg:gap-10 lg:grid-cols-3
+                "
+            >
                 <!-- movil -->
                 <li
-                    v-for="destacado in destacados.slice(0, limitMovil)"
+                    v-for="destacado in destacados.slice(
+                        sliceStart,
+                        sliceStart + 1
+                    )"
                     :key="destacado._id"
                     class="border-6 border-claro rounded-lg md:hidden"
                 >
@@ -134,7 +159,7 @@
                                 lg:text-lg
                             "
                         >
-                            {{ destacado.titulo }}
+                            {{ destacados[sliceStart].titulo }}
                         </h3>
 
                         <InfoCasa
@@ -150,7 +175,10 @@
                 </li>
                 <!-- MD -->
                 <li
-                    v-for="destacado in destacados.slice(0, limitMd)"
+                    v-for="destacado in destacados.slice(
+                        sliceStart,
+                        sliceStart + 2
+                    )"
                     :key="destacado._id"
                     class="
                         border-6 border-claro
@@ -264,7 +292,10 @@
                 </li>
                 <!--lg -->
                 <li
-                    v-for="destacado in destacados.slice(0, 3)"
+                    v-for="destacado in destacados.slice(
+                        sliceStart,
+                        sliceStart + 3
+                    )"
                     :key="destacado._id"
                     class="border-6 border-claro rounded-lg hidden lg:block"
                 >
@@ -371,7 +402,40 @@
                     </div>
                 </li>
             </ul>
-
+            <!--movil -->
+            <FlechitaIcon
+                v-show="sliceStart < destLength - 1"
+                class="
+                    w-6
+                    text-dorado
+                    cursor-pointer
+                    hover:text-anaranjado
+                    transition-colors
+                    duration-200
+                    ease-out
+                    md:hidden
+                "
+                transform="scale(-1,1)"
+                @click="correrCarrusel(1)"
+            />
+            <!--md -->
+            <FlechitaIcon
+                v-show="sliceStart < destLength - 2"
+                class="
+                    w-6
+                    text-dorado
+                    cursor-pointer
+                    hover:text-anaranjado
+                    transition-colors
+                    duration-200
+                    ease-out
+                    hidden
+                    md:block
+                    lg:hidden
+                "
+                transform="scale(-1,1)"
+                @click="correrCarrusel(2)"
+            />
             <FlechitaIcon
                 v-show="sliceStart < destacadosLength - 3"
                 class="
@@ -387,21 +451,6 @@
                 "
                 transform="scale(-1,1)"
                 @click="correrCarrusel(3)"
-            />
-            <FlechitaIcon
-                v-show="sliceStart < destacadosLength - 1"
-                class="
-                    w-6
-                    text-dorado
-                    cursor-pointer
-                    hover:text-anaranjado
-                    transition-colors
-                    duration-200
-                    ease-out
-                    lg:hidden
-                "
-                transform="scale(-1,1)"
-                @click="correrCarrusel(1)"
             />
         </div>
 
@@ -455,10 +504,11 @@ export default {
                 numerosComprados: '132',
                 valoracion: '3.5',
             },
+            destLength: 0,
             sliceStart: 0,
-            destacadosLength: 0,
             limitMovil: 1,
             limitMd: 2,
+            limitLg: 3,
         };
     },
     methods: {
@@ -470,6 +520,7 @@ export default {
                 .get(this.urlDev('api/destacados'))
                 .then((res) => {
                     this.destacados = res.data;
+                    this.destLength = res.data.length;
                     this.cargando = false;
                 })
                 .catch((err) => console.error(err.message));

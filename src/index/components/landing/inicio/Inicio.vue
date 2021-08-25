@@ -26,8 +26,8 @@
                     mt-12
                     font-bold
                     text-center
-                    md:text-3xl
-                    lg:text-xl lg:mt-4
+                    hidden
+                    lg:block lg:text-xl lg:mt-4
                     2xl:mt-12 2xl:text-3xl
                 "
             >
