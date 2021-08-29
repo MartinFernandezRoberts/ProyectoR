@@ -3,23 +3,59 @@ const mongoose = require('mongoose');
 const WheelsSchema = new mongoose.Schema({
     marca: {
         type: String,
-        required: true,
     },
     categoria: {
         type: String,
-        required: true,
+        enum: [
+            'Aéreos',
+            'Autos, camionetas y 4x4',
+            'Buses',
+            'Camiones',
+            'Casas rodantes',
+            'Maquinarias',
+            'Motos',
+            'Náutica',
+            'Otros',
+        ],
     },
-    estado: {
-        type: String,
-    },
-    año: {
+    year: {
         type: Number,
-        required: true,
         min: 1908,
     },
     km: {
         type: Number,
-        required: true,
+    },
+    cilindrada: {
+        type: Number,
+    },
+    transmision: {
+        type: String,
+        enum: ['Automática', 'Manual'],
+    },
+    combustible: {
+        type: String,
+        enum: ['Bencina', 'Diesel', 'Eléctrico', 'Gas', 'Híbrido', 'Otro'],
+    },
+    abs: {
+        type: Boolean,
+    },
+    airbag: {
+        type: Boolean,
+    },
+    ac: {
+        type: Boolean,
+    },
+    alarma: {
+        type: Boolean,
+    },
+    vidriosElectricos: {
+        type: Boolean,
+    },
+    color: {
+        type: String,
+    },
+    rendimiento: {
+        type: Number,
     },
 });
 

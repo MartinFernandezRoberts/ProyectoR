@@ -32,6 +32,23 @@ router.get('/', async (req, res) => {
     }
 });
 
+//GET
+router.get('/todo', async (req, res) => {
+    try {
+        const casas = await Item.find({
+            tipo: 'Casa',
+        })
+            .sort('-fecha')
+            .populate('item')
+            .lean();
+
+        res.send(casas);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+});
+
 // @desc api/Private page
 // @route POST /panel/api/casa
 router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
