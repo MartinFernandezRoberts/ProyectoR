@@ -11,6 +11,14 @@ class CasaService {
             .catch((err) => console.error(err));
     }
 
+    // Todo
+    static async todo() {
+        return await axios
+            .get(`${url}todo`)
+            .then((res) => res.data)
+            .catch((err) => console.error(err));
+    }
+
     // Create
     static async create(data) {
         return await axios

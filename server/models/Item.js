@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const schema = new mongoose.Schema({
     tipo: {
         type: String,
-        enum: ['Casa', 'Wheels'],
+        enum: ['Casa', 'Wheels', null],
     },
     item: {
         type: mongoose.Schema.Types.ObjectId,
@@ -23,7 +23,7 @@ const schema = new mongoose.Schema({
     estado: {
         type: String,
         default: 'borrador',
-        enum: ['borrador', 'publicado', 'bajado'],
+        enum: ['borrador', 'pendiente', 'publicado', 'bajado'],
     },
     comuna: {
         type: String,

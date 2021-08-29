@@ -50,7 +50,7 @@ export default {
     },
     methods: {
         async cargarCasas() {
-            this.casas = await CasaService.index();
+            this.casas = await CasaService.todo();
         },
         async crearCasa(data) {
             this.guardando = true;

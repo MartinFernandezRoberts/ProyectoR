@@ -31,4 +31,8 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+input:focus {
+    outline: none !important;
+}
 </style>

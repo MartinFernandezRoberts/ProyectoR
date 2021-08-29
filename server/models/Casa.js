@@ -8,6 +8,9 @@ const CasaSchema = new mongoose.Schema({
     area: {
         type: Number,
     },
+    construido: {
+        type: Number,
+    },
     wc: {
         type: Number,
     },

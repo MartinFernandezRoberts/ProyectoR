@@ -46,4 +46,18 @@ export default class Validator {
 
         return error;
     }
+
+    async validateNested(obj, field) {
+        let error = '';
+
+        /* await this.schema
+            .validateAt(`${obj}.${field}`, { [obj]: { [field]: value } })
+            .catch((err) => {
+                error = err.message;
+            }); */
+
+        console.log(await yup.reach(this.schema, `${obj}.${field}`));
+
+        return error.substring(obj.length + 1);
+    }
 }
