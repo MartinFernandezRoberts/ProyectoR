@@ -1,9 +1,15 @@
 <template>
     <section
         id="destacadas"
-        class="flex flex-col justify-center items-center overflow-hidden"
+        class="
+            flex flex-col
+            justify-center
+            items-center
+            overflow-hidden
+            lg:my-2
+        "
     >
-        <h2 class="mb-6 text-3xl font-bold">Sorteos destacados</h2>
+        <h2 class="mb-6 text-3xl font-bold lg:mb-2">Sorteos destacados</h2>
 
         <Cargando v-show="cargando" class="mb-6 h-2/4" />
 
@@ -307,6 +313,7 @@
                             justify-around
                             items-center
                             uppercase
+                            lg:py-0
                         "
                     >
                         <div
@@ -359,7 +366,7 @@
                     <img
                         :src="urlDev(destacado.imagenes[0])"
                         alt="imagen destacado"
-                        class="w-80 h-60 object-cover"
+                        class="w-80 h-44 object-cover"
                     />
 
                     <div id="info" class="px-7 bg-claro">

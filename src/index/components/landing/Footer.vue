@@ -1,9 +1,11 @@
 <template>
     <footer ref="footer" class="bg-anaranjado text-white relative">
-        <div class="container mx-auto pl-6 2xl:pl-0 flex justify-between">
-            <div class="text-lg pt-3 pb-6">
+        <div
+            class="container mx-auto flex justify-between pl-2 md:pl-6 2xl:pl-0"
+        >
+            <div class="pt-3 pb-6 text-2xs md:text-lg">
                 <nav>
-                    <ul class="flex space-x-4 font-bold">
+                    <ul class="flex font-bold space-x-1 md:space-x-4">
                         <li>
                             <a href="">Privacidad</a>
                         </li>
@@ -28,10 +30,10 @@
                     </ul>
                 </nav>
 
-                <address>Calle n° 0001. Santiago - Chile</address>
+                <address class="pt-2">Calle n° 0001. Santiago - Chile</address>
             </div>
 
-            <IsotipoBlanco class="w-64 text-white fill-current" />
+            <IsotipoBlanco class="text-white fill-current w-64" />
         </div>
     </footer>
 </template>

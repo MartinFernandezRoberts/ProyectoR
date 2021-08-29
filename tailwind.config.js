@@ -19,6 +19,7 @@ module.exports = {
                 6: '6px',
             },
             fontSize: {
+                '2xs': '.6rem',
                 '3xs': '.45rem',
             },
             animation: {
