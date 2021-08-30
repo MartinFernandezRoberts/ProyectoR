@@ -76,7 +76,9 @@
         </div>
 
         <div class="flex flex-col space-y-1.5">
-            <label class="text-sm font-bold" for="titulo"> Descripción </label>
+            <label class="text-sm font-bold" for="descripcion">
+                Descripción
+            </label>
 
             <textarea
                 :class="[

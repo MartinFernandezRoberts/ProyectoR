@@ -2,10 +2,10 @@ module.exports = {
     purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
     darkMode: false, // or 'media' or 'class'
     theme: {
-        fontFamily: {
-            sans: ['Montserrat', 'sans-serif'],
-        },
         extend: {
+            fontFamily: {
+                sans: ['Montserrat', 'sans-serif'],
+            },
             colors: {
                 gris: 'rgb(81, 81, 81)',
                 rojo: 'rgb(237, 10, 33)',
@@ -19,6 +19,7 @@ module.exports = {
                 6: '6px',
             },
             fontSize: {
+                '2xs': '.6rem',
                 '3xs': '.45rem',
             },
             animation: {
@@ -29,5 +30,5 @@ module.exports = {
     variants: {
         extend: {},
     },
-    plugins: [],
+    plugins: [require('@tailwindcss/aspect-ratio')],
 };

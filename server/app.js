@@ -83,6 +83,7 @@ app.use('/api/banners', require('./routes/api/banners'));
 app.use('/api/casas', require('./routes/api/casas'));
 app.use('/api/contacto', require('./routes/api/contacto'));
 app.use('/api/destacados', require('./routes/api/destacados'));
+app.use('/api/items', require('./routes/api/items'));
 app.use('/api/ubicaciones', require('./routes/api/ubicaciones'));
 
 //mercadopago
