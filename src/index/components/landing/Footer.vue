@@ -29,11 +29,27 @@
                         </li>
                     </ul>
                 </nav>
+                <div class="flex flex-row w-full items-center mx-auto">
+                    <address class="pt-2 flex-1 flex lg:flex-none">
+                        Calle n° 0001. Santiago - Chile
+                    </address>
 
-                <address class="pt-2">Calle n° 0001. Santiago - Chile</address>
+                    <IsotipoBlanco
+                        class="
+                            text-white
+                            fill-current
+                            w-14
+                            inline-flex
+                            md:w-16
+                            lg:hidden
+                        "
+                    />
+                </div>
             </div>
 
-            <IsotipoBlanco class="text-white fill-current w-64" />
+            <IsotipoBlanco
+                class="text-white fill-current w-28 hidden lg:block"
+            />
         </div>
     </footer>
 </template>
