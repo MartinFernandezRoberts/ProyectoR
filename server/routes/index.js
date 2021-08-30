@@ -16,7 +16,7 @@ router.get('/cuenta', ensureAuth, (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
-router.get('/cuenta/:id', ensureAuth, (req, res) => {
+router.get('/user', ensureAuth, (req, res) => {
     user = req.user.google;
     res.send(user);
 });

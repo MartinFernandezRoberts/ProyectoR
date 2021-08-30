@@ -4,7 +4,9 @@
         class="flex justify-center items-center bg-green-400"
         ref="como"
     >
-        <h2 class="text-4xl text-white font-bold">Aquí dirá cómo participar</h2>
+        <h2 class="text-xl text-white font-bold lg:text-4xl">
+            Aquí dirá cómo participar
+        </h2>
 
         <button type="button" @click="scrollear">scroll</button>
     </section>

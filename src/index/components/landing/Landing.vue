@@ -31,60 +31,60 @@ export default {
         this.adjustHeight();
 
         window.addEventListener('resize', this.adjustHeight);
-        window.addEventListener('scroll', this.scrollear);
-        window.addEventListener('mousedown', this.mouseDown);
-        window.addEventListener('mouseup', this.mouseUp);
+        // window.addEventListener('scroll', this.scrollear);
+        // window.addEventListener('mousedown', this.mouseDown);
+        // window.addEventListener('mouseup', this.mouseUp);
 
-        setInterval(() => {
-            if (this.scrolling && !this.desplazando && !this.clicking) {
-                this.desplazando = true;
+        //     setInterval(() => {
+        //         if (this.scrolling && !this.desplazando && !this.clicking) {
+        //             this.desplazando = true;
 
-                const seccionBase = Math.round(
-                    this.posicion / window.innerHeight
-                );
-                const seccionTransito = Math.round(
-                    window.scrollY / window.innerHeight
-                );
-                let destino = window.innerHeight * seccionTransito;
+        //             const seccionBase = Math.round(
+        //                 this.posicion / window.innerHeight
+        //             );
+        //             const seccionTransito = Math.round(
+        //                 window.scrollY / window.innerHeight
+        //             );
+        //             let destino = window.innerHeight * seccionTransito;
 
-                if (seccionTransito !== seccionBase) {
-                    window.scrollTo(0, destino);
-                } else if (window.scrollY > this.posicion) {
-                    destino = window.innerHeight * (seccionBase + 1);
-                    window.scrollTo(0, destino);
-                } else if (window.scrollY < this.posicion) {
-                    destino = window.innerHeight * (seccionBase - 1);
-                    window.scrollTo(0, destino);
-                }
+        //             if (seccionTransito !== seccionBase) {
+        //                 window.scrollTo(0, destino);
+        //             } else if (window.scrollY > this.posicion) {
+        //                 destino = window.innerHeight * (seccionBase + 1);
+        //                 window.scrollTo(0, destino);
+        //             } else if (window.scrollY < this.posicion) {
+        //                 destino = window.innerHeight * (seccionBase - 1);
+        //                 window.scrollTo(0, destino);
+        //             }
 
-                setTimeout(() => {
-                    this.posicion = destino;
-                    this.desplazando = false;
-                }, 1000);
-                this.scrolling = false;
-            }
-        }, 300);
+        //             setTimeout(() => {
+        //                 this.posicion = destino;
+        //                 this.desplazando = false;
+        //             }, 1000);
+        //             this.scrolling = false;
+        //         }
+        //     }, 300);
     },
     unmounted() {
         window.removeEventListener('resize', this.adjustHeight);
-        window.removeEventListener('scroll', this.scrollear);
-        window.removeEventListener('mousedown', this.mouseDown);
-        window.removeEventListener('mouseup', this.mouseUp);
+        // window.removeEventListener('scroll', this.scrollear);
+        // window.removeEventListener('mousedown', this.mouseDown);
+        // window.removeEventListener('mouseup', this.mouseUp);
     },
     methods: {
         adjustHeight() {
             this.inicioHeight = window.innerHeight - this.headerHeight;
             this.contactoHeight = window.innerHeight - this.footerHeight;
         },
-        scrollear() {
-            this.scrolling = true;
-        },
-        mouseDown() {
-            this.clicking = true;
-        },
-        mouseUp() {
-            this.clicking = false;
-        },
+        // scrollear() {
+        //     this.scrolling = true;
+        // },
+        // mouseDown() {
+        //     this.clicking = true;
+        // },
+        // mouseUp() {
+        //     this.clicking = false;
+        // },
     },
 };
 </script>

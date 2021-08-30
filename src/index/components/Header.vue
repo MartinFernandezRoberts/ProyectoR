@@ -1,88 +1,74 @@
 <template>
+    <!-- overlay -->
+    <transition name="navMov">
+        <div
+            v-if="abierto"
+            @click="abierto = !abierto"
+            class="w-screen h-screen fixed bg-gris bg-opacity-40 z-40 lg:hidden"
+        ></div>
+    </transition>
     <header
         ref="header"
-        class="container mx-auto p-4 flex items-start bg-white text-lg"
+        class="
+            flex flex-col
+            text-base
+            pt-2
+            bg-anaranjado
+            lg:h-auto
+            lg:flex-row
+            lg:container
+            lg:mx-auto
+            lg:p-4
+            lg:flex
+            lg:items-start
+            lg:bg-white
+            lg:text-lg
+        "
     >
-        <div class="flex-1">
+        <div class="flex-row mx-auto my-6 lg:flex-1">
             <router-link to="/">
-                <LogoRifasapp class="w-64" />
+                <LogoRifasapp class="w-64 hidden lg:block" />
+                <LogoRifasAppMovil class="w-56 inline-block -mt-4 lg:hidden" />
             </router-link>
+            <BotonNav
+                :abierto="abierto"
+                @abrir="abierto = !abierto"
+                class="lg:hidden"
+            />
         </div>
 
-        <nav>
-            <ul class="flex justify-center space-x-4 font-bold text-anaranjado">
-                <li
-                    class="
-                        hover:text-rojo
-                        transition-colors
-                        duration-200
-                        ease-out
-                    "
-                >
-                    <a href="/#destacadas">Destacadas</a>
-                </li>
-
-                <li>|</li>
-
-                <li
-                    class="
-                        hover:text-rojo
-                        transition-colors
-                        duration-200
-                        ease-out
-                    "
-                >
-                    <a href="/#como-funciona">Cómo funciona</a>
-                </li>
-
-                <li>|</li>
-
-                <li
-                    class="
-                        hover:text-rojo
-                        transition-colors
-                        duration-200
-                        ease-out
-                    "
-                >
-                    <a href="/#contacto">Contacto</a>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="flex-1 text-right">
-            <a href="/cuenta">
-                <button
-                    class="
-                        px-6
-                        py-2
-                        border-3 border-amarillo
-                        rounded-lg
-                        font-bold
-                        text-gris
-                        hover:border-anaranjado
-                        hover:bg-anaranjado
-                        hover:text-white
-                        transition-colors
-                        duration-200
-                        ease-out
-                    "
-                >
-                    Mi cuenta
-                </button>
-            </a>
-        </div>
+        <Nav class="hidden lg:block" />
+        <transition name="navMov">
+            <Nav
+                v-if="abierto"
+                :abierto="abierto"
+                @abrir="abierto = !abierto"
+                @click="abierto = !abierto"
+                class="lg:hidden w-7/12 shadow-2xl"
+            />
+        </transition>
+        <BotonMiCuenta class="hidden lg:block flex-1" />
     </header>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
+import BotonMiCuenta from './movil/BotonMiCuenta.vue';
 import LogoRifasapp from './svg/LogoRifasapp.vue';
-
+import LogoRifasAppMovil from './svg/LogoRifasAppMovil.vue';
+import Nav from './movil/Nav.vue';
+import BotonNav from './movil/BotonNav.vue';
 export default {
     name: 'Header',
     components: {
         LogoRifasapp,
+        LogoRifasAppMovil,
+        BotonMiCuenta,
+        Nav,
+        BotonNav,
+    },
+    data() {
+        return { abierto: false };
     },
     mounted() {
         this.setHeaderHeight(this.$refs.header.offsetHeight);
@@ -92,3 +78,14 @@ export default {
     },
 };
 </script>
+<style scoped>
+.navMov-enter-active,
+.navMov-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.navMov-enter-from,
+.navMov-leave-to {
+    opacity: 0;
+}
+</style>
