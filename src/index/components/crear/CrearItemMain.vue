@@ -227,7 +227,9 @@ export default {
     },
     computed: {
         indexActual() {
-            return Object.values(this.secciones).indexOf(this.seccionActual);
+            return Object.values(this.secciones).findIndex(
+                (seccion) => seccion.objeto === this.seccionActual.objeto
+            );
         },
     },
     created() {
