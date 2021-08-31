@@ -13,7 +13,7 @@
             >
                 <RelojArenaIcon class="w-6" />
 
-                <div class="w-24">{{ tiempoRestante(parche.fechaSorteo) }}</div>
+                <div class="w-24">{{ tiempoRestante(item.fechaSorteo) }}</div>
             </div>
 
             <div class="text-dorado">
@@ -32,7 +32,7 @@
                     "
                 >
                     <span
-                        v-for="(digit, i) in parche.numerosComprados.padStart(
+                        v-for="(digit, i) in item.numerosComprados.padStart(
                             4,
                             '0'
                         )"
@@ -59,7 +59,7 @@
                 <span
                     v-for="n in 5"
                     :key="n"
-                    v-html="n <= parche.valoracion ? '&starf;' : '&star;'"
+                    v-html="n <= item.valoracion ? '&starf;' : '&star;'"
                 />
             </div>
 
@@ -89,11 +89,6 @@ export default {
     },
     data() {
         return {
-            parche: {
-                numerosComprados: '132',
-                valoracion: '3.5',
-                fechaSorteo: new Date('2021-10-30T18:00:00-0400'),
-            },
             ahora: new Date().getTime(),
         };
     },
