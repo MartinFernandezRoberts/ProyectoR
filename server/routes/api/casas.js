@@ -54,7 +54,7 @@ router.get('/todo', async (req, res) => {
 router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
     try {
         console.log(req.body);
-
+        req.body.user = req.user.id;
         const casa = await Casa.create(req.body.casa);
 
         const rutasImagenes = req.files.map(
@@ -63,6 +63,7 @@ router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
         await Item.create({
             tipo: 'Casa',
             item: casa._id,
+            usuario: req.body.user,
             ...req.body.item,
             imagenes: rutasImagenes,
         });
