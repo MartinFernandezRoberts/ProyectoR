@@ -444,7 +444,7 @@
                 @click="correrCarrusel(2)"
             />
             <FlechitaIcon
-                v-show="sliceStart < destacadosLength - 3"
+                v-show="sliceStart < destLength - 3"
                 class="
                     w-6
                     text-dorado
