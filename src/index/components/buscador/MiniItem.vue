@@ -13,7 +13,7 @@
             >
                 <RelojArenaIcon class="w-6" />
 
-                <div class="w-24">{{ tiempoRestante(item.fechaSorteo) }}</div>
+                <div class="w-24">{{ tiempoRestante }}</div>
             </div>
 
             <div class="text-dorado">
@@ -86,41 +86,11 @@ export default {
     components: { RelojArenaIcon },
     props: {
         item: Object,
-    },
-    data() {
-        return {
-            ahora: new Date().getTime(),
-        };
-    },
-    created() {
-        setInterval(() => {
-            this.ahora = new Date().getTime();
-        }, 1000);
+        tiempoRestante: String,
     },
     methods: {
         urlDev(path) {
             return 'http://localhost:3000/' + path;
-        },
-        tiempoRestante(fecha) {
-            const tiempo = new Date(fecha).getTime() - this.ahora;
-
-            const dias = Math.floor(tiempo / (1000 * 60 * 60 * 24));
-            const horas = Math.floor(
-                (tiempo % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-            );
-            const minutos = Math.floor(
-                (tiempo % (1000 * 60 * 60)) / (1000 * 60)
-            );
-            const segundos = Math.floor((tiempo % (1000 * 60)) / 1000);
-
-            return tiempo <= 0
-                ? '¡En sorteo!'
-                : `${this.pad(dias)}d ${this.pad(horas)}h ${this.pad(
-                      minutos
-                  )}m ${this.pad(segundos)}s`;
-        },
-        pad(n) {
-            return ('0' + n).slice(-2);
         },
     },
 };

@@ -641,9 +641,22 @@
                 <MiniItem
                     v-for="(item, i) in filtrado"
                     :key="i"
+                    class="cursor-pointer"
                     :item="{ ...item, ...parche }"
+                    :tiempoRestante="tiempoRestante(parche.fechaSorteo)"
+                    @click="
+                        itemActual = item;
+                        modal = true;
+                    "
                 />
             </div>
+
+            <DetalleItem
+                v-if="modal"
+                :item="itemActual"
+                :tiempoRestante="tiempoRestante(parche.fechaSorteo)"
+                @cerrar="modal = false"
+            />
         </div>
     </div>
 </template>
@@ -652,16 +665,19 @@
 import XIcon from '../svg/XIcon.vue';
 import axios from 'axios';
 
+import DetalleItem from '../detalle/DetalleItem.vue';
 import Cargando from '../Cargando.vue';
 import MiniItem from './MiniItem.vue';
 
 export default {
     name: 'BuscadorMain',
-    components: { MiniItem, Cargando, XIcon },
+    components: { MiniItem, Cargando, XIcon, DetalleItem },
     data() {
         return {
             items: [],
             filtrado: [],
+            itemActual: {},
+            modal: false,
             parche: {
                 numerosComprados: '132',
                 valoracion: '3.5',
@@ -710,6 +726,7 @@ export default {
                 ],
             },
             cargando: true,
+            ahora: new Date().getTime(),
         };
     },
     created() {
@@ -723,6 +740,10 @@ export default {
         axios('https://apis.digital.gob.cl/dpa/comunas').then(
             (res) => (this.comunas = res.data.map((comuna) => comuna.nombre))
         );
+
+        setInterval(() => {
+            this.ahora = new Date().getTime();
+        }, 1000);
     },
     methods: {
         filtrar() {
@@ -777,6 +798,27 @@ export default {
             }
 
             return formateado;
+        },
+        tiempoRestante(fecha) {
+            const tiempo = new Date(fecha).getTime() - this.ahora;
+
+            const dias = Math.floor(tiempo / (1000 * 60 * 60 * 24));
+            const horas = Math.floor(
+                (tiempo % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            );
+            const minutos = Math.floor(
+                (tiempo % (1000 * 60 * 60)) / (1000 * 60)
+            );
+            const segundos = Math.floor((tiempo % (1000 * 60)) / 1000);
+
+            return tiempo <= 0
+                ? '¡En sorteo!'
+                : `${this.pad(dias)}d ${this.pad(horas)}h ${this.pad(
+                      minutos
+                  )}m ${this.pad(segundos)}s`;
+        },
+        pad(n) {
+            return ('0' + n).slice(-2);
         },
     },
 };

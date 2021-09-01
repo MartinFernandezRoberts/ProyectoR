@@ -6,7 +6,7 @@
             text-right
             fixed
             h-screen
-            z-50
+            z-20
             bg-white
             -mt-2
             lg:mt-0
