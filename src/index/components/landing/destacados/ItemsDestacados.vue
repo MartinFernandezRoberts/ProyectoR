@@ -513,9 +513,6 @@ export default {
             },
             destLength: 0,
             sliceStart: 0,
-            limitMovil: 1,
-            limitMd: 2,
-            limitLg: 3,
         };
     },
     methods: {

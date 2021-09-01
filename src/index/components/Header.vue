@@ -44,7 +44,7 @@
                 :abierto="abierto"
                 @abrir="abierto = !abierto"
                 @click="abierto = !abierto"
-                class="lg:hidden w-7/12 shadow-2xl"
+                class="lg:hidden w-7/12 shadow-2xl md:w-4/12"
             />
         </transition>
         <BotonMiCuenta class="hidden lg:block flex-1" />
