@@ -4,7 +4,7 @@
         <div
             v-if="abierto"
             @click="abierto = !abierto"
-            class="w-screen h-screen fixed bg-gris bg-opacity-40 z-40 lg:hidden"
+            class="w-screen h-screen fixed bg-gris bg-opacity-40 z-20 lg:hidden"
         ></div>
     </transition>
     <header
