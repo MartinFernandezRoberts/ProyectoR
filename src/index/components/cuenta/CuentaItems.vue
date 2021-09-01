@@ -9,7 +9,11 @@
             { 'opacity-20 filter blur-sm': cargando },
         ]"
     >
-        <MiniItem v-for="item in items" :key="item._id" :item="item" />
+        <MiniItem
+            v-for="item in items"
+            :key="item._id"
+            :item="{ ...item, ...parche }"
+        />
     </div>
 </template>
 
@@ -27,6 +31,12 @@ export default {
     data() {
         return {
             items: [],
+            parche: {
+                numerosComprados: '132',
+                valoracion: '3.5',
+                fechaSorteo: new Date('2021-10-30T18:00:00-0400'),
+                precioBoleto: 5000,
+            },
             cargando: true,
         };
     },
