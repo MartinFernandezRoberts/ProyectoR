@@ -1,30 +1,43 @@
 <template>
     <div class="flex-1 flex">
-        <div id="sidebar" class="w-1/4 py-12 px-6">
+        <div
+            id="sidebar"
+            class="h-full px-2 w-1/3 py-4 md:px-6 md:py-12 lg:w-1/4"
+        >
             <div class="mb-6 2xl:mb-7 flex justify-center items-center">
-                <h1 class="mr-10 text-lg 2xl:text-xl font-bold text-center">
+                <h1
+                    class="
+                        font-bold
+                        text-center text-sm
+                        md:text-lg md:mr-10
+                        2xl:text-xl
+                    "
+                >
                     Buscador
                 </h1>
             </div>
 
             <form id="filtros" class="flex flex-col space-y-3">
-                <div class="flex flex-col space-y-1.5">
-                    <label class="text-sm font-bold" for="tipo">
+                <div class="flex flex-col md:space-y-1.5">
+                    <label
+                        class="font-bold text-2xs md:text-xs lg:text-sm"
+                        for="tipo"
+                    >
                         Categoría
                     </label>
 
-                    <div class="flex items-center space-x-2">
+                    <div class="flex items-center md:space-x-2">
                         <select
                             :class="[
-                                'flex-1 px-4 2xl:px-6 py-1.5 2xl:py-2 border rounded border-amarillo text-sm font-light leading-tight',
+                                'flex-1 py-1.5 border rounded border-amarillo font-light leading-tight text-2xs md:text-xs md:px-4 lg:text-sm 2xl:px-6 2xl:py-2',
                                 { 'text-gray-400': !filtros.tipo },
                             ]"
                             id="tipo"
                             v-model="filtros.tipo"
                             @change="filtrar"
                         >
-                            <option value="" disabled selected hidden>
-                                Selecciona una categoría
+                            <option class="" value="" disabled selected hidden>
+                                Categoría
                             </option>
 
                             <option
@@ -45,15 +58,18 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col space-y-1.5">
-                    <label class="text-sm font-bold" for="precioBoleto">
+                <div class="flex flex-col md:space-y-1.5">
+                    <label
+                        class="font-bold text-2xs md:text-xs lg:text-sm"
+                        for="precioBoleto"
+                    >
                         Precio boleto
                     </label>
 
-                    <div class="flex items-center space-x-2">
+                    <div class="flex items-center md:space-x-2">
                         <select
                             :class="[
-                                'flex-1 px-4 2xl:px-6 py-1.5 2xl:py-2 border rounded border-amarillo text-sm font-light leading-tight',
+                                'flex-1 py-1.5 border rounded border-amarillo font-light leading-tight text-2xs md:text-xs md:px-4 lg:text-sm 2xl:px-6 2xl:py-2',
                                 { 'text-gray-400': !filtros.precioBoleto },
                             ]"
                             id="precioBoleto"
@@ -61,7 +77,7 @@
                             @change="filtrar"
                         >
                             <option value="" disabled selected hidden>
-                                Selecciona un precio
+                                Precio
                             </option>
 
                             <option
@@ -82,22 +98,28 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col space-y-1.5">
-                    <label class="text-sm font-bold" for="comuna">Comuna</label>
+                <div class="flex flex-col md:space-y-1.5">
+                    <label
+                        class="font-bold text-2xs md:text-xs lg:text-sm"
+                        for="comuna"
+                        >Comuna</label
+                    >
 
-                    <div class="flex items-center space-x-2">
+                    <div class="flex items-center md:space-x-2">
                         <input
                             class="
                                 flex-1
-                                px-4
-                                2xl:px-6
                                 py-1.5
-                                2xl:py-2
                                 rounded
                                 border border-amarillo
-                                text-sm
                                 font-light
                                 leading-tight
+                                text-2xs
+                                w-full
+                                px-1.5
+                                md:text-xs md:px-4
+                                lg:text-sm
+                                2xl:px-6 2xl:py-2
                             "
                             type="text"
                             id="comuna"
@@ -128,24 +150,29 @@
                     id="filtrosCasa"
                     class="flex flex-col space-y-3"
                 >
-                    <div class="flex flex-col space-y-1.5">
-                        <label class="text-sm font-bold" for="wc">
+                    <div class="flex flex-col md:space-y-1.5">
+                        <label
+                            class="font-bold text-2xs md:text-xs lg:text-sm"
+                            for="wc"
+                        >
                             Baños (mín.)
                         </label>
 
-                        <div class="flex items-center space-x-2">
+                        <div class="flex items-center md:space-x-2">
                             <input
                                 class="
                                     flex-1
-                                    px-4
-                                    2xl:px-6
                                     py-1.5
-                                    2xl:py-2
                                     rounded
                                     border border-amarillo
-                                    text-sm
                                     font-light
                                     leading-tight
+                                    w-full
+                                    px-1
+                                    text-2xs
+                                    md:text-xs md:px-4
+                                    lg:text-sm
+                                    2xl:px-6 2xl:py-2
                                 "
                                 type="number"
                                 id="wc"
@@ -162,24 +189,29 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col space-y-1.5">
-                        <label class="text-sm font-bold" for="estacionamiento">
+                    <div class="flex flex-col md:space-y-1.5">
+                        <label
+                            class="font-bold text-2xs md:text-xs lg:text-sm"
+                            for="estacionamiento"
+                        >
                             Estacionamientos (mín.)
                         </label>
 
-                        <div class="flex items-center space-x-2">
+                        <div class="flex items-center md:space-x-2">
                             <input
                                 class="
                                     flex-1
-                                    px-4
-                                    2xl:px-6
                                     py-1.5
-                                    2xl:py-2
                                     rounded
                                     border border-amarillo
-                                    text-sm
                                     font-light
                                     leading-tight
+                                    px-1
+                                    w-full
+                                    text-2xs
+                                    md:text-xs md:px-4
+                                    lg:text-sm
+                                    2xl:px-6 2xl:py-2
                                 "
                                 type="number"
                                 id="estacionamiento"
@@ -197,7 +229,10 @@
                     </div>
 
                     <div class="flex flex-col space-y-1.5">
-                        <label class="text-sm font-bold" for="dormitorio">
+                        <label
+                            class="font-bold text-2xs md:text-xs lg:text-sm"
+                            for="dormitorio"
+                        >
                             Dormitorios (mín.)
                         </label>
 
@@ -205,15 +240,17 @@
                             <input
                                 class="
                                     flex-1
-                                    px-4
-                                    2xl:px-6
                                     py-1.5
-                                    2xl:py-2
                                     rounded
                                     border border-amarillo
-                                    text-sm
                                     font-light
                                     leading-tight
+                                    px-1
+                                    w-full
+                                    text-2xs
+                                    md:text-xs md:px-4
+                                    lg:text-sm
+                                    2xl:px-6 2xl:py-2
                                 "
                                 type="number"
                                 id="dormitorio"
@@ -231,7 +268,10 @@
                     </div>
 
                     <div class="flex flex-col space-y-1.5">
-                        <label class="text-sm font-bold" for="piso">
+                        <label
+                            class="font-bold text-2xs md:text-xs lg:text-sm"
+                            for="piso"
+                        >
                             Pisos (mín.)
                         </label>
 
@@ -239,15 +279,17 @@
                             <input
                                 class="
                                     flex-1
-                                    px-4
-                                    2xl:px-6
                                     py-1.5
-                                    2xl:py-2
                                     rounded
                                     border border-amarillo
-                                    text-sm
                                     font-light
                                     leading-tight
+                                    px-1
+                                    w-full
+                                    text-2xs
+                                    md:text-xs md:px-4
+                                    lg:text-sm
+                                    2xl:px-6 2xl:py-2
                                 "
                                 type="number"
                                 id="piso"
@@ -264,9 +306,9 @@
                         </div>
                     </div>
 
-                    <div class="space-x-2">
+                    <div class="md:space-x-2">
                         <input
-                            class="h-4 w-4"
+                            class="h-3 w-3 md:h-4 md:w-4"
                             id="mascotas"
                             type="checkbox"
                             v-model="filtros.mascotas"
@@ -274,16 +316,23 @@
                         />
 
                         <label
-                            class="text-gray-700 text-sm font-bold mb-2"
+                            class="
+                                text-gray-700
+                                font-bold
+                                mb-2
+                                text-2xs
+                                md:text-xs
+                                lg:text-sm
+                            "
                             for="mascotas"
                         >
                             Apto para mascotas
                         </label>
                     </div>
 
-                    <div class="space-x-2">
+                    <div class="md:space-x-2">
                         <input
-                            class="h-4 w-4"
+                            class="h-3 w-3 md:h-4 md:w-4"
                             id="piscina"
                             type="checkbox"
                             v-model="filtros.piscina"
@@ -291,16 +340,23 @@
                         />
 
                         <label
-                            class="text-gray-700 text-sm font-bold mb-2"
+                            class="
+                                text-gray-700
+                                font-bold
+                                mb-2
+                                text-2xs
+                                md:text-xs
+                                lg:text-sm
+                            "
                             for="piscina"
                         >
                             Piscina
                         </label>
                     </div>
 
-                    <div class="space-x-2">
+                    <div class="md:space-x-2">
                         <input
-                            class="h-4 w-4"
+                            class="h-3 w-3 md:h-4 md:w-4"
                             id="edificio"
                             type="checkbox"
                             v-model="filtros.edificio"
@@ -308,7 +364,14 @@
                         />
 
                         <label
-                            class="text-gray-700 text-sm font-bold mb-2"
+                            class="
+                                text-gray-700
+                                font-bold
+                                mb-2
+                                text-2xs
+                                md:text-xs
+                                lg:text-sm
+                            "
                             for="edificio"
                         >
                             Edificio
@@ -320,9 +383,9 @@
                         id="filtrosEdificio"
                         class="flex flex-col space-y-3"
                     >
-                        <div class="space-x-2">
+                        <div class="md:space-x-2">
                             <input
-                                class="h-4 w-4"
+                                class="h-3 w-3 md:h-4 md:w-4"
                                 id="lavanderia"
                                 type="checkbox"
                                 v-model="filtros.lavanderia"
@@ -330,16 +393,23 @@
                             />
 
                             <label
-                                class="text-gray-700 text-sm font-bold mb-2"
+                                class="
+                                    text-gray-700
+                                    font-bold
+                                    mb-2
+                                    text-2xs
+                                    md:text-xs
+                                    lg:text-sm
+                                "
                                 for="lavanderia"
                             >
                                 Lavandería
                             </label>
                         </div>
 
-                        <div class="space-x-2">
+                        <div class="md:space-x-2">
                             <input
-                                class="h-4 w-4"
+                                class="h-3 w-3 md:h-4 md:w-4"
                                 id="eventos"
                                 type="checkbox"
                                 v-model="filtros.eventos"
@@ -347,7 +417,14 @@
                             />
 
                             <label
-                                class="text-gray-700 text-sm font-bold mb-2"
+                                class="
+                                    text-gray-700
+                                    font-bold
+                                    mb-2
+                                    text-2xs
+                                    md:text-xs
+                                    lg:text-sm
+                                "
                                 for="eventos"
                             >
                                 Eventos
@@ -361,24 +438,28 @@
                     id="filtrosWheels"
                     class="flex flex-col space-y-3"
                 >
-                    <div class="flex flex-col space-y-1.5">
-                        <label class="text-sm font-bold" for="marca"
+                    <div class="flex flex-col md:space-y-1.5">
+                        <label
+                            class="font-bold text-2xs md:text-xs lg:text-sm"
+                            for="marca"
                             >Marca</label
                         >
 
-                        <div class="flex items-center space-x-2">
+                        <div class="flex items-center md:space-x-2">
                             <input
                                 class="
                                     flex-1
-                                    px-4
-                                    2xl:px-6
                                     py-1.5
-                                    2xl:py-2
                                     rounded
                                     border border-amarillo
-                                    text-sm
                                     font-light
                                     leading-tight
+                                    px-1
+                                    w-full
+                                    text-2xs
+                                    md:text-xs md:px-4
+                                    lg:text-sm
+                                    2xl:px-6 2xl:py-2
                                 "
                                 type="text"
                                 id="marca"
@@ -395,15 +476,18 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col space-y-1.5">
-                        <label class="text-sm font-bold" for="transmision">
+                    <div class="flex flex-col md:space-y-1.5">
+                        <label
+                            class="font-bold text-2xs md:text-xs lg:text-sm"
+                            for="transmision"
+                        >
                             Transmisión
                         </label>
 
-                        <div class="flex items-center space-x-2">
+                        <div class="flex items-center md:space-x-2">
                             <select
                                 :class="[
-                                    'flex-1 px-4 2xl:px-6 py-1.5 2xl:py-2 border rounded border-amarillo text-sm font-light leading-tight',
+                                    'flex-1 py-1.5 border rounded border-amarillo text-sm font-light leading-tight px-1 w-full text-2xs md:text-xs md:px-4 lg:text-sm 2xl:px-6 2xl:py-2',
                                     { 'text-gray-400': !filtros.transmision },
                                 ]"
                                 id="transmision"
@@ -434,15 +518,18 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col space-y-1.5">
-                        <label class="text-sm font-bold" for="combustible">
+                    <div class="flex flex-col md:space-y-1.5">
+                        <label
+                            class="font-bold text-2xs md:text-xs lg:text-sm"
+                            for="combustible"
+                        >
                             Combustible
                         </label>
 
                         <div class="flex items-center space-x-2">
                             <select
                                 :class="[
-                                    'flex-1 px-4 2xl:px-6 py-1.5 2xl:py-2 border rounded border-amarillo text-sm font-light leading-tight',
+                                    'flex-1 py-1.5 border rounded border-amarillo text-sm font-light leading-tight  px-1 w-full text-2xs md:text-xs md:px-4 lg:text-sm 2xl:px-6 2xl:py-2',
                                     { 'text-gray-400': !filtros.combustible },
                                 ]"
                                 id="combustible"
@@ -473,8 +560,11 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col space-y-1.5">
-                        <label class="text-sm font-bold" for="year">
+                    <div class="flex flex-col md:space-y-1.5">
+                        <label
+                            class="font-bold text-2xs md:text-xs lg:text-sm"
+                            for="year"
+                        >
                             Año (mín.)
                         </label>
 
@@ -482,15 +572,18 @@
                             <input
                                 class="
                                     flex-1
-                                    px-4
-                                    2xl:px-6
                                     py-1.5
-                                    2xl:py-2
                                     rounded
                                     border border-amarillo
                                     text-sm
                                     font-light
                                     leading-tight
+                                    px-1
+                                    w-full
+                                    text-2xs
+                                    md:text-xs md:px-4
+                                    lg:text-sm
+                                    2xl:px-6 2xl:py-2
                                 "
                                 type="number"
                                 id="year"
@@ -507,8 +600,11 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col space-y-1.5">
-                        <label class="text-sm font-bold" for="cilindrada">
+                    <div class="flex flex-col md:space-y-1.5">
+                        <label
+                            class="font-bold text-2xs md:text-xs lg:text-sm"
+                            for="cilindrada"
+                        >
                             Cilindrada (mín.)
                         </label>
 
@@ -516,15 +612,18 @@
                             <input
                                 class="
                                     flex-1
-                                    px-4
-                                    2xl:px-6
                                     py-1.5
-                                    2xl:py-2
                                     rounded
                                     border border-amarillo
                                     text-sm
                                     font-light
                                     leading-tight
+                                    px-1
+                                    w-full
+                                    text-2xs
+                                    md:text-xs md:px-4
+                                    lg:text-sm
+                                    2xl:px-6 2xl:py-2
                                 "
                                 type="number"
                                 id="cilindrada"
@@ -541,9 +640,9 @@
                         </div>
                     </div>
 
-                    <div class="space-x-2">
+                    <div class="md:space-x-2">
                         <input
-                            class="h-4 w-4"
+                            class="h-3 w-3 md:h-4 md:w-4"
                             id="abs"
                             type="checkbox"
                             v-model="filtros.abs"
@@ -551,16 +650,23 @@
                         />
 
                         <label
-                            class="text-gray-700 text-sm font-bold mb-2"
+                            class="
+                                text-gray-700
+                                font-bold
+                                mb-2
+                                text-2xs
+                                md:text-xs
+                                lg:text-sm
+                            "
                             for="abs"
                         >
                             ABS
                         </label>
                     </div>
 
-                    <div class="space-x-2">
+                    <div class="md:space-x-2">
                         <input
-                            class="h-4 w-4"
+                            class="h-3 w-3 md:h-4 md:w-4"
                             id="airbag"
                             type="checkbox"
                             v-model="filtros.airbag"
@@ -568,16 +674,23 @@
                         />
 
                         <label
-                            class="text-gray-700 text-sm font-bold mb-2"
+                            class="
+                                text-gray-700
+                                font-bold
+                                mb-2
+                                text-2xs
+                                md:text-xs
+                                lg:text-sm
+                            "
                             for="airbag"
                         >
                             Airbag
                         </label>
                     </div>
 
-                    <div class="space-x-2">
+                    <div class="md:space-x-2">
                         <input
-                            class="h-4 w-4"
+                            class="h-3 w-3 md:h-4 md:w-4"
                             id="ac"
                             type="checkbox"
                             v-model="filtros.ac"
@@ -585,16 +698,23 @@
                         />
 
                         <label
-                            class="text-gray-700 text-sm font-bold mb-2"
+                            class="
+                                text-gray-700
+                                font-bold
+                                mb-2
+                                text-2xs
+                                md:text-xs
+                                lg:text-sm
+                            "
                             for="ac"
                         >
                             Aire acondicionado
                         </label>
                     </div>
 
-                    <div class="space-x-2">
+                    <div class="md:space-x-2">
                         <input
-                            class="h-4 w-4"
+                            class="h-3 w-3 md:h-4 md:w-4"
                             id="alarma"
                             type="checkbox"
                             v-model="filtros.alarma"
@@ -602,16 +722,23 @@
                         />
 
                         <label
-                            class="text-gray-700 text-sm font-bold mb-2"
+                            class="
+                                text-gray-700
+                                font-bold
+                                mb-2
+                                text-2xs
+                                md:text-xs
+                                lg:text-sm
+                            "
                             for="alarma"
                         >
                             Alarma
                         </label>
                     </div>
 
-                    <div class="space-x-2">
+                    <div class="md:space-x-2">
                         <input
-                            class="h-4 w-4"
+                            class="h-3 w-3 md:h-4 md:w-4"
                             id="vidriosElectricos"
                             type="checkbox"
                             v-model="filtros.vidriosElectricos"
@@ -619,7 +746,14 @@
                         />
 
                         <label
-                            class="text-gray-700 text-sm font-bold mb-2"
+                            class="
+                                text-gray-700
+                                font-bold
+                                mb-2
+                                text-2xs
+                                md:text-xs
+                                lg:text-sm
+                            "
                             for="vidriosElectricos"
                         >
                             Vidrios eléctricos
@@ -629,12 +763,24 @@
             </form>
         </div>
 
-        <div id="contenido" class="py-12 px-6 2xl:px-24 w-3/4 relative">
+        <div
+            id="contenido"
+            class="
+                py-12
+                px-6
+                h-screen
+                lg:h-auto
+                2xl:px-24
+                w-3/4
+                relative
+                overflow-auto
+            "
+        >
             <Cargando v-show="cargando" class="absolute inset-0 z-10" />
 
             <div
                 :class="[
-                    'grid grid-cols-3 gap-4 auto-rows-max',
+                    'grid gap-4 auto-rows-max grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
                     { 'opacity-20 filter blur-sm': cargando },
                 ]"
             >

@@ -11,7 +11,17 @@
         "
         @click.self="$emit('cerrar')"
     >
-        <div class="w-3/4 border-6 border-claro rounded-lg bg-white">
+        <div
+            class="
+                w-11/12
+                h-3/4
+                border-6 border-claro
+                rounded-lg
+                bg-white
+                overflow-auto
+                md:w-3/4 md:h-auto
+            "
+        >
             <div
                 id="cabecera"
                 class="px-8 py-4 flex justify-between items-center"
@@ -38,6 +48,8 @@
                         text-lg
                         font-bold
                         space-y-1
+                        hidden
+                        md:block
                     "
                 >
                     <ul class="space-y-1">
@@ -298,13 +310,249 @@
                 </div>
 
                 <Slideshow
-                    class="w-3/5 aspect-w-5 aspect-h-2"
+                    class="
+                        w-4/5
+                        mx-auto
+                        md:w-3/5
+                        justify-center
+                        md:aspect-w-5 md:aspect-h-2
+                    "
                     :imagenes="item.imagenes"
                 />
             </div>
 
             <div id="pie" class="px-12 py-6">
                 <p>{{ item.descripcion }}</p>
+            </div>
+            <div
+                id="infoMovile"
+                class="
+                    w-full
+                    py-1
+                    lg:py-7
+                    bg-claro
+                    text-lg
+                    font-bold
+                    space-y-1
+                    md:hidden
+                "
+            >
+                <ul class="space-y-1">
+                    <li v-if="item.comuna" class="flex items-center space-x-1">
+                        <CirculoIcon class="px-3 w-12 text-gris" />
+
+                        <p class="text-sm">Sector {{ item.comuna }}</p>
+                    </li>
+                </ul>
+
+                <ul v-if="item.tipo === 'Casa'" class="space-y-1">
+                    <li class="flex items-center space-x-1">
+                        <AreaIcon class="w-12 text-gris" />
+
+                        <div>
+                            <p class="text-sm leading-tight">
+                                {{ item.area }} m<sup>2</sup> total
+                            </p>
+
+                            <p
+                                v-if="item.construido"
+                                class="text-base font-light leading-tight"
+                            >
+                                {{ item.construido }} m<sup>2</sup>
+                                construidos
+                            </p>
+                        </div>
+                    </li>
+
+                    <li
+                        v-if="item.dormitorio"
+                        class="flex items-center space-x-1"
+                    >
+                        <DormitoriosIcon class="w-12 text-gris" />
+
+                        <p class="text-sm">{{ item.dormitorio }} dormitorios</p>
+                    </li>
+
+                    <li v-if="item.wc" class="flex items-center space-x-1">
+                        <TinaIcon class="w-12 text-gris" />
+
+                        <p class="text-sm">{{ item.wc }} baños</p>
+                    </li>
+
+                    <li v-if="item.piso" class="flex items-center space-x-1">
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">{{ item.piso }} pisos</p>
+                    </li>
+
+                    <li
+                        v-if="item.estacionamiento"
+                        class="flex items-center space-x-1"
+                    >
+                        <CocheraIcon class="w-12 text-gris" />
+
+                        <p class="text-sm">Estacionamiento</p>
+                    </li>
+
+                    <li v-if="item.bodega" class="flex items-center space-x-1">
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Bodega</p>
+                    </li>
+
+                    <li
+                        v-if="item.orientacion"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Mirando al {{ item.orientacion }}</p>
+                    </li>
+
+                    <li
+                        v-if="item.gastosComunes"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">
+                            {{ formatPrecio(item.gastosComunes) }} en gastos
+                            comunes
+                        </p>
+                    </li>
+
+                    <li
+                        v-if="item.mascotas"
+                        class="flex items-center space-x-1"
+                    >
+                        <MascotasIcon class="w-12 text-gris" />
+
+                        <p class="text-sm">Mascotas</p>
+                    </li>
+
+                    <li
+                        v-if="item.calefaccion"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Calefacción</p>
+                    </li>
+
+                    <li v-if="item.cocina" class="flex items-center space-x-1">
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Cocina</p>
+                    </li>
+
+                    <li v-if="item.terraza" class="flex items-center space-x-1">
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Terraza</p>
+                    </li>
+
+                    <li v-if="item.balcon" class="flex items-center space-x-1">
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Balcón</p>
+                    </li>
+
+                    <li v-if="item.piscina" class="flex items-center space-x-1">
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Piscina</p>
+                    </li>
+
+                    <li v-if="item.quincho" class="flex items-center space-x-1">
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Quincho</p>
+                    </li>
+
+                    <li
+                        v-if="item.lavanderiaE"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Lavandería</p>
+                    </li>
+
+                    <li
+                        v-if="item.eventosE"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Eventos</p>
+                    </li>
+                </ul>
+
+                <ul v-if="item.tipo === 'Wheels'" class="space-y-1">
+                    <li v-if="item.marca" class="flex items-center space-x-1">
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">{{ item.marca }}</p>
+                    </li>
+
+                    <li
+                        v-if="item.transmision"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">
+                            Transmisión {{ item.transmision }}
+                        </p>
+                    </li>
+
+                    <li
+                        v-if="item.combustible"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">
+                            Combustible {{ item.combustible }}
+                        </p>
+                    </li>
+
+                    <li
+                        v-if="item.categoria"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">{{ item.categoria }}</p>
+                    </li>
+
+                    <li v-if="item.year" class="flex items-center space-x-1">
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Año {{ item.year }}</p>
+                    </li>
+
+                    <li v-if="item.km" class="flex items-center space-x-1">
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">{{ item.km }} km</p>
+                    </li>
+
+                    <li
+                        v-if="item.cilindrada"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Motor {{ item.cilindrada }} cc</p>
+                    </li>
+
+                    <li v-if="item.color" class="flex items-center space-x-1">
+                        <CirculoIcon class="p-4 w-12 text-gris" />
+
+                        <p class="text-sm">Color {{ item.color }}</p>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

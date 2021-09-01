@@ -1,6 +1,6 @@
 <template>
     <div class="border-6 border-claro rounded-lg">
-        <div class="px-2 py-3 flex justify-around items-center">
+        <div class="px-2 py-3 justify-around items-center md:flex">
             <div
                 class="
                     flex
@@ -9,6 +9,9 @@
                     font-bold
                     text-dorado
                     space-x-1
+                    w-full
+                    mx-auto
+                    justify-center
                 "
             >
                 <RelojArenaIcon class="w-6" />

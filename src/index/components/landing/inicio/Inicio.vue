@@ -96,6 +96,11 @@
                     <ManoIcon
                         class="mt-2 text-anaranjado w-24 lg:w-20 2xl:w-36"
                     />
+                    <router-link
+                        to="/buscador"
+                        class="underline text-bold text-2xl pt-5 text-rojo"
+                        >¡Encuentrate con tu suerte!</router-link
+                    >
                 </div>
 
                 <div class="flex-1">
