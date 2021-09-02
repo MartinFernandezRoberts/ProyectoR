@@ -8,7 +8,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const connectDB = require('./config/db');
 const cors = require('cors');
-const history = require('connect-history-api-fallback');
+// const history = require('connect-history-api-fallback');
 /////////mercadopago
 const mercadopago = require('mercadopago');
 

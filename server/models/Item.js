@@ -37,6 +37,11 @@ const schema = new mongoose.Schema({
             type: String,
         },
     ],
+    docs: [
+        {
+            type: String,
+        },
+    ],
     destacado: {
         type: Boolean,
         default: false,
