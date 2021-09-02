@@ -98,7 +98,13 @@
                     />
                     <router-link
                         to="/buscador"
-                        class="underline text-bold text-2xl pt-5 text-rojo"
+                        class="
+                            underline
+                            text-bold text-2xl
+                            pt-5
+                            text-rojo
+                            lg:hidden
+                        "
                         >¡Encuentrate con tu suerte!</router-link
                     >
                 </div>

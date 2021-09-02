@@ -91,4 +91,22 @@ router.post(
     }
 );
 
+//GET USER ITEMS
+router.get('/userItems', ensureAuth, async (req, res) => {
+    try {
+        let user = req.user._id;
+        const items = await Item.find({
+            usuario: user,
+        })
+            .sort('-fecha')
+            .populate('item')
+            .lean();
+
+        res.send(items);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+});
+
 module.exports = router;

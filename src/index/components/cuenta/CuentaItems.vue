@@ -47,7 +47,7 @@ export default {
     },
     mounted() {
         axios
-            .get(this.urlDev('api/items/todo'))
+            .get(this.urlDev('api/items/userItems'))
             .then((res) => {
                 this.items = res.data;
                 this.cargando = false;
