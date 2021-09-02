@@ -34,7 +34,10 @@ module.exports = function (passport) {
                             let isStaff = newUser.email.split('@').pop();
                             console.log(isStaff);
 
-                            if (isStaff === 'brvma.net') {
+                            if (
+                                isStaff === 'brvma.net' ||
+                                isStaff === 'rifasapp.cl'
+                            ) {
                                 newUser.administra = true;
                                 console.log(newUser.administra);
                             }

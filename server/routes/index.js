@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
-router.get('/cuenta', async (req, res) => {
+router.get('/cuenta', ensureAuth, async (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
