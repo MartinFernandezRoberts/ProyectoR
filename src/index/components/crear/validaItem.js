@@ -58,8 +58,8 @@ export const validator = new Validator({
                 mixed()
                     .test(
                         'fileSize',
-                        'Archivo demasiado pesado. Peso máximo: 1 MB.',
-                        (value) => value.size <= 1000 * 1024
+                        'Archivo demasiado pesado. Peso máximo: 3 MB.',
+                        (value) => value.size <= 3000 * 1024
                     )
                     .test(
                         'fileFormat',

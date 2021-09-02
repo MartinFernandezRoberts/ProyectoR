@@ -181,6 +181,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { validator, validaDetalles } from './validaItem';
 
 import MarcadorIcon from '../svg/MarcadorIcon.vue';
@@ -247,6 +248,9 @@ export default {
         }
     },
     methods: {
+        urlDev(path) {
+            return 'http://localhost:3000/' + path;
+        },
         tieneErrores(seccion) {
             return Object.values(this.errores[seccion]).some((valor) => valor);
         },
@@ -294,6 +298,13 @@ export default {
 
                 let formData = new FormData();
 
+                for (const [key, value] of Object.entries(this.form.info)) {
+                    formData.set(`info[${key}]`, value);
+                }
+                for (const [key, value] of Object.entries(this.form.detalles)) {
+                    formData.set(`detalles[${key}]`, value);
+                }
+
                 this.form.imagenes.archivos.forEach((imagen) => {
                     formData.append('imagenes', imagen);
                 });
@@ -304,14 +315,10 @@ export default {
                     formData.append('docs', doc);
                 });
 
-                for (const [key, value] of Object.entries(this.form.info)) {
-                    formData.set(`info[${key}]`, value);
-                }
-                for (const [key, value] of Object.entries(this.form.detalles)) {
-                    formData.set(`detalles[${key}]`, value);
-                }
-
-                console.log('enviar datos para guardar como pendiente');
+                axios
+                    .post(this.urlDev('api/items'), formData)
+                    .then((res) => console.log(res.data))
+                    .catch((err) => console.error(err));
 
                 this.enviando = false;
             } else {

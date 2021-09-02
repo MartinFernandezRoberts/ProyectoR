@@ -17,6 +17,14 @@ router.get('/cuenta', ensureAuth, async (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
+router.get('/crear', async (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+});
+
+router.get('/redirect', async (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+});
+
 router.get('/user', ensureAuth, (req, res) => {
     try {
         res.send({
