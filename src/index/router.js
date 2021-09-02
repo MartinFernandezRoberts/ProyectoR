@@ -6,6 +6,8 @@ import CuentaMain from './components/cuenta/CuentaMain.vue';
 import Landing from './components/landing/Landing.vue';
 import Login from './components/login/Login.vue';
 import Redirect from './components/login/Redirect.vue';
+import Condiciones from './components/politics/Condiciones.vue';
+import Privacidad from './components/politics/Privacidad.vue';
 
 const routes = [
     { path: '/buscador', component: BuscadorMain },
@@ -13,6 +15,9 @@ const routes = [
     { path: '/cuenta', component: CuentaMain },
     { path: '/login', component: Login },
     { path: '/redirect', component: Redirect },
+    { path: '/condiciones', component: Condiciones },
+    { path: '/privacidad', component: Privacidad },
+
     { path: '/', component: Landing },
 ];
 
