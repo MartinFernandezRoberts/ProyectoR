@@ -340,7 +340,7 @@ router.get('/:id', ensureAuth, ensureAdmin, async (req, res) => {
     }
 });
 
-router.get('/:id/:item/:ind', ensureAuth, ensureAdmin, async (req, res) => {
+/* router.get('/:id/:item/:ind', ensureAuth, ensureAdmin, async (req, res) => {
     try {
         let usuario = req.params.id;
         let item = req.params.item;
@@ -353,6 +353,6 @@ router.get('/:id/:item/:ind', ensureAuth, ensureAdmin, async (req, res) => {
     } catch (err) {
         res.status(500).send(err);
     }
-});
+}); */
 
 module.exports = router;
