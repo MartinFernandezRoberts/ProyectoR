@@ -69,47 +69,50 @@
 
                             <div>
                                 <p class="text-sm leading-tight">
-                                    {{ item.area }} m<sup>2</sup> total
+                                    {{ item.item.area }} m<sup>2</sup> total
                                 </p>
 
                                 <p
-                                    v-if="item.construido"
+                                    v-if="item.item.construido"
                                     class="text-base font-light leading-tight"
                                 >
-                                    {{ item.construido }} m<sup>2</sup>
+                                    {{ item.item.construido }} m<sup>2</sup>
                                     construidos
                                 </p>
                             </div>
                         </li>
 
                         <li
-                            v-if="item.dormitorio"
+                            v-if="item.item.dormitorio"
                             class="flex items-center space-x-1"
                         >
                             <DormitoriosIcon class="w-12 text-gris" />
 
                             <p class="text-sm">
-                                {{ item.dormitorio }} dormitorios
+                                {{ item.item.dormitorio }} dormitorios
                             </p>
                         </li>
 
-                        <li v-if="item.wc" class="flex items-center space-x-1">
-                            <TinaIcon class="w-12 text-gris" />
-
-                            <p class="text-sm">{{ item.wc }} baños</p>
-                        </li>
-
                         <li
-                            v-if="item.piso"
+                            v-if="item.item.wc"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <TinaIcon class="w-12 text-gris" />
 
-                            <p class="text-sm">{{ item.piso }} pisos</p>
+                            <p class="text-sm">{{ item.item.wc }} baños</p>
                         </li>
 
                         <li
-                            v-if="item.estacionamiento"
+                            v-if="item.item.piso"
+                            class="flex items-center space-x-1"
+                        >
+                            <CirculoIcon class="px-3 w-12 text-gris" />
+
+                            <p class="text-sm">{{ item.item.piso }} pisos</p>
+                        </li>
+
+                        <li
+                            v-if="item.item.estacionamiento"
                             class="flex items-center space-x-1"
                         >
                             <CocheraIcon class="w-12 text-gris" />
@@ -118,39 +121,39 @@
                         </li>
 
                         <li
-                            v-if="item.bodega"
+                            v-if="item.item.bodega"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">Bodega</p>
                         </li>
 
                         <li
-                            v-if="item.orientacion"
+                            v-if="item.item.orientacion"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">
-                                Mirando al {{ item.orientacion }}
+                                Mirando al {{ item.item.orientacion }}
                             </p>
                         </li>
 
                         <li
-                            v-if="item.gastosComunes"
+                            v-if="item.item.gastosComunes"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">
-                                {{ formatPrecio(item.gastosComunes) }} en gastos
-                                comunes
+                                {{ formatPrecio(item.item.gastosComunes) }} en
+                                gastos comunes
                             </p>
                         </li>
 
                         <li
-                            v-if="item.mascotas"
+                            v-if="item.item.mascotas"
                             class="flex items-center space-x-1"
                         >
                             <MascotasIcon class="w-12 text-gris" />
@@ -159,73 +162,73 @@
                         </li>
 
                         <li
-                            v-if="item.calefaccion"
+                            v-if="item.item.calefaccion"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">Calefacción</p>
                         </li>
 
                         <li
-                            v-if="item.cocina"
+                            v-if="item.item.cocina"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">Cocina</p>
                         </li>
 
                         <li
-                            v-if="item.terraza"
+                            v-if="item.item.terraza"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">Terraza</p>
                         </li>
 
                         <li
-                            v-if="item.balcon"
+                            v-if="item.item.balcon"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">Balcón</p>
                         </li>
 
                         <li
-                            v-if="item.piscina"
+                            v-if="item.item.piscina"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">Piscina</p>
                         </li>
 
                         <li
-                            v-if="item.quincho"
+                            v-if="item.item.quincho"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">Quincho</p>
                         </li>
 
                         <li
-                            v-if="item.lavanderiaE"
+                            v-if="item.item.lavanderiaE"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">Lavandería</p>
                         </li>
 
                         <li
-                            v-if="item.eventosE"
+                            v-if="item.item.eventosE"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">Eventos</p>
                         </li>
@@ -233,78 +236,81 @@
 
                     <ul v-if="item.tipo === 'Wheels'" class="space-y-1">
                         <li
-                            v-if="item.marca"
+                            v-if="item.item.marca"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
-                            <p class="text-sm">{{ item.marca }}</p>
+                            <p class="text-sm">{{ item.item.marca }}</p>
                         </li>
 
                         <li
-                            v-if="item.transmision"
+                            v-if="item.item.transmision"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">
-                                Transmisión {{ item.transmision }}
+                                Transmisión {{ item.item.transmision }}
                             </p>
                         </li>
 
                         <li
-                            v-if="item.combustible"
+                            v-if="item.item.combustible"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">
-                                Combustible {{ item.combustible }}
+                                Combustible {{ item.item.combustible }}
                             </p>
                         </li>
 
                         <li
-                            v-if="item.categoria"
+                            v-if="item.item.categoria"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
-                            <p class="text-sm">{{ item.categoria }}</p>
+                            <p class="text-sm">{{ item.item.categoria }}</p>
                         </li>
 
                         <li
-                            v-if="item.year"
+                            v-if="item.item.year"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
-                            <p class="text-sm">Año {{ item.year }}</p>
-                        </li>
-
-                        <li v-if="item.km" class="flex items-center space-x-1">
-                            <CirculoIcon class="p-4 w-12 text-gris" />
-
-                            <p class="text-sm">{{ item.km }} km</p>
+                            <p class="text-sm">Año {{ item.item.year }}</p>
                         </li>
 
                         <li
-                            v-if="item.cilindrada"
+                            v-if="item.item.km"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
+
+                            <p class="text-sm">{{ item.item.km }} km</p>
+                        </li>
+
+                        <li
+                            v-if="item.item.cilindrada"
+                            class="flex items-center space-x-1"
+                        >
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
                             <p class="text-sm">
-                                Motor {{ item.cilindrada }} cc
+                                Motor {{ item.item.cilindrada }} cc
                             </p>
                         </li>
 
                         <li
-                            v-if="item.color"
+                            v-if="item.item.color"
                             class="flex items-center space-x-1"
                         >
-                            <CirculoIcon class="p-4 w-12 text-gris" />
+                            <CirculoIcon class="px-3 w-12 text-gris" />
 
-                            <p class="text-sm">Color {{ item.color }}</p>
+                            <p class="text-sm">Color {{ item.item.color }}</p>
                         </li>
                     </ul>
                 </div>
@@ -351,42 +357,47 @@
 
                         <div>
                             <p class="text-sm leading-tight">
-                                {{ item.area }} m<sup>2</sup> total
+                                {{ item.item.area }} m<sup>2</sup> total
                             </p>
 
                             <p
-                                v-if="item.construido"
+                                v-if="item.item.construido"
                                 class="text-base font-light leading-tight"
                             >
-                                {{ item.construido }} m<sup>2</sup>
+                                {{ item.item.construido }} m<sup>2</sup>
                                 construidos
                             </p>
                         </div>
                     </li>
 
                     <li
-                        v-if="item.dormitorio"
+                        v-if="item.item.dormitorio"
                         class="flex items-center space-x-1"
                     >
                         <DormitoriosIcon class="w-12 text-gris" />
 
-                        <p class="text-sm">{{ item.dormitorio }} dormitorios</p>
+                        <p class="text-sm">
+                            {{ item.item.dormitorio }} dormitorios
+                        </p>
                     </li>
 
-                    <li v-if="item.wc" class="flex items-center space-x-1">
+                    <li v-if="item.item.wc" class="flex items-center space-x-1">
                         <TinaIcon class="w-12 text-gris" />
 
-                        <p class="text-sm">{{ item.wc }} baños</p>
-                    </li>
-
-                    <li v-if="item.piso" class="flex items-center space-x-1">
-                        <CirculoIcon class="p-4 w-12 text-gris" />
-
-                        <p class="text-sm">{{ item.piso }} pisos</p>
+                        <p class="text-sm">{{ item.item.wc }} baños</p>
                     </li>
 
                     <li
-                        v-if="item.estacionamiento"
+                        v-if="item.item.piso"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="px-3 w-12 text-gris" />
+
+                        <p class="text-sm">{{ item.item.piso }} pisos</p>
+                    </li>
+
+                    <li
+                        v-if="item.item.estacionamiento"
                         class="flex items-center space-x-1"
                     >
                         <CocheraIcon class="w-12 text-gris" />
@@ -394,35 +405,40 @@
                         <p class="text-sm">Estacionamiento</p>
                     </li>
 
-                    <li v-if="item.bodega" class="flex items-center space-x-1">
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                    <li
+                        v-if="item.item.bodega"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
                         <p class="text-sm">Bodega</p>
                     </li>
 
                     <li
-                        v-if="item.orientacion"
+                        v-if="item.item.orientacion"
                         class="flex items-center space-x-1"
                     >
-                        <CirculoIcon class="p-4 w-12 text-gris" />
-
-                        <p class="text-sm">Mirando al {{ item.orientacion }}</p>
-                    </li>
-
-                    <li
-                        v-if="item.gastosComunes"
-                        class="flex items-center space-x-1"
-                    >
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
                         <p class="text-sm">
-                            {{ formatPrecio(item.gastosComunes) }} en gastos
-                            comunes
+                            Mirando al {{ item.item.orientacion }}
                         </p>
                     </li>
 
                     <li
-                        v-if="item.mascotas"
+                        v-if="item.item.gastosComunes"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="px-3 w-12 text-gris" />
+
+                        <p class="text-sm">
+                            {{ formatPrecio(item.item.gastosComunes) }} en
+                            gastos comunes
+                        </p>
+                    </li>
+
+                    <li
+                        v-if="item.item.mascotas"
                         class="flex items-center space-x-1"
                     >
                         <MascotasIcon class="w-12 text-gris" />
@@ -431,126 +447,152 @@
                     </li>
 
                     <li
-                        v-if="item.calefaccion"
+                        v-if="item.item.calefaccion"
                         class="flex items-center space-x-1"
                     >
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
                         <p class="text-sm">Calefacción</p>
                     </li>
 
-                    <li v-if="item.cocina" class="flex items-center space-x-1">
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                    <li
+                        v-if="item.item.cocina"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
                         <p class="text-sm">Cocina</p>
                     </li>
 
-                    <li v-if="item.terraza" class="flex items-center space-x-1">
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                    <li
+                        v-if="item.item.terraza"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
                         <p class="text-sm">Terraza</p>
                     </li>
 
-                    <li v-if="item.balcon" class="flex items-center space-x-1">
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                    <li
+                        v-if="item.item.balcon"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
                         <p class="text-sm">Balcón</p>
                     </li>
 
-                    <li v-if="item.piscina" class="flex items-center space-x-1">
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                    <li
+                        v-if="item.item.piscina"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
                         <p class="text-sm">Piscina</p>
                     </li>
 
-                    <li v-if="item.quincho" class="flex items-center space-x-1">
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                    <li
+                        v-if="item.item.quincho"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
                         <p class="text-sm">Quincho</p>
                     </li>
 
                     <li
-                        v-if="item.lavanderiaE"
+                        v-if="item.item.lavanderiaE"
                         class="flex items-center space-x-1"
                     >
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
                         <p class="text-sm">Lavandería</p>
                     </li>
 
                     <li
-                        v-if="item.eventosE"
+                        v-if="item.item.eventosE"
                         class="flex items-center space-x-1"
                     >
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
                         <p class="text-sm">Eventos</p>
                     </li>
                 </ul>
 
                 <ul v-if="item.tipo === 'Wheels'" class="space-y-1">
-                    <li v-if="item.marca" class="flex items-center space-x-1">
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                    <li
+                        v-if="item.item.marca"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
-                        <p class="text-sm">{{ item.marca }}</p>
+                        <p class="text-sm">{{ item.item.marca }}</p>
                     </li>
 
                     <li
-                        v-if="item.transmision"
+                        v-if="item.item.transmision"
                         class="flex items-center space-x-1"
                     >
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
                         <p class="text-sm">
-                            Transmisión {{ item.transmision }}
+                            Transmisión {{ item.item.transmision }}
                         </p>
                     </li>
 
                     <li
-                        v-if="item.combustible"
+                        v-if="item.item.combustible"
                         class="flex items-center space-x-1"
                     >
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
                         <p class="text-sm">
-                            Combustible {{ item.combustible }}
+                            Combustible {{ item.item.combustible }}
                         </p>
                     </li>
 
                     <li
-                        v-if="item.categoria"
+                        v-if="item.item.categoria"
                         class="flex items-center space-x-1"
                     >
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
-                        <p class="text-sm">{{ item.categoria }}</p>
-                    </li>
-
-                    <li v-if="item.year" class="flex items-center space-x-1">
-                        <CirculoIcon class="p-4 w-12 text-gris" />
-
-                        <p class="text-sm">Año {{ item.year }}</p>
-                    </li>
-
-                    <li v-if="item.km" class="flex items-center space-x-1">
-                        <CirculoIcon class="p-4 w-12 text-gris" />
-
-                        <p class="text-sm">{{ item.km }} km</p>
+                        <p class="text-sm">{{ item.item.categoria }}</p>
                     </li>
 
                     <li
-                        v-if="item.cilindrada"
+                        v-if="item.item.year"
                         class="flex items-center space-x-1"
                     >
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
-                        <p class="text-sm">Motor {{ item.cilindrada }} cc</p>
+                        <p class="text-sm">Año {{ item.item.year }}</p>
                     </li>
 
-                    <li v-if="item.color" class="flex items-center space-x-1">
-                        <CirculoIcon class="p-4 w-12 text-gris" />
+                    <li v-if="item.item.km" class="flex items-center space-x-1">
+                        <CirculoIcon class="px-3 w-12 text-gris" />
 
-                        <p class="text-sm">Color {{ item.color }}</p>
+                        <p class="text-sm">{{ item.item.km }} km</p>
+                    </li>
+
+                    <li
+                        v-if="item.item.cilindrada"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="px-3 w-12 text-gris" />
+
+                        <p class="text-sm">
+                            Motor {{ item.item.cilindrada }} cc
+                        </p>
+                    </li>
+
+                    <li
+                        v-if="item.item.color"
+                        class="flex items-center space-x-1"
+                    >
+                        <CirculoIcon class="px-3 w-12 text-gris" />
+
+                        <p class="text-sm">Color {{ item.item.color }}</p>
                     </li>
                 </ul>
             </div>

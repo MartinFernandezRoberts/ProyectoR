@@ -1,5 +1,14 @@
 <template>
-    <form class="flex flex-col space-y-3">
+    <form
+        class="
+            px-4
+            py-2
+            flex flex-col
+            border-r border-b border-l-2 border-gray-500
+            text-gray-700
+            space-y-2
+        "
+    >
         <div class="flex flex-col space-y-1.5">
             <label class="text-sm font-bold" for="tipo">Categoría</label>
 
@@ -157,7 +166,7 @@
 import axios from 'axios';
 
 export default {
-    name: 'InfoItemForm',
+    name: 'InfoForm',
     props: {
         info: Object,
         errores: Object,

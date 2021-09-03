@@ -31,6 +31,7 @@ router.get('/todo', ensureAuth, ensureAdmin, async (req, res) => {
         const items = await Item.find({})
             .sort('-fecha')
             .populate('item')
+            .populate('usuario')
             .lean();
 
         res.send(items);

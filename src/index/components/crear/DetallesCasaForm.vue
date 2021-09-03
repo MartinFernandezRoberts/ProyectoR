@@ -322,7 +322,7 @@
             </div>
         </div>
 
-        <div id="booleans" class="pt-3 grid gap-3 xl:grid-cols-3">
+        <div id="booleans" class="pt-3 grid gap-3 grid-cols-2 md:grid-cols-3">
             <div>
                 <input
                     class="h-4 w-4"
