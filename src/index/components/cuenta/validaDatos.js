@@ -7,5 +7,5 @@ setLocale(es);
 export default new Validator({
     nombre: string().required(),
     correo: string().required().email(),
-    telefono: string().min(9),
+    // telefono: string().min(9),
 });

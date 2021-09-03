@@ -53,11 +53,13 @@
 
 <script>
 import { mapMutations } from 'vuex';
+
 import BotonMiCuenta from './movil/BotonMiCuenta.vue';
 import LogoRifasapp from './svg/LogoRifasapp.vue';
 import LogoRifasAppMovil from './svg/LogoRifasAppMovil.vue';
 import Nav from './movil/Nav.vue';
 import BotonNav from './movil/BotonNav.vue';
+
 export default {
     name: 'Header',
     components: {

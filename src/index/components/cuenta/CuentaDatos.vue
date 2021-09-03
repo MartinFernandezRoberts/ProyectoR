@@ -50,7 +50,7 @@
 
             <div
                 :class="[
-                    'px-4 2xl:px-6 py-1.5 2xl:py-2 flex bg-white text-sm font-light leading-tight',
+                    'px-4 2xl:px-6 py-1.5 2xl:py-2 flex bg-white text-sm font-light leading-tight rounded-b-lg',
                     {
                         'bg-red-50 ring-1 ring-inset ring-red-400':
                             errores.correo,
@@ -88,7 +88,7 @@
                 >{{ errores.correo }}</small
             >
 
-            <div
+            <!-- <div
                 :class="[
                     'px-4 2xl:px-6 py-1.5 2xl:py-2 flex bg-white text-sm font-light leading-tight',
                     {
@@ -126,9 +126,9 @@
                     text-center text-white
                 "
                 >{{ errores.telefono }}</small
-            >
+            > -->
 
-            <div
+            <!-- <div
                 class="
                     px-4
                     2xl:px-6
@@ -150,9 +150,9 @@
                 >
                     Cambiar
                 </a>
-            </div>
+            </div> -->
 
-            <div class="flex justify-end">
+            <!-- <div class="flex justify-end">
                 <button
                     v-if="!edit"
                     type="button"
@@ -188,7 +188,7 @@
                         Guardar cambios
                     </button>
                 </div>
-            </div>
+            </div> -->
         </form>
 
         <div
@@ -214,21 +214,17 @@
 
 <script>
 // import axios from 'axios';
+import { mapState } from 'vuex';
 import validator from './validaDatos';
 
 export default {
     name: 'CuentaDatos',
     data() {
         return {
-            user: {
-                nombre: '',
-                correo: '',
-                telefono: '',
-            },
             form: {
                 nombre: '',
                 correo: '',
-                telefono: '',
+                // telefono: '',
             },
             edit: false,
             validado: false,
@@ -237,10 +233,8 @@ export default {
             errorServidor: '',
         };
     },
+    computed: mapState(['user']),
     created() {
-        this.user.nombre = 'Sujeto de prueba';
-        this.user.correo = 'sujeto.prueba@rifasapp.cl';
-        this.user.telefono = '+56987654321';
         this.reset();
     },
     methods: {
@@ -248,7 +242,7 @@ export default {
             this.edit = false;
             this.form.nombre = this.user.nombre;
             this.form.correo = this.user.correo;
-            this.form.telefono = this.user.telefono;
+            // this.form.telefono = this.user.telefono;
         },
         async validar(campo, valor) {
             if (this.validado)
