@@ -15,7 +15,7 @@ const imgUp = new ImageUploader('casa');
 // @route GET /staff/api/casa
 
 //GET
-router.get('/', async (req, res) => {
+/* router.get('/', async (req, res) => {
     try {
         console.log('soy el get casa');
         const casas = await Item.find({
@@ -31,9 +31,9 @@ router.get('/', async (req, res) => {
         res.status(500).send(err);
     }
 });
-
+ */
 //GET
-router.get('/todo', async (req, res) => {
+/* router.get('/todo', async (req, res) => {
     try {
         const casas = await Item.find({
             tipo: 'Casa',
@@ -47,14 +47,13 @@ router.get('/todo', async (req, res) => {
         console.error(err);
         res.status(500).send(err);
     }
-});
+}); */
 
 // @desc api/Private page
 // @route POST /panel/api/casa
-router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
+/* router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
     try {
-        console.log(req.body);
-        req.body.user = req.user.id;
+        //console.log(req.body);
         const casa = await Casa.create(req.body.casa);
 
         const rutasImagenes = req.files.map(
@@ -63,7 +62,6 @@ router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
         await Item.create({
             tipo: 'Casa',
             item: casa._id,
-            usuario: req.body.user,
             ...req.body.item,
             imagenes: rutasImagenes,
         });
@@ -73,7 +71,7 @@ router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
         console.error(err);
         res.status(500).send(err);
     }
-});
+}); */
 
 // @desc api/Update
 // @route PUT /panel/api/casa
@@ -82,7 +80,7 @@ router.post(
     imgUp.upload.array('files', 10),
     async (req, res) => {
         try {
-            console.log(req.body);
+            //console.log(req.body);
             let paBorrar = req.body.paBorrar || [];
             if (!Array.isArray(paBorrar)) paBorrar = [paBorrar];
             const item = await Item.findById(req.params.id).exec();
@@ -104,9 +102,9 @@ router.post(
             );
 
             if (paBorrar.length > 0) {
-                console.log(
-                    'no hay pa borrar pero salgo igual y el if no anda'
-                );
+                //console.log(
+                //    'no hay pa borrar pero salgo igual y el if no anda'
+                //);
                 paBorrar.forEach((imagen) => {
                     const rutaImagen = path.join(
                         __dirname,
@@ -116,33 +114,18 @@ router.post(
 
                     fs.unlink(rutaImagen, (err) => {
                         if (err) console.error(err);
-                        console.log(`archivo eliminado: ${imagen}`);
+                        // console.log(`archivo eliminado: ${imagen}`);
                     });
                 });
             }
 
             res.status(201).send('Casa actualizada');
         } catch (err) {
-            console.error(err);
+            //console.error(err);
             res.status(500).send(err);
         }
     }
 );
-
-router.post('/:id/destacar', async (req, res) => {
-    console.log(req.body);
-
-    try {
-        await Item.updateOne(
-            { _id: req.params.id },
-            { destacado: req.body.destacado }
-        );
-        res.status(201).send('Casa actualizada');
-    } catch (err) {
-        console.error(err);
-        res.status(500).send(err);
-    }
-});
 
 //delete
 router.delete('/:id', async (req, res) => {
@@ -155,13 +138,13 @@ router.delete('/:id', async (req, res) => {
 
             fs.unlink(rutaImagen, (err) => {
                 if (err) console.error(err);
-                console.log(`archivo eliminado: ${imagen}`);
+                //console.log(`archivo eliminado: ${imagen}`);
             });
         });
 
         res.status(201).send('Casa eliminada');
     } catch (err) {
-        console.error(err);
+        //console.error(err);
         res.status(500).send(err);
     }
 });

@@ -99,9 +99,4 @@ if (process.env.NODE_ENV === 'development') {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(
-    PORT,
-    console.log(
-        `SERVER DE PANA EN MODO ${process.env.NODE_ENV}, PUERTO: ${PORT}`
-    )
-);
+app.listen(PORT);

@@ -30,7 +30,9 @@ class DocUploader {
                 } else {
                     console.log(file.mimetype);
                     cb(null, false);
-                    return cb(new Error('Only .pdf format allowed!'));
+                    return cb(
+                        new Error('Solo se admiten archivos en formato PDF!')
+                    );
                 }
             },
             preservePath: true,

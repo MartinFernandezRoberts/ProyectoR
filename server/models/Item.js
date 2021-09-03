@@ -23,7 +23,7 @@ const schema = new mongoose.Schema({
     estado: {
         type: String,
         default: 'borrador',
-        enum: ['borrador', 'pendiente', 'publicado', 'bajado'],
+        enum: ['borrador', 'pendiente', 'publicado', 'bajado', 'sorteado'],
     },
     comuna: {
         type: String,
@@ -45,6 +45,9 @@ const schema = new mongoose.Schema({
     destacado: {
         type: Boolean,
         default: false,
+    },
+    fechaSorteo: {
+        type: Date,
     },
 });
 

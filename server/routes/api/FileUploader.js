@@ -37,7 +37,7 @@ class FileUploader {
                 ) {
                     cb(null, true);
                 } else {
-                    console.log(file.mimetype);
+                    //console.log(file.mimetype);
                     cb(null, false);
                     return cb(new Error('Solo se permiten imágenes y pdf'));
                 }

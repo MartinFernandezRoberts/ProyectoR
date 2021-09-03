@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
 
             transport.sendMail(mensaje, (err, info) => {
                 if (err) {
-                    console.log('Error occurred. ' + err.message);
+                    //console.log('Error occurred. ' + err.message);
                     res.status(500).send('Error al enviar el correo');
                 }
 
