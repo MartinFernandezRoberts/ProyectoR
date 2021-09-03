@@ -323,4 +323,35 @@ router.post('/:id/destacar', ensureAuth, ensureAdmin, async (req, res) => {
     }
 });
 
+router.get('/:id', ensureAuth, ensureAdmin, async (req, res) => {
+    try {
+        const items = await Item.find({
+            usuario: req.params.id,
+        })
+            .sort('-fecha')
+            .populate('item')
+            .lean();
+
+        res.send(items);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+});
+
+router.get('/:id/:item/:ind', ensureAuth, ensureAdmin, async (req, res) => {
+    try {
+        let usuario = req.params.id;
+        let item = req.params.item;
+        let ind = req.params.ind;
+
+        const item = await Item.find({ _id: item, usuario: usuario });
+        let doc = item.docs[ind];
+        const rutaDoc = path.join(__dirname, '../../docs/', usuario, '/', doc);
+        res.download(rutaDoc);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
 module.exports = router;
