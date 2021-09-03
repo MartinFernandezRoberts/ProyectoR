@@ -88,6 +88,7 @@ app.use('/api/contacto', require('./routes/api/contacto'));
 app.use('/api/destacados', require('./routes/api/destacados'));
 app.use('/api/items', require('./routes/api/items'));
 app.use('/api/ubicaciones', require('./routes/api/ubicaciones'));
+app.use('/api/ticket', require('./routes/api/ticket'));
 
 //mercadopago
 app.use('/pago', require('./routes/mercadopago/procPago'));
