@@ -290,8 +290,8 @@ export default {
             n += this.curSlide;
 
             if (n < 0) {
-                n = this.images.length - 1;
-            } else if (n == this.images.length) {
+                n = this.previews.length - 1;
+            } else if (n == this.previews.length) {
                 n = 0;
             }
 

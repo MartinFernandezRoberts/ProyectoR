@@ -42,6 +42,8 @@
 
         <div id="contenido" class="py-12 px-6 w-full lg:w-2/3 2xl:px-24">
             <section class="flex flex-col">
+                <Cargando v-show="cargando" class="absolute inset-0 z-10" />
+
                 <div class="mb-6 flex justify-center items-center 2xl:mb-7">
                     <h2 class="font-bold md:text-lg lg:text-2xl 2xl:text-3xl">
                         {{ seccionActual.nombre }}
@@ -57,12 +59,14 @@
                         @update:detalles="actualizarDetalles"
                     />
                     <ImagenesItemForm
+                        v-if="!cargando"
                         v-show="seccionActual.objeto === 'imagenes'"
                         :imagenes="form.imagenes"
                         :errores="errores.imagenes"
                         @update="actualizarInput"
                     />
                     <DetallesItemForm
+                        v-if="!cargando"
                         v-show="seccionActual.objeto === 'detalles'"
                         :tipo="form.info.tipo"
                         :detalles="form.detalles"
@@ -70,10 +74,14 @@
                         @update="actualizarInput"
                     />
                     <DocsItemForm
+                        v-if="!cargando"
                         v-show="seccionActual.objeto === 'docs'"
+                        :id="edit"
+                        :og="ogDocs"
                         :docs="form.docs"
                         :errores="errores.docs"
                         @update="actualizarInput"
+                        @borrarOg="borrarOgDoc"
                     />
                     <BasesItemForm
                         v-show="seccionActual.objeto === 'bases'"
@@ -182,7 +190,9 @@
 
 <script>
 import axios from 'axios';
+import { mapState, mapMutations } from 'vuex';
 import { validator, validaDetalles } from './validaItem';
+import validaBorrador from './validaBorrador';
 
 import MarcadorIcon from '../svg/MarcadorIcon.vue';
 import InfoItemForm from './InfoItemForm.vue';
@@ -201,9 +211,6 @@ export default {
         BasesItemForm,
         MarcadorIcon,
     },
-    props: {
-        edit: String,
-    },
     data() {
         return {
             secciones: [
@@ -221,8 +228,10 @@ export default {
                 },
                 detalles: {},
                 docs: {},
+                borrarDocs: [],
                 bases: {},
             },
+            ogDocs: {},
             errores: {
                 info: {},
                 imagenes: {},
@@ -233,21 +242,61 @@ export default {
             validado: false,
             enviando: false,
             errorServidor: '',
+            cargando: true,
         };
     },
     computed: {
+        ...mapState(['editItem']),
         indexActual() {
             return Object.values(this.secciones).findIndex(
                 (seccion) => seccion.objeto === this.seccionActual.objeto
             );
         },
     },
-    created() {
-        if (this.edit) {
-            // get publicación en progreso.
+    async created() {
+        if (this.editItem) {
+            this.edit = this.editItem;
+            this.setEditItem(false);
+
+            await axios(this.urlDev(`api/items/${this.edit}`))
+                .then((res) => {
+                    const item = res.data;
+
+                    if (item.tipo && item.tipo !== 'Otro') {
+                        this.secciones.splice(2, 0, {
+                            objeto: 'detalles',
+                            nombre: 'Detalles',
+                        });
+                    }
+
+                    this.form = {
+                        info: {
+                            tipo: item.tipo,
+                            titulo: item.titulo,
+                            descripcion: item.descripcion,
+                            comuna: item.comuna,
+                        },
+                        imagenes: {
+                            archivos: item.imagenes,
+                            borrar: [],
+                        },
+                        detalles: item.item,
+                        docs: item.docs,
+                        borrarDocs: [],
+                        bases: {},
+                    };
+
+                    this.ogDocs = { ...item.docs };
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         }
+
+        this.cargando = false;
     },
     methods: {
+        ...mapMutations(['setEditItem']),
         urlDev(path) {
             return 'http://localhost:3000/' + path;
         },
@@ -285,38 +334,87 @@ export default {
                 }
             }
         },
+        borrarOgDoc(campo) {
+            this.form.borrarDocs.push(this.ogDocs[campo]);
+            this.ogDocs[campo] = '';
+        },
+        buildData() {
+            const formData = new FormData();
+
+            for (const [key, value] of Object.entries(this.form.info)) {
+                formData.set(`info[${key}]`, value);
+            }
+            for (const [key, value] of Object.entries(this.form.detalles)) {
+                formData.set(`detalles[${key}]`, value);
+            }
+
+            this.form.imagenes.archivos.forEach((imagen) => {
+                formData.append('imagenes', imagen);
+            });
+            this.form.imagenes.borrar.forEach((imagen) => {
+                formData.append('borrarImg', imagen);
+            });
+            Object.values(this.form.docs).forEach((doc) => {
+                formData.append('docs', doc);
+            });
+            this.form.borrarDocs.forEach((doc) => {
+                formData.append('borrarDocs', doc);
+            });
+
+            return formData;
+        },
         async guardar() {
-            console.log('enviar datos para guardar como borrador');
+            const res = await validaBorrador.validateAll(this.form.info);
+
+            if (res.valid && !this.enviando) {
+                this.enviando = true;
+
+                const formData = this.buildData();
+
+                let url = 'api/items';
+                if (this.edit) url += `/${this.edit}/editar`;
+
+                axios
+                    .post(url, formData)
+                    .then((res) => console.log(res.data))
+                    .catch((err) => console.error(err));
+
+                this.enviando = false;
+            } else {
+                for (const [key, value] of Object.entries(res.errors)) {
+                    const campos = key.split('.');
+
+                    if (campos.length > 1) {
+                        this.errores[campos[0]][campos[1]] = value.substring(
+                            campos[0].length + 1
+                        );
+                    } else {
+                        this.errores[campos[0]] = value;
+                    }
+                }
+
+                console.log('validación fallida');
+            }
+
+            this.validado = true;
         },
         async submit() {
-            console.log(validator.schema);
-
             const res = await validator.validateAll(this.form);
 
             if (res.valid && !this.enviando) {
                 this.enviando = true;
 
-                let formData = new FormData();
+                const formData = this.buildData();
 
-                for (const [key, value] of Object.entries(this.form.info)) {
-                    formData.set(`info[${key}]`, value);
-                }
-                for (const [key, value] of Object.entries(this.form.detalles)) {
-                    formData.set(`detalles[${key}]`, value);
-                }
+                let url = 'api/items';
 
-                this.form.imagenes.archivos.forEach((imagen) => {
-                    formData.append('imagenes', imagen);
-                });
-                this.form.imagenes.borrar.forEach((imagen) => {
-                    formData.append('borrar', imagen);
-                });
-                Object.values(this.form.docs).forEach((doc) => {
-                    formData.append('docs', doc);
-                });
+                if (this.edit) {
+                    formData.set('estado', 'pendiente');
+                    url += `/${this.edit}/editar`;
+                }
 
                 axios
-                    .post(this.urlDev('api/items'), formData)
+                    .post(url, formData)
                     .then((res) => console.log(res.data))
                     .catch((err) => console.error(err));
 

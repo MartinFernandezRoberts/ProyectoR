@@ -8,6 +8,7 @@ export default createStore({
             headerHeight: 80,
             footerHeight: 80,
             user: false,
+            editItem: false,
         };
     },
     plugins: [
@@ -29,6 +30,9 @@ export default createStore({
         },
         setUser(state, payload) {
             state.user = payload;
+        },
+        setEditItem(state, payload) {
+            state.editItem = payload;
         },
     },
 });

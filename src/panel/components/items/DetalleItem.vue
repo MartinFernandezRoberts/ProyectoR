@@ -46,6 +46,30 @@
             <div class="flex-1 p-2 flex flex-col justify-center space-y-1">
                 <section class="flex flex-col">
                     <HeaderAcordeon
+                        seccion="Estado"
+                        :actual="seccionActual === 'Estado'"
+                        :error="false"
+                        @click="toggleSeccion('Estado')"
+                    />
+
+                    <EstadoMenu
+                        v-show="seccionActual === 'Estado'"
+                        class="
+                            px-4
+                            py-2
+                            flex flex-col
+                            border-r border-b border-l-2 border-gray-500
+                            text-gray-700
+                            space-y-2
+                        "
+                        :id="item._id"
+                        :estado="item.estado"
+                        @cargar="$emit('cargar')"
+                    />
+                </section>
+
+                <section class="flex flex-col">
+                    <HeaderAcordeon
                         seccion="Información general"
                         :actual="seccionActual === 'Información general'"
                         :error="tieneErrores('info')"
@@ -131,9 +155,11 @@
                             text-gray-700
                             space-y-2
                         "
+                        :id="item._id"
                         :docs="form.docs"
                         :errores="errores.docs"
                         @update="actualizarInput"
+                        @reset="form.docs = {}"
                     />
                 </section>
             </div>
@@ -159,6 +185,7 @@
 </template>
 
 <script>
+import EstadoMenu from './EstadoMenu.vue';
 import DocsItemForm from '../../../index/components/crear/DocsItemForm.vue';
 import DetallesItemForm from '../../../index/components/crear/DetallesItemForm.vue';
 import ImagenesItemForm from '../../../index/components/crear/ImagenesItemForm.vue';
@@ -178,11 +205,12 @@ export default {
         ImagenesItemForm,
         DetallesItemForm,
         DocsItemForm,
+        EstadoMenu,
     },
     props: {
         item: Object,
     },
-    emits: ['cerrar'],
+    emits: ['cerrar', 'cargar'],
     data() {
         return {
             seccionActual: '',
