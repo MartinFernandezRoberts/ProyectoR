@@ -57,7 +57,12 @@
             />
         </div>
 
-        <DetalleItem v-if="modal" :item="itemActual" @cerrar="modal = false" />
+        <DetalleItem
+            v-if="modal"
+            :item="itemActual"
+            @cerrar="modal = false"
+            @cargar="cargar"
+        />
     </div>
 </template>
 
@@ -95,17 +100,21 @@ export default {
         };
     },
     created() {
-        axios('http://localhost:3000/api/items/todo')
-            .then((res) => {
-                this.items = res.data;
-                this.filtrar(this.seccionActual);
-                this.cargando = false;
-            })
-            .catch((err) => {
-                console.error(err);
-            });
+        this.cargar();
     },
     methods: {
+        cargar() {
+            axios('http://localhost:3000/api/items/todo')
+                .then((res) => {
+                    this.items = res.data;
+                    this.filtrar(this.seccionActual);
+                    this.cargando = false;
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+            this.modal = false;
+        },
         filtrar(seccion) {
             this.filtrado = this.items.filter(
                 (item) => item.estado === seccion

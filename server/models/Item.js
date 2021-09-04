@@ -37,11 +37,9 @@ const schema = new mongoose.Schema({
             type: String,
         },
     ],
-    docs: [
-        {
-            type: String,
-        },
-    ],
+    docs: {
+        test: String,
+    },
     destacado: {
         type: Boolean,
         default: false,
