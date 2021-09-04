@@ -301,7 +301,7 @@ router.post('/:id/cambiarEstado', ensureAuth, ensureAdmin, async (req, res) => {
             { _id: req.params.id },
             { estado: req.body.estado }
         );
-        res.status(201).send('Item actualizado al estado' + estado);
+        res.status(201).send('Item actualizado al estado' + req.body.estado);
     } catch (err) {
         //console.error(err);
         res.status(500).send(err);
