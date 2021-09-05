@@ -7,23 +7,26 @@
             class="
                 flex flex-row
                 w-full
-                text-center text-white
+                text-white
                 font-semibol
                 text-xl
                 items-center
                 relative
             "
         >
-            <div class="flex-col flex w-1/5">
-                <div class="bg-rojo w-1/3 h-7 mx-auto"></div>
-                <h2 class="text-white font-bold mx-auto text-7xl">
+            <div class="flex-col flex w-2/5">
+                <div class="w-20 h-6 mx-auto">
+                    <div class="bg-rojo -ml-5 w-full h-6"></div>
+                </div>
+                <h2 class="text-white text-left font-bold mx-auto text-7xl">
                     Co<br />mo<br />
                     par <br />tici <br />par
                 </h2>
             </div>
             <div
                 class="
-                    flex flex-col
+                    md:flex
+                    flex-col
                     items-baseline
                     w-1/4
                     py-10
@@ -35,6 +38,8 @@
                     shadow-lg
                     border-dorado
                     bg-white
+                    text-justify
+                    hidden
                 "
             >
                 <div
@@ -47,7 +52,7 @@
                         mx-auto
                         bg-white
                         rounded-b-3xl
-                        text-black text-sm
+                        text-black text-opacity-70 text-sm
                     "
                 >
                     Si eres propietaria o propietario de una casa, departamento,
@@ -81,7 +86,8 @@
 
             <div
                 class="
-                    flex flex-col
+                    md:flex
+                    flex-col
                     items-baseline
                     w-1/4
                     py-10
@@ -93,6 +99,7 @@
                     shadow-lg
                     border-dorado
                     bg-white
+                    hidden
                 "
             >
                 <div
@@ -103,9 +110,10 @@
                         h-full
                         justify-center
                         mx-auto
+                        text-justify
                         bg-white
                         rounded-b-3xl
-                        text-black text-sm
+                        text-black text-sm text-opacity-70
                     "
                 >
                     Busca las variadas ofertas disponibles, compra uno o más
@@ -118,6 +126,47 @@
                         flex
                         absolute
                         -bottom-6
+                        p-4
+                        self-center
+                        text-white
+                        bg-anaranjado
+                        border-dorado border-4
+                        rounded-3xl
+                        transition-colors
+                        duration-200
+                        ease-out
+                        shadow-2xl
+                        hover:text-white hover:bg-rojo
+                    "
+                >
+                    <h3>¡Quiero participar!</h3>
+                </router-link>
+            </div>
+            <div class="flex-none text-sm mx-auto md:hidden">
+                <router-link
+                    to="/cuenta"
+                    class="
+                        flex flex-row
+                        p-4
+                        mb-20
+                        self-center
+                        text-white
+                        bg-anaranjado
+                        border-dorado border-4
+                        rounded-3xl
+                        transition-colors
+                        duration-200
+                        ease-out
+                        shadow-2xl
+                        hover:text-white hover:bg-rojo
+                    "
+                >
+                    <h3>¡Quiero publicar!</h3>
+                </router-link>
+                <router-link
+                    to="/buscador"
+                    class="
+                        flex flex-row
                         p-4
                         self-center
                         text-white
