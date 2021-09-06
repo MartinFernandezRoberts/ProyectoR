@@ -37,12 +37,12 @@ export default {
         },
     },
     render() {
-        return h('div', { class: 'flex-1 md:flex' }, [
+        return h('div', { class: 'flex-1 md:flex py-12' }, [
             h(
                 'div',
                 {
                     id: 'sidebar',
-                    class: 'md:w-1/4 pt-12 w-1/2 flex-col flex hidden md:block ml-4',
+                    class: 'md:w-1/4 w-1/2 flex-col flex hidden md:block ml-4',
                 },
                 [
                     h(
@@ -96,7 +96,7 @@ export default {
                     'div',
                     {
                         id: 'sidebar',
-                        class: 'md:w-1/4 pt-12 w-1/2 flex-col flex md:hidden',
+                        class: 'md:w-1/4 w-1/2 flex-col flex md:hidden',
                     },
                     [
                         h(

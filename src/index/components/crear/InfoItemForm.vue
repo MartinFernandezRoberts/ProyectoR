@@ -36,7 +36,7 @@
                     px-4
                     py-1
                     rounded-lg
-                    bg-red-400
+                    bg-rojo
                     text-center text-white
                 "
                 >{{ errores.tipo }}</small
@@ -50,8 +50,7 @@
                 :class="[
                     'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                     {
-                        'bg-red-50 ring-1 ring-inset ring-red-400':
-                            errores.titulo,
+                        'bg-red-50 ring-1 ring-inset ring-rojo': errores.titulo,
                     },
                 ]"
                 type="text"
@@ -68,7 +67,7 @@
                     px-4
                     py-1
                     rounded-lg
-                    bg-red-400
+                    bg-rojo
                     text-center text-white
                 "
                 >{{ errores.titulo }}</small
@@ -84,7 +83,7 @@
                 :class="[
                     'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                     {
-                        'bg-red-50 ring-1 ring-inset ring-red-400':
+                        'bg-red-50 ring-1 ring-inset ring-rojo':
                             errores.descripcion,
                     },
                 ]"
@@ -103,7 +102,7 @@
                     px-4
                     py-1
                     rounded-lg
-                    bg-red-400
+                    bg-rojo
                     text-center text-white
                 "
                 >{{ errores.descripcion }}</small
@@ -117,8 +116,7 @@
                 :class="[
                     'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                     {
-                        'bg-red-50 ring-1 ring-inset ring-red-400':
-                            errores.comuna,
+                        'bg-red-50 ring-1 ring-inset ring-rojo': errores.comuna,
                     },
                 ]"
                 type="text"
@@ -144,7 +142,7 @@
                     px-4
                     py-1
                     rounded-lg
-                    bg-red-400
+                    bg-rojo
                     text-center text-white
                 "
                 >{{ errores.comuna }}</small

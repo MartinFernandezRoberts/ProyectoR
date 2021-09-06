@@ -7,8 +7,7 @@
                 :class="[
                     'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                     {
-                        'bg-red-50 ring-1 ring-inset ring-red-400':
-                            errores.marca,
+                        'bg-red-50 ring-1 ring-inset ring-rojo': errores.marca,
                     },
                 ]"
                 type="text"
@@ -25,7 +24,7 @@
                     px-4
                     py-1
                     rounded-lg
-                    bg-red-400
+                    bg-rojo
                     text-center text-white
                 "
             >
@@ -66,7 +65,7 @@
                     px-4
                     py-1
                     rounded-lg
-                    bg-red-400
+                    bg-rojo
                     text-center text-white
                 "
                 >{{ errores.categoria }}</small
@@ -108,7 +107,7 @@
                     px-4
                     py-1
                     rounded-lg
-                    bg-red-400
+                    bg-rojo
                     text-center text-white
                 "
                 >{{ errores.transmision }}</small
@@ -150,7 +149,7 @@
                     px-4
                     py-1
                     rounded-lg
-                    bg-red-400
+                    bg-rojo
                     text-center text-white
                 "
                 >{{ errores.combustible }}</small
@@ -164,8 +163,7 @@
                 :class="[
                     'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                     {
-                        'bg-red-50 ring-1 ring-inset ring-red-400':
-                            errores.color,
+                        'bg-red-50 ring-1 ring-inset ring-rojo': errores.color,
                     },
                 ]"
                 type="text"
@@ -182,7 +180,7 @@
                     px-4
                     py-1
                     rounded-lg
-                    bg-red-400
+                    bg-rojo
                     text-center text-white
                 "
             >
@@ -198,7 +196,7 @@
                     :class="[
                         'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                         {
-                            'bg-red-50 ring-1 ring-inset ring-red-400':
+                            'bg-red-50 ring-1 ring-inset ring-rojo':
                                 errores.year,
                         },
                     ]"
@@ -216,7 +214,7 @@
                         px-4
                         py-1
                         rounded-lg
-                        bg-red-400
+                        bg-rojo
                         text-center text-white
                     "
                 >
@@ -231,8 +229,7 @@
                     :class="[
                         'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                         {
-                            'bg-red-50 ring-1 ring-inset ring-red-400':
-                                errores.km,
+                            'bg-red-50 ring-1 ring-inset ring-rojo': errores.km,
                         },
                     ]"
                     type="number"
@@ -249,7 +246,7 @@
                         px-4
                         py-1
                         rounded-lg
-                        bg-red-400
+                        bg-rojo
                         text-center text-white
                     "
                 >
@@ -266,7 +263,7 @@
                     :class="[
                         'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                         {
-                            'bg-red-50 ring-1 ring-inset ring-red-400':
+                            'bg-red-50 ring-1 ring-inset ring-rojo':
                                 errores.cilindrada,
                         },
                     ]"
@@ -284,7 +281,7 @@
                         px-4
                         py-1
                         rounded-lg
-                        bg-red-400
+                        bg-rojo
                         text-center text-white
                     "
                 >
@@ -301,7 +298,7 @@
                     :class="[
                         'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                         {
-                            'bg-red-50 ring-1 ring-inset ring-red-400':
+                            'bg-red-50 ring-1 ring-inset ring-rojo':
                                 errores.rendimiento,
                         },
                     ]"
@@ -319,7 +316,7 @@
                         px-4
                         py-1
                         rounded-lg
-                        bg-red-400
+                        bg-rojo
                         text-center text-white
                     "
                 >

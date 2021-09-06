@@ -5,8 +5,8 @@ const path = require('path');
 const { ensureAuth, ensureAdmin } = require('../../middleware/auth');
 const Banner = require('../../models/Banner');
 
-const ImageUploader = require('./ImageUploader');
-const imgUp = new ImageUploader('banners');
+const FileUploader = require('./FileUploader');
+const fileUp = new FileUploader();
 
 const rutaAgenda = path.join(__dirname, '../../jobs/agenda.json');
 const agenda = require(rutaAgenda);
@@ -50,7 +50,7 @@ router.post(
     '/',
     ensureAuth,
     ensureAdmin,
-    imgUp.upload.single('file'),
+    fileUp.upload.single('file'),
     async (req, res) => {
         try {
             console.log(req.body);
@@ -73,7 +73,7 @@ router.post(
     '/:id/editar',
     ensureAuth,
     ensureAdmin,
-    imgUp.upload.single('file'),
+    fileUp.upload.single('file'),
     async (req, res) => {
         try {
             const data = req.body;
