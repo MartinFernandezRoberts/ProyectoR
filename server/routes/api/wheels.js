@@ -8,9 +8,6 @@ const { ensureAuth } = require('../../middleware/auth') */
 const Item = require('../../models/Item');
 const Wheels = require('../../models/Wheels');
 
-const ImageUploader = require('./ImageUploader');
-const imgUp = new ImageUploader('wheel');
-
 // @desc api/Private page
 // @route GET /staff/api/wheel
 
@@ -34,7 +31,7 @@ router.get('/', async (req, res) => {
 
 // @desc api/Private page
 // @route POST /panel/api/wheel
-router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
+/* router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
     try {
         console.log(req.body);
 
@@ -55,11 +52,11 @@ router.post('/', imgUp.upload.array('files', 10), async (req, res) => {
         console.error(err);
         res.status(500).send(err);
     }
-});
+}); */
 
 // @desc api/Update
 // @route PUT /panel/api/wheel
-router.post(
+/* router.post(
     '/:id/editar',
     imgUp.upload.array('files', 10),
     async (req, res) => {
@@ -109,7 +106,7 @@ router.post(
             res.status(500).send(err);
         }
     }
-);
+); */
 
 router.post('/:id/destacar', async (req, res) => {
     console.log(req.body);
