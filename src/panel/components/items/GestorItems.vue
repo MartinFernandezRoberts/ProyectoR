@@ -104,7 +104,7 @@ export default {
     },
     methods: {
         cargar() {
-            axios('http://localhost:3000/api/items/todo')
+            axios('https://rifasapp.cl/api/items/todo')
                 .then((res) => {
                     this.items = res.data;
                     this.filtrar(this.seccionActual);

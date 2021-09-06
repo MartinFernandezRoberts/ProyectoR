@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = `http://localhost:3000/api/casas/`;
+const url = `https://rifasapp.cl/api/casas/`;
 
 class CasaService {
     // Index

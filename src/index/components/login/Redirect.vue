@@ -17,7 +17,7 @@ export default {
     name: 'Redirect',
     components: { Cargando },
     created() {
-        axios('http://localhost:3000/user')
+        axios('https://rifasapp.cl/user')
             .then((res) => {
                 this.setUser(res.data);
                 window.location.href = '/buscador';

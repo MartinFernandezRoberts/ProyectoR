@@ -72,7 +72,7 @@ export default {
         cambiarEstado(estado) {
             axios
                 .post(
-                    `http://localhost:3000/api/items/${this.id}/cambiarEstado`,
+                    `https://rifasapp.cl/api/items/${this.id}/cambiarEstado`,
                     { estado }
                 )
                 .then((res) => {
@@ -85,7 +85,7 @@ export default {
         },
         eliminar() {
             axios
-                .delete(`http://localhost:3000/api/items/${this.id}`)
+                .delete(`https://rifasapp.cl/api/items/${this.id}`)
                 .then((res) => {
                     console.log(res.data);
                     this.$emit('cargar');

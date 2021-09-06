@@ -229,7 +229,7 @@ export default {
     },
     methods: {
         urlDev(path) {
-            return 'http://localhost:3000/' + path;
+            return 'https://rifasapp.cl/' + path;
         },
         drop(event) {
             this.addFiles(event.dataTransfer.files);

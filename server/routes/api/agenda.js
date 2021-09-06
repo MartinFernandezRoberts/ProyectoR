@@ -3,13 +3,14 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const { ensureAuth, ensureAdmin } = require('../../middleware/auth');
 
 const rutaAgenda = path.join(__dirname, '../../jobs/agenda.json');
 const agenda = require(rutaAgenda);
 const rutaBanners = path.join(__dirname, '../../jobs/banners.json');
 const banners = require(rutaBanners);
 
-router.post('/', async (req, res) => {
+router.post('/', ensureAuth, ensureAdmin, async (req, res) => {
     try {
         agenda.push({ ...req.body, _id: uuidv4() });
         await fs.promises.writeFile(rutaAgenda, JSON.stringify(agenda));
@@ -21,7 +22,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', ensureAuth, ensureAdmin, async (req, res) => {
     try {
         const index = agenda.findIndex(
             (evento) => req.params.id === evento._id

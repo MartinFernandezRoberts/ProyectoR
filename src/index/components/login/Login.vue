@@ -98,7 +98,7 @@
 
         <div class="mt-10 flex items-center">
             <span class="mr-4">También puedes</span>
-            <a href="http://localhost:3000/auth/google"><Google /></a>
+            <a href="https://rifasapp.cl/auth/google"><Google /></a>
         </div>
     </section>
 </template>
@@ -137,7 +137,7 @@ export default {
                 this.enviando = true;
 
                 await axios
-                    .post('http://localhost:3000/login', this.form)
+                    .post('https://rifasapp.cl/login', this.form)
                     .then((res) => {
                         console.log(res);
                     })

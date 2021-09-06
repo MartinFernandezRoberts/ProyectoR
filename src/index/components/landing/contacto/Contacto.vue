@@ -205,7 +205,7 @@ export default {
                 this.enviando = true;
 
                 await axios
-                    .post('http://localhost:3000/api/contacto', this.form)
+                    .post('https://rifasapp.cl/api/contacto', this.form)
                     .then((res) => {
                         console.log(res);
                         this.notificacion.exito = true;

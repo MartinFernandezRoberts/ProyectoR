@@ -95,7 +95,7 @@ export default {
     },
     methods: {
         urlDev(path) {
-            return 'http://localhost:3000/' + path;
+            return 'https://rifasapp.cl/' + path;
         },
         async actualizarBanner(data) {
             this.guardando = true;

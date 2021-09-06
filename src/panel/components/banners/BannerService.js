@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = `http://localhost:3000/api/banners/`;
+const url = `https://rifasapp.cl/api/banners/`;
 
 class BannerService {
     // Index

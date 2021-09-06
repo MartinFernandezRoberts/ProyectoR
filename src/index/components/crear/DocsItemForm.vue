@@ -77,7 +77,7 @@ export default {
             console.log(this.og);
         },
         urlDev(path) {
-            return 'http://localhost:3000' + path;
+            return 'https://rifasapp.cl/' + path;
         },
         urlDescarga(ind) {
             return this.urlDev(`/api/items/${this.id}/docs/${ind}`);

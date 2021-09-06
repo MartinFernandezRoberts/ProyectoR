@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = `http://localhost:3000/api/destacados/`;
+const url = `https://rifasapp.cl/api/destacados/`;
 
 class CasaService {
     // Index

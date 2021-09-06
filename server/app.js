@@ -12,8 +12,6 @@ const cors = require('cors');
 /////////mercadopago
 const mercadopago = require('mercadopago');
 
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
-
 // cargar configuración
 dotenv.config({ path: './server/config/config.env' });
 
@@ -50,7 +48,7 @@ app.use(
 mercadopago.configurations.setAccessToken(process.env.MERCADO_TOKEN);
 
 //cors
-app.use(function (req, res, next) {
+/* app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', 'http://localhost:8080'); // update to match the domain you will make the request from
     res.header(
         'Access-Control-Allow-Headers',
@@ -58,7 +56,7 @@ app.use(function (req, res, next) {
         'Access-Control-Allow-Origin'
     );
     next();
-});
+}); */
 
 //passport middleware
 app.use(passport.initialize());

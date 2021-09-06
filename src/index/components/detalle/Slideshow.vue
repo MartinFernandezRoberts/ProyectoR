@@ -73,7 +73,7 @@ export default {
     },
     methods: {
         urlDev(path) {
-            return 'http://localhost:3000/' + path;
+            return 'https://rifasapp.cl/' + path;
         },
         slide(n) {
             n += this.index;

@@ -631,7 +631,7 @@ export default {
     emits: ['cerrar'],
     methods: {
         urlDev(path) {
-            return 'http://localhost:3000/' + path;
+            return 'https://rifasapp.cl/' + path;
         },
         formatPrecio(n) {
             let precio = String(n);

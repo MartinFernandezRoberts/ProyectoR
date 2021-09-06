@@ -876,7 +876,7 @@ export default {
         };
     },
     created() {
-        axios('http://localhost:3000/api/items/todo')
+        axios('https://rifasapp.cl/api/items/todo')
             .then((res) => {
                 this.filtrado = this.items = res.data;
                 this.cargando = false;

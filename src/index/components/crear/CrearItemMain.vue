@@ -298,7 +298,7 @@ export default {
     methods: {
         ...mapMutations(['setEditItem']),
         urlDev(path) {
-            return 'http://localhost:3000/' + path;
+            return 'https://rifasapp.cl/' + path;
         },
         tieneErrores(seccion) {
             return Object.values(this.errores[seccion]).some((valor) => valor);

@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
 });
 
 //GET todo
-router.get('/todo' /* , ensureAuth, ensureAdmin */, async (req, res) => {
+router.get('/todo', ensureAuth, ensureAdmin, async (req, res) => {
     try {
         const items = await Item.find({})
             .sort('-fecha')
@@ -78,7 +78,7 @@ router.get('/user/:user', ensureAuth, ensureAdmin, async (req, res) => {
     }
 });
 
-router.get('/:item/docs/:ind', ensureAuth, async (req, res) => {
+router.get('/:item/docs/:ind', ensureAuth, ensureAdmin, async (req, res) => {
     try {
         const item = await Item.findById(req.params.item).lean();
         const doc = item.docs[req.params.ind];
