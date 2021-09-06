@@ -7,7 +7,7 @@
                 :class="[
                     'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                     {
-                        'bg-red-50 ring-1 ring-inset ring-red-400':
+                        'bg-red-50 ring-1 ring-inset ring-rojo':
                             errores.ubicacion,
                     },
                 ]"
@@ -25,7 +25,7 @@
                     px-4
                     py-1
                     rounded-lg
-                    bg-red-400
+                    bg-rojo
                     text-center text-white
                 "
             >
@@ -68,7 +68,7 @@
                     px-4
                     py-1
                     rounded-lg
-                    bg-red-400
+                    bg-rojo
                     text-center text-white
                 "
                 >{{ errores.orientacion }}</small
@@ -85,7 +85,7 @@
                     :class="[
                         'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                         {
-                            'bg-red-50 ring-1 ring-inset ring-red-400':
+                            'bg-red-50 ring-1 ring-inset ring-rojo':
                                 errores.area,
                         },
                     ]"
@@ -103,7 +103,7 @@
                         px-4
                         py-1
                         rounded-lg
-                        bg-red-400
+                        bg-rojo
                         text-center text-white
                     "
                 >
@@ -120,7 +120,7 @@
                     :class="[
                         'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                         {
-                            'bg-red-50 ring-1 ring-inset ring-red-400':
+                            'bg-red-50 ring-1 ring-inset ring-rojo':
                                 errores.construido,
                         },
                     ]"
@@ -138,7 +138,7 @@
                         px-4
                         py-1
                         rounded-lg
-                        bg-red-400
+                        bg-rojo
                         text-center text-white
                     "
                 >
@@ -153,8 +153,7 @@
                     :class="[
                         'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                         {
-                            'bg-red-50 ring-1 ring-inset ring-red-400':
-                                errores.wc,
+                            'bg-red-50 ring-1 ring-inset ring-rojo': errores.wc,
                         },
                     ]"
                     type="number"
@@ -171,7 +170,7 @@
                         px-4
                         py-1
                         rounded-lg
-                        bg-red-400
+                        bg-rojo
                         text-center text-white
                     "
                 >
@@ -188,7 +187,7 @@
                     :class="[
                         'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                         {
-                            'bg-red-50 ring-1 ring-inset ring-red-400':
+                            'bg-red-50 ring-1 ring-inset ring-rojo':
                                 errores.estacionamiento,
                         },
                     ]"
@@ -208,7 +207,7 @@
                         px-4
                         py-1
                         rounded-lg
-                        bg-red-400
+                        bg-rojo
                         text-center text-white
                     "
                 >
@@ -225,7 +224,7 @@
                     :class="[
                         'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                         {
-                            'bg-red-50 ring-1 ring-inset ring-red-400':
+                            'bg-red-50 ring-1 ring-inset ring-rojo':
                                 errores.dormitorio,
                         },
                     ]"
@@ -243,7 +242,7 @@
                         px-4
                         py-1
                         rounded-lg
-                        bg-red-400
+                        bg-rojo
                         text-center text-white
                     "
                 >
@@ -258,7 +257,7 @@
                     :class="[
                         'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                         {
-                            'bg-red-50 ring-1 ring-inset ring-red-400':
+                            'bg-red-50 ring-1 ring-inset ring-rojo':
                                 errores.piso,
                         },
                     ]"
@@ -276,7 +275,7 @@
                         px-4
                         py-1
                         rounded-lg
-                        bg-red-400
+                        bg-rojo
                         text-center text-white
                     "
                 >
@@ -293,7 +292,7 @@
                     :class="[
                         'px-4 2xl:px-6 py-1.5 2xl:py-2 rounded text-sm font-light leading-tight',
                         {
-                            'bg-red-50 ring-1 ring-inset ring-red-400':
+                            'bg-red-50 ring-1 ring-inset ring-rojo':
                                 errores.gastosComunes,
                         },
                     ]"
@@ -313,7 +312,7 @@
                         px-4
                         py-1
                         rounded-lg
-                        bg-red-400
+                        bg-rojo
                         text-center text-white
                     "
                 >

@@ -8,9 +8,6 @@ const { ensureAuth } = require('../../middleware/auth') */
 const Item = require('../../models/Item');
 const Casa = require('../../models/Casa');
 
-const ImageUploader = require('./ImageUploader');
-const imgUp = new ImageUploader('casa');
-
 // @desc api/Private page
 // @route GET /staff/api/casa
 
@@ -75,7 +72,7 @@ const imgUp = new ImageUploader('casa');
 
 // @desc api/Update
 // @route PUT /panel/api/casa
-router.post(
+/* router.post(
     '/:id/editar',
     imgUp.upload.array('files', 10),
     async (req, res) => {
@@ -125,7 +122,7 @@ router.post(
             res.status(500).send(err);
         }
     }
-);
+); */
 
 //delete
 router.delete('/:id', async (req, res) => {

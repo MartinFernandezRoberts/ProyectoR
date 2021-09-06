@@ -143,6 +143,7 @@ export default {
             formData.set('file', this.imagenBanner);
             formData.set('tituloBanner', this.tituloBanner);
             formData.set('urlBanner', this.urlBanner);
+            formData.set('info[tipo]', 'banners');
 
             this.$emit('guardar', formData);
         },

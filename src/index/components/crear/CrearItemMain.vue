@@ -1,6 +1,6 @@
 <template>
-    <div class="flex-1 md:flex">
-        <div id="sidebar" class="pt-12 md:ml-4 md:w-1/4">
+    <div class="flex-1 md:flex py-12">
+        <div id="sidebar" class="md:ml-4 md:w-1/4">
             <div class="mb-6 flex justify-center items-center 2xl:mb-7">
                 <h1 class="font-bold text-center text-lg md:mr-10 2xl:text-xl">
                     Nueva publicación
@@ -40,7 +40,7 @@
             </nav>
         </div>
 
-        <div id="contenido" class="py-12 px-6 w-full lg:w-2/3 2xl:px-24">
+        <div id="contenido" class="px-6 w-full lg:w-2/3 2xl:px-24">
             <section class="flex flex-col">
                 <Cargando v-show="cargando" class="absolute inset-0 z-10" />
 
@@ -126,22 +126,14 @@
             </section>
 
             <div
-                v-if="errorServidor"
-                class="
-                    mt-2
-                    px-6
-                    py-2
-                    w-1/2
-                    2xl:w-2/5
-                    rounded-lg
-                    text-center text-white
-                    font-thin
-                    cursor-pointer
-                    bg-red-400
-                "
-                @click="errorServidor = ''"
+                v-if="mensajeRes.mensaje"
+                :class="[
+                    'mt-2 px-6 py-2 w-full rounded-lg text-center text-white font-thin cursor-pointer',
+                    mensajeRes.exito ? 'bg-green-400' : 'bg-rojo',
+                ]"
+                @click="mensajeRes.mensaje = ''"
             >
-                {{ errorServidor }}
+                {{ mensajeRes.mensaje }}
             </div>
 
             <div class="pt-6 flex font-bold">
@@ -189,6 +181,7 @@
 </template>
 
 <script>
+import Cargando from '../Cargando.vue';
 import axios from 'axios';
 import { mapState, mapMutations } from 'vuex';
 import { validator, validaDetalles } from './validaItem';
@@ -210,9 +203,11 @@ export default {
         DocsItemForm,
         BasesItemForm,
         MarcadorIcon,
+        Cargando,
     },
     data() {
         return {
+            edit: '',
             secciones: [
                 { objeto: 'info', nombre: 'Información General' },
                 { objeto: 'imagenes', nombre: 'Imágenes' },
@@ -241,7 +236,10 @@ export default {
             },
             validado: false,
             enviando: false,
-            errorServidor: '',
+            mensajeRes: {
+                exito: true,
+                mensaje: '',
+            },
             cargando: true,
         };
     },
@@ -280,8 +278,8 @@ export default {
                             archivos: item.imagenes,
                             borrar: [],
                         },
-                        detalles: item.item,
-                        docs: item.docs,
+                        detalles: item.item || {},
+                        docs: item.docs || {},
                         borrarDocs: [],
                         bases: {},
                     };
@@ -376,8 +374,21 @@ export default {
 
                 axios
                     .post(url, formData)
-                    .then((res) => console.log(res.data))
-                    .catch((err) => console.error(err));
+                    .then(
+                        () =>
+                            (this.mensajeRes = {
+                                exito: true,
+                                mensaje: 'Borrador guardado exitosamente.',
+                            })
+                    )
+                    .catch((err) => {
+                        this.mensajeRes = {
+                            exito: false,
+                            mensaje:
+                                'Error de servidor. Por favor intente más tarde.',
+                        };
+                        console.error(err);
+                    });
 
                 this.enviando = false;
             } else {
@@ -393,7 +404,10 @@ export default {
                     }
                 }
 
-                console.log('validación fallida');
+                this.mensajeRes = {
+                    exito: false,
+                    mensaje: 'Existen campos con errores.',
+                };
             }
 
             this.validado = true;
@@ -415,8 +429,24 @@ export default {
 
                 axios
                     .post(url, formData)
-                    .then((res) => console.log(res.data))
-                    .catch((err) => console.error(err));
+                    .then(() => {
+                        this.mensajeRes = {
+                            exito: true,
+                            mensaje: 'Solicitud enviada exitosamente.',
+                        };
+                        window.setTimeout(
+                            window.location.replace('/cuenta'),
+                            2000
+                        );
+                    })
+                    .catch((err) => {
+                        this.mensajeRes = {
+                            exito: false,
+                            mensaje:
+                                'Error de servidor. Por favor intente más tarde.',
+                        };
+                        console.error(err);
+                    });
 
                 this.enviando = false;
             } else {
@@ -432,7 +462,10 @@ export default {
                     }
                 }
 
-                console.log('validación fallida');
+                this.mensajeRes = {
+                    exito: false,
+                    mensaje: 'Existen campos con errores.',
+                };
             }
 
             this.validado = true;

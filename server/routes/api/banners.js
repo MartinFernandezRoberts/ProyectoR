@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const Banner = require('../../models/Banner');
 
-const ImageUploader = require('./ImageUploader');
-const imgUp = new ImageUploader('banners');
+const FileUploader = require('./FileUploader');
+const fileUp = new FileUploader();
 
 const rutaAgenda = path.join(__dirname, '../../jobs/agenda.json');
 const agenda = require(rutaAgenda);
@@ -45,7 +45,7 @@ router.get('/:ubicacion', async (req, res) => {
 });
 
 // POST
-router.post('/', imgUp.upload.single('file'), async (req, res) => {
+router.post('/', fileUp.upload.single('file'), async (req, res) => {
     try {
         console.log(req.body);
 
@@ -62,7 +62,7 @@ router.post('/', imgUp.upload.single('file'), async (req, res) => {
 });
 
 // POST
-router.post('/:id/editar', imgUp.upload.single('file'), async (req, res) => {
+router.post('/:id/editar', fileUp.upload.single('file'), async (req, res) => {
     try {
         const data = req.body;
         if (req.file) data.imagenBanner = 'img/banners/' + req.file.filename;
