@@ -81,7 +81,7 @@ app.use('/panel', require('./routes/panel'));
 //rutas API
 app.use('/api/agenda', require('./routes/api/agenda'));
 app.use('/api/banners', require('./routes/api/banners'));
-app.use('/api/casas', require('./routes/api/casas'));
+//app.use('/api/casas', require('./routes/api/casas'));
 app.use('/api/contacto', require('./routes/api/contacto'));
 app.use('/api/destacados', require('./routes/api/destacados'));
 app.use('/api/items', require('./routes/api/items'));
