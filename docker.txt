@@ -20,8 +20,7 @@ docker run --detach \
     --name nodejs \
     --restart unless-stopped \
     --volume "$(pwd)":/home/node/app \
-    --volume node_modules:/home/node/app/node_modules \
     --env "VIRTUAL_HOST=rifasapp.cl" \
     --env "VIRTUAL_PORT=3000" \
     --env "LETSENCRYPT_HOST=rifasapp.cl" \
-    matiac/rifasapp
+    matiac/nodejs
