@@ -58,7 +58,7 @@
                     px-4
                     py-1
                     rounded-lg
-                    bg-red-400
+                    bg-rojo
                     text-center text-white
                 "
                 >{{ errores.bases }}</small

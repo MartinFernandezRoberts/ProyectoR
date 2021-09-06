@@ -13,7 +13,7 @@
 
         <small
             v-show="errores.archivos"
-            class="block px-4 py-1 rounded-lg bg-red-400 text-center text-white"
+            class="block px-4 py-1 rounded-lg bg-rojo text-center text-white"
             >{{ errores.archivos }}</small
         >
     </form>
