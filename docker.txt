@@ -17,10 +17,20 @@ docker run --detach \
     nginxproxy/acme-companion
 
 docker run --detach \
-    --name nodejs \
+    --name app \
     --restart unless-stopped \
     --volume "$(pwd)":/home/node/app \
+    --volume node_modules:/home/node/app/node_modules \
     --env "VIRTUAL_HOST=rifasapp.cl" \
     --env "VIRTUAL_PORT=3000" \
     --env "LETSENCRYPT_HOST=rifasapp.cl" \
     matiac/nodejs
+
+docker run --detach \
+    --name app_redirect \
+    --env "VIRTUAL_HOST=www.rifasapp.cl" \
+    --env "LETSENCRYPT_HOST=www.rifasapp.cl" \
+    --env REDIRECT_STATUS_CODE=307 \
+    --env REDIRECT_LOCATION="https://rifasapp.cl" \
+    --env PRESERVE_URL=true \
+    adamkdean/redirect

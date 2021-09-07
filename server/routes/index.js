@@ -14,6 +14,10 @@ router.get('/buscador', async (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
+router.get('/condiciones', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+});
+
 router.get('/cuenta', ensureAuth, async (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
@@ -25,6 +29,10 @@ router.get('/crear', ensureAuth, async (req, res) => {
 router.get('/login', ensureAuth, async (req, res) => {
     // res.sendFile(path.join(__dirname, '..', 'public/index.html'));
     res.redirect('/cuenta');
+});
+
+router.get('/privacidad', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
 router.get('/redirect', async (req, res) => {
