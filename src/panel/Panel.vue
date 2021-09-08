@@ -12,12 +12,14 @@
         "
     >
         <div class="flex items-center">
-            <a class="md:text-xl font-bold" href="/">ProyectoR</a>
+            <a href="/">
+                <IsotipoIcon class="w-12 text-white" />
+            </a>
 
-            <h2 class="text-sm md:text-base">
+            <router-link class="text-sm md:text-base" to="/panel">
                 <span class="text-pink-600 font-bold mx-1"> ></span>Panel de
                 Control
-            </h2>
+            </router-link>
 
             <SandwichIcon
                 class="ml-auto h-4 md:hidden cursor-pointer"
@@ -49,11 +51,12 @@
 </template>
 
 <script>
+import IsotipoIcon from '../index/components/svg/IsotipoIcon.vue';
 import SandwichIcon from '../index/components/svg/SandwichIcon.vue';
 
 export default {
     name: 'Panel',
-    components: { SandwichIcon },
+    components: { SandwichIcon, IsotipoIcon },
     data() {
         return {
             links: ['items', 'banners'],
