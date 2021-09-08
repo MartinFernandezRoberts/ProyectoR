@@ -44,7 +44,16 @@
             <div class="flex flex-col">
                 <Cargando v-show="cargando" class="absolute inset-0 z-10" />
 
-                <div class="mb-6 flex justify-center items-center 2xl:mb-7">
+                <div
+                    class="
+                        hidden
+                        mb-6
+                        justify-center
+                        items-center
+                        md:flex
+                        2xl:mb-7
+                    "
+                >
                     <h2 class="font-bold md:text-lg lg:text-2xl 2xl:text-3xl">
                         {{ seccionActual.nombre }}
                     </h2>
