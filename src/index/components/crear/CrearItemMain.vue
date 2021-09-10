@@ -41,10 +41,19 @@
         </div>
 
         <div id="contenido" class="px-6 w-full lg:w-2/3 2xl:px-24">
-            <section class="flex flex-col">
+            <div class="flex flex-col">
                 <Cargando v-show="cargando" class="absolute inset-0 z-10" />
 
-                <div class="mb-6 flex justify-center items-center 2xl:mb-7">
+                <div
+                    class="
+                        hidden
+                        mb-6
+                        justify-center
+                        items-center
+                        md:flex
+                        2xl:mb-7
+                    "
+                >
                     <h2 class="font-bold md:text-lg lg:text-2xl 2xl:text-3xl">
                         {{ seccionActual.nombre }}
                     </h2>
@@ -89,41 +98,8 @@
                         :errores="errores.bases"
                         @update="actualizarInput"
                     />
-
-                    <div
-                        class="
-                            pt-6
-                            flex
-                            justify-center
-                            text-xs
-                            space-x-2
-                            md:justify-end md:text-base
-                        "
-                    >
-                        <button
-                            type="button"
-                            :class="[
-                                'block mt-4 px-6 py-2 border border-gris rounded-lg bg-white text-gris hover:bg-gris hover:text-white transition-colors duration-200 ease-out md:ml-auto',
-                                { 'animate-loading cursor-wait': enviando },
-                            ]"
-                            @click="guardar"
-                        >
-                            Guardar progreso
-                        </button>
-
-                        <button
-                            type="button"
-                            :class="[
-                                'block mt-4 px-6 py-2 rounded-lg bg-anaranjado text-white hover:bg-rojo transition-colors duration-200 ease-out md:ml-auto',
-                                { 'animate-loading cursor-wait': enviando },
-                            ]"
-                            @click="submit"
-                        >
-                            Solicitar publicación
-                        </button>
-                    </div>
                 </div>
-            </section>
+            </div>
 
             <div
                 v-if="mensajeRes.mensaje"
@@ -134,6 +110,39 @@
                 @click="mensajeRes.mensaje = ''"
             >
                 {{ mensajeRes.mensaje }}
+            </div>
+
+            <div
+                class="
+                    pt-6
+                    flex
+                    justify-center
+                    text-xs
+                    space-x-2
+                    md:justify-end md:text-base
+                "
+            >
+                <button
+                    type="button"
+                    :class="[
+                        'block px-6 py-2 border border-gris rounded-lg bg-white text-gris hover:bg-gris hover:text-white transition-colors duration-200 ease-out md:ml-auto',
+                        { 'animate-loading cursor-wait': enviando },
+                    ]"
+                    @click="guardar"
+                >
+                    Guardar progreso
+                </button>
+
+                <button
+                    type="button"
+                    :class="[
+                        'block px-6 py-2 rounded-lg bg-anaranjado text-white hover:bg-rojo transition-colors duration-200 ease-out md:ml-auto',
+                        { 'animate-loading cursor-wait': enviando },
+                    ]"
+                    @click="submit"
+                >
+                    Solicitar publicación
+                </button>
             </div>
 
             <div class="pt-6 flex font-bold">

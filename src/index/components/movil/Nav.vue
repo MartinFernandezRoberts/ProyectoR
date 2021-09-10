@@ -47,6 +47,12 @@
             <li class="hover:text-rojo transition-colors duration-200 ease-out">
                 <a href="/#contacto">Contacto</a>
             </li>
+
+            <li class="hidden lg:block">|</li>
+
+            <li class="hover:text-rojo transition-colors duration-200 ease-out">
+                <a href="/buscador">Buscar</a>
+            </li>
         </ul>
         <BotonMiCuenta class="lg:hidden absolute bottom-20 right-4" />
     </nav>

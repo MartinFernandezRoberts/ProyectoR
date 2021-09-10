@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import IsotipoBlanco from '../svg/IsotipoBlanco.vue';
+import IsotipoBlanco from '../svg/IsotipoIcon.vue';
 import { mapMutations } from 'vuex';
 
 export default {

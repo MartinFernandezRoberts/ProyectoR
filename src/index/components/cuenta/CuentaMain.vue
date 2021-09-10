@@ -71,22 +71,35 @@ export default {
                             {
                                 class: 'space-y-2 2xl:space-y-3 text-lg 2xl:text-xl font-bold',
                             },
-                            Object.keys(this.views).map((nombre) =>
+                            [
+                                ...Object.keys(this.views).map((nombre) =>
+                                    h(
+                                        'li',
+                                        {
+                                            class: [
+                                                'hover:text-anaranjado transition-colors duration-200 ease-out cursor-pointer',
+                                                {
+                                                    'text-anaranjado':
+                                                        this.view === nombre,
+                                                },
+                                            ],
+                                            onClick: () => (this.view = nombre),
+                                        },
+                                        `Mis ${nombre}`
+                                    )
+                                ),
                                 h(
                                     'li',
-                                    {
-                                        class: [
-                                            'hover:text-anaranjado transition-colors duration-200 ease-out cursor-pointer',
-                                            {
-                                                'text-anaranjado':
-                                                    this.view === nombre,
-                                            },
-                                        ],
-                                        onClick: () => (this.view = nombre),
-                                    },
-                                    `Mis ${nombre}`
-                                )
-                            )
+                                    h(
+                                        'a',
+                                        {
+                                            class: 'hover:text-anaranjado transition-colors duration-200 ease-out cursor-pointer',
+                                            href: '/crear',
+                                        },
+                                        'Crear publicación'
+                                    )
+                                ),
+                            ]
                         )
                     ),
                 ]
