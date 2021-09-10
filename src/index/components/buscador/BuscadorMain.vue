@@ -18,418 +18,116 @@
             </div>
 
             <form id="filtros" class="flex flex-col space-y-3">
-                <div class="flex flex-col md:space-y-1.5">
-                    <label
-                        class="font-bold text-2xs md:text-xs lg:text-sm"
-                        for="tipo"
-                    >
-                        Categoría
-                    </label>
+                <SelectInput
+                    v-model="filtros.tipo"
+                    campo="tipo"
+                    label="Categoría"
+                    :opciones="Object.keys(selects.tipos)"
+                    :textos="Object.values(selects.tipos)"
+                    @reset="reset('tipo')"
+                    @update:modelValue="filtrar"
+                />
 
-                    <div class="flex items-center md:space-x-2">
-                        <select
-                            :class="[
-                                'flex-1 py-1.5 border rounded border-amarillo font-light leading-tight text-2xs md:text-xs md:px-4 lg:text-sm 2xl:px-6 2xl:py-2',
-                                { 'text-gray-400': !filtros.tipo },
-                            ]"
-                            id="tipo"
-                            v-model="filtros.tipo"
-                            @change="filtrar"
-                        >
-                            <option class="" value="" disabled selected hidden>
-                                Categoría
-                            </option>
+                <SelectInput
+                    v-model="filtros.precioBoleto"
+                    campo="precioBoleto"
+                    label="Precio boleto"
+                    :opciones="selects.precios"
+                    :format="formatPrecio"
+                    @reset="reset('precioBoleto')"
+                    @update:modelValue="filtrar"
+                />
 
-                            <option
-                                v-for="(texto, tipo) in selects.tipos"
-                                :key="tipo"
-                                class="text-gris"
-                                :value="tipo"
-                            >
-                                {{ texto }}
-                            </option>
-                        </select>
-
-                        <XIcon
-                            v-show="filtros.tipo"
-                            class="h-5 cursor-pointer text-gray-400"
-                            @click="reset('tipo')"
-                        />
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:space-y-1.5">
-                    <label
-                        class="font-bold text-2xs md:text-xs lg:text-sm"
-                        for="precioBoleto"
-                    >
-                        Precio boleto
-                    </label>
-
-                    <div class="flex items-center md:space-x-2">
-                        <select
-                            :class="[
-                                'flex-1 py-1.5 border rounded border-amarillo font-light leading-tight text-2xs md:text-xs md:px-4 lg:text-sm 2xl:px-6 2xl:py-2',
-                                { 'text-gray-400': !filtros.precioBoleto },
-                            ]"
-                            id="precioBoleto"
-                            v-model="filtros.precioBoleto"
-                            @change="filtrar"
-                        >
-                            <option value="" disabled selected hidden>
-                                Precio
-                            </option>
-
-                            <option
-                                v-for="(precio, i) in selects.precios"
-                                :key="i"
-                                class="text-gris"
-                                :value="String(precio)"
-                            >
-                                {{ formatPrecio(precio) }}
-                            </option>
-                        </select>
-
-                        <XIcon
-                            v-show="filtros.precioBoleto"
-                            class="h-5 cursor-pointer text-gray-400"
-                            @click="reset('precioBoleto')"
-                        />
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:space-y-1.5">
-                    <label
-                        class="font-bold text-2xs md:text-xs lg:text-sm"
-                        for="comuna"
-                        >Comuna</label
-                    >
-
-                    <div class="flex items-center md:space-x-2">
-                        <input
-                            class="
-                                flex-1
-                                py-1.5
-                                rounded
-                                border border-amarillo
-                                font-light
-                                leading-tight
-                                text-2xs
-                                w-full
-                                px-1.5
-                                md:text-xs md:px-4
-                                lg:text-sm
-                                2xl:px-6 2xl:py-2
-                            "
-                            type="text"
-                            id="comuna"
-                            placeholder="Comuna"
-                            list="lista-comuna"
-                            v-model="filtros.comuna"
-                            @input="filtrar"
-                        />
-
-                        <datalist id="lista-comuna">
-                            <option
-                                v-for="(comuna, i) in comunas"
-                                :key="i"
-                                :value="comuna"
-                            />
-                        </datalist>
-
-                        <XIcon
-                            v-show="filtros.comuna"
-                            class="h-5 cursor-pointer text-gray-400"
-                            @click="reset('comuna')"
-                        />
-                    </div>
-                </div>
+                <NormalInput
+                    type="text"
+                    v-model="filtros.comuna"
+                    campo="comuna"
+                    label="Comuna"
+                    :list="selects.comunas"
+                    @reset="reset('comuna')"
+                    @update:modelValue="filtrar"
+                />
 
                 <div
                     v-if="filtros.tipo === 'Casa'"
                     id="filtrosCasa"
                     class="flex flex-col space-y-3"
                 >
-                    <div class="flex flex-col md:space-y-1.5">
-                        <label
-                            class="font-bold text-2xs md:text-xs lg:text-sm"
-                            for="wc"
-                        >
-                            Baños (mín.)
-                        </label>
+                    <NormalInput
+                        type="number"
+                        v-model="filtros.wc"
+                        campo="wc"
+                        label="Baños (mín.)"
+                        @reset="reset('wc')"
+                        @update:modelValue="filtrar"
+                    />
 
-                        <div class="flex items-center md:space-x-2">
-                            <input
-                                class="
-                                    flex-1
-                                    py-1.5
-                                    rounded
-                                    border border-amarillo
-                                    font-light
-                                    leading-tight
-                                    w-full
-                                    px-1
-                                    text-2xs
-                                    md:text-xs md:px-4
-                                    lg:text-sm
-                                    2xl:px-6 2xl:py-2
-                                "
-                                type="number"
-                                id="wc"
-                                placeholder="Baños"
-                                v-model="filtros.wc"
-                                @input="filtrar"
-                            />
+                    <NormalInput
+                        type="number"
+                        v-model="filtros.estacionamiento"
+                        campo="estacionamiento"
+                        label="Estacionamientos (mín.)"
+                        @reset="reset('estacionamiento')"
+                        @update:modelValue="filtrar"
+                    />
 
-                            <XIcon
-                                v-show="filtros.wc"
-                                class="h-5 cursor-pointer text-gray-400"
-                                @click="reset('wc')"
-                            />
-                        </div>
-                    </div>
+                    <NormalInput
+                        type="number"
+                        v-model="filtros.dormitorio"
+                        campo="dormitorio"
+                        label="Dormitorios (mín.)"
+                        @reset="reset('dormitorio')"
+                        @update:modelValue="filtrar"
+                    />
 
-                    <div class="flex flex-col md:space-y-1.5">
-                        <label
-                            class="font-bold text-2xs md:text-xs lg:text-sm"
-                            for="estacionamiento"
-                        >
-                            Estacionamientos (mín.)
-                        </label>
+                    <NormalInput
+                        type="number"
+                        v-model="filtros.piso"
+                        campo="piso"
+                        label="Pisos (mín.)"
+                        @reset="reset('piso')"
+                        @update:modelValue="filtrar"
+                    />
 
-                        <div class="flex items-center md:space-x-2">
-                            <input
-                                class="
-                                    flex-1
-                                    py-1.5
-                                    rounded
-                                    border border-amarillo
-                                    font-light
-                                    leading-tight
-                                    px-1
-                                    w-full
-                                    text-2xs
-                                    md:text-xs md:px-4
-                                    lg:text-sm
-                                    2xl:px-6 2xl:py-2
-                                "
-                                type="number"
-                                id="estacionamiento"
-                                placeholder="Estacionamientos"
-                                v-model="filtros.estacionamiento"
-                                @input="filtrar"
-                            />
+                    <CheckboxInput
+                        v-model="filtros.mascotas"
+                        campo="mascotas"
+                        label="Apto para mascotas"
+                        @update:modelValue="filtrar"
+                    />
 
-                            <XIcon
-                                v-show="filtros.estacionamiento"
-                                class="h-5 cursor-pointer text-gray-400"
-                                @click="reset('estacionamiento')"
-                            />
-                        </div>
-                    </div>
+                    <CheckboxInput
+                        v-model="filtros.piscina"
+                        campo="piscina"
+                        label="Piscina"
+                        @update:modelValue="filtrar"
+                    />
 
-                    <div class="flex flex-col space-y-1.5">
-                        <label
-                            class="font-bold text-2xs md:text-xs lg:text-sm"
-                            for="dormitorio"
-                        >
-                            Dormitorios (mín.)
-                        </label>
-
-                        <div class="flex items-center space-x-2">
-                            <input
-                                class="
-                                    flex-1
-                                    py-1.5
-                                    rounded
-                                    border border-amarillo
-                                    font-light
-                                    leading-tight
-                                    px-1
-                                    w-full
-                                    text-2xs
-                                    md:text-xs md:px-4
-                                    lg:text-sm
-                                    2xl:px-6 2xl:py-2
-                                "
-                                type="number"
-                                id="dormitorio"
-                                placeholder="Dormitorios"
-                                v-model="filtros.dormitorio"
-                                @input="filtrar"
-                            />
-
-                            <XIcon
-                                v-show="filtros.dormitorio"
-                                class="h-5 cursor-pointer text-gray-400"
-                                @click="reset('dormitorio')"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col space-y-1.5">
-                        <label
-                            class="font-bold text-2xs md:text-xs lg:text-sm"
-                            for="piso"
-                        >
-                            Pisos (mín.)
-                        </label>
-
-                        <div class="flex items-center space-x-2">
-                            <input
-                                class="
-                                    flex-1
-                                    py-1.5
-                                    rounded
-                                    border border-amarillo
-                                    font-light
-                                    leading-tight
-                                    px-1
-                                    w-full
-                                    text-2xs
-                                    md:text-xs md:px-4
-                                    lg:text-sm
-                                    2xl:px-6 2xl:py-2
-                                "
-                                type="number"
-                                id="piso"
-                                placeholder="Pisos"
-                                v-model="filtros.piso"
-                                @input="filtrar"
-                            />
-
-                            <XIcon
-                                v-show="filtros.piso"
-                                class="h-5 cursor-pointer text-gray-400"
-                                @click="reset('piso')"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="md:space-x-2">
-                        <input
-                            class="h-3 w-3 md:h-4 md:w-4"
-                            id="mascotas"
-                            type="checkbox"
-                            v-model="filtros.mascotas"
-                            @change="filtrar"
-                        />
-
-                        <label
-                            class="
-                                text-gray-700
-                                font-bold
-                                mb-2
-                                text-2xs
-                                md:text-xs
-                                lg:text-sm
-                            "
-                            for="mascotas"
-                        >
-                            Apto para mascotas
-                        </label>
-                    </div>
-
-                    <div class="md:space-x-2">
-                        <input
-                            class="h-3 w-3 md:h-4 md:w-4"
-                            id="piscina"
-                            type="checkbox"
-                            v-model="filtros.piscina"
-                            @change="filtrar"
-                        />
-
-                        <label
-                            class="
-                                text-gray-700
-                                font-bold
-                                mb-2
-                                text-2xs
-                                md:text-xs
-                                lg:text-sm
-                            "
-                            for="piscina"
-                        >
-                            Piscina
-                        </label>
-                    </div>
-
-                    <div class="md:space-x-2">
-                        <input
-                            class="h-3 w-3 md:h-4 md:w-4"
-                            id="edificio"
-                            type="checkbox"
-                            v-model="filtros.edificio"
-                            @change="filtrar"
-                        />
-
-                        <label
-                            class="
-                                text-gray-700
-                                font-bold
-                                mb-2
-                                text-2xs
-                                md:text-xs
-                                lg:text-sm
-                            "
-                            for="edificio"
-                        >
-                            Edificio
-                        </label>
-                    </div>
+                    <CheckboxInput
+                        v-model="filtros.edificio"
+                        campo="edificio"
+                        label="Edificio"
+                        @update:modelValue="filtrar"
+                    />
 
                     <div
                         v-if="filtros.edificio"
                         id="filtrosEdificio"
                         class="flex flex-col space-y-3"
                     >
-                        <div class="md:space-x-2">
-                            <input
-                                class="h-3 w-3 md:h-4 md:w-4"
-                                id="lavanderia"
-                                type="checkbox"
-                                v-model="filtros.lavanderia"
-                                @change="filtrar"
-                            />
+                        <CheckboxInput
+                            v-model="filtros.lavanderia"
+                            campo="lavanderia"
+                            label="Lavandería"
+                            @update:modelValue="filtrar"
+                        />
 
-                            <label
-                                class="
-                                    text-gray-700
-                                    font-bold
-                                    mb-2
-                                    text-2xs
-                                    md:text-xs
-                                    lg:text-sm
-                                "
-                                for="lavanderia"
-                            >
-                                Lavandería
-                            </label>
-                        </div>
-
-                        <div class="md:space-x-2">
-                            <input
-                                class="h-3 w-3 md:h-4 md:w-4"
-                                id="eventos"
-                                type="checkbox"
-                                v-model="filtros.eventos"
-                                @change="filtrar"
-                            />
-
-                            <label
-                                class="
-                                    text-gray-700
-                                    font-bold
-                                    mb-2
-                                    text-2xs
-                                    md:text-xs
-                                    lg:text-sm
-                                "
-                                for="eventos"
-                            >
-                                Eventos
-                            </label>
-                        </div>
+                        <CheckboxInput
+                            v-model="filtros.eventos"
+                            campo="eventos"
+                            label="Eventos"
+                            @update:modelValue="filtrar"
+                        />
                     </div>
                 </div>
 
@@ -438,327 +136,85 @@
                     id="filtrosWheels"
                     class="flex flex-col space-y-3"
                 >
-                    <div class="flex flex-col md:space-y-1.5">
-                        <label
-                            class="font-bold text-2xs md:text-xs lg:text-sm"
-                            for="marca"
-                            >Marca</label
-                        >
+                    <NormalInput
+                        type="text"
+                        v-model="filtros.marca"
+                        campo="marca"
+                        label="Marca"
+                        @reset="reset('marca')"
+                        @update:modelValue="filtrar"
+                    />
 
-                        <div class="flex items-center md:space-x-2">
-                            <input
-                                class="
-                                    flex-1
-                                    py-1.5
-                                    rounded
-                                    border border-amarillo
-                                    font-light
-                                    leading-tight
-                                    px-1
-                                    w-full
-                                    text-2xs
-                                    md:text-xs md:px-4
-                                    lg:text-sm
-                                    2xl:px-6 2xl:py-2
-                                "
-                                type="text"
-                                id="marca"
-                                placeholder="Marca"
-                                v-model="filtros.marca"
-                                @input="filtrar"
-                            />
+                    <SelectInput
+                        v-model="filtros.transmision"
+                        campo="transmision"
+                        label="Transmisión"
+                        :opciones="selects.transmisiones"
+                        @reset="reset('transmision')"
+                        @update:modelValue="filtrar"
+                    />
 
-                            <XIcon
-                                v-show="filtros.marca"
-                                class="h-5 cursor-pointer text-gray-400"
-                                @click="reset('marca')"
-                            />
-                        </div>
-                    </div>
+                    <SelectInput
+                        v-model="filtros.combustible"
+                        campo="combustible"
+                        label="Combustible"
+                        :opciones="selects.combustiblees"
+                        @reset="reset('combustible')"
+                        @update:modelValue="filtrar"
+                    />
 
-                    <div class="flex flex-col md:space-y-1.5">
-                        <label
-                            class="font-bold text-2xs md:text-xs lg:text-sm"
-                            for="transmision"
-                        >
-                            Transmisión
-                        </label>
+                    <NormalInput
+                        type="number"
+                        v-model="filtros.year"
+                        campo="year"
+                        label="Año (mín.)"
+                        @reset="reset('year')"
+                        @update:modelValue="filtrar"
+                    />
 
-                        <div class="flex items-center md:space-x-2">
-                            <select
-                                :class="[
-                                    'flex-1 py-1.5 border rounded border-amarillo text-sm font-light leading-tight px-1 w-full text-2xs md:text-xs md:px-4 lg:text-sm 2xl:px-6 2xl:py-2',
-                                    { 'text-gray-400': !filtros.transmision },
-                                ]"
-                                id="transmision"
-                                v-model="filtros.transmision"
-                                @change="filtrar"
-                            >
-                                <option value="" disabled selected hidden>
-                                    Selecciona una transmisión
-                                </option>
+                    <NormalInput
+                        type="number"
+                        v-model="filtros.cilindrada"
+                        campo="cilindrada"
+                        label="Cilindrada (mín.)"
+                        @reset="reset('cilindrada')"
+                        @update:modelValue="filtrar"
+                    />
 
-                                <option
-                                    v-for="(
-                                        transmision, i
-                                    ) in selects.transmisiones"
-                                    :key="i"
-                                    class="text-gris"
-                                    :value="transmision"
-                                >
-                                    {{ transmision }}
-                                </option>
-                            </select>
+                    <CheckboxInput
+                        v-model="filtros.abs"
+                        campo="abs"
+                        label="ABS"
+                        @update:modelValue="filtrar"
+                    />
 
-                            <XIcon
-                                v-show="filtros.transmision"
-                                class="h-5 cursor-pointer text-gray-400"
-                                @click="reset('transmision')"
-                            />
-                        </div>
-                    </div>
+                    <CheckboxInput
+                        v-model="filtros.airbag"
+                        campo="airbag"
+                        label="Airbag"
+                        @update:modelValue="filtrar"
+                    />
 
-                    <div class="flex flex-col md:space-y-1.5">
-                        <label
-                            class="font-bold text-2xs md:text-xs lg:text-sm"
-                            for="combustible"
-                        >
-                            Combustible
-                        </label>
+                    <CheckboxInput
+                        v-model="filtros.ac"
+                        campo="ac"
+                        label="Aire acondicionado"
+                        @update:modelValue="filtrar"
+                    />
 
-                        <div class="flex items-center space-x-2">
-                            <select
-                                :class="[
-                                    'flex-1 py-1.5 border rounded border-amarillo text-sm font-light leading-tight  px-1 w-full text-2xs md:text-xs md:px-4 lg:text-sm 2xl:px-6 2xl:py-2',
-                                    { 'text-gray-400': !filtros.combustible },
-                                ]"
-                                id="combustible"
-                                v-model="filtros.combustible"
-                                @change="filtrar"
-                            >
-                                <option value="" disabled selected hidden>
-                                    Selecciona un combustible
-                                </option>
+                    <CheckboxInput
+                        v-model="filtros.alarma"
+                        campo="alarma"
+                        label="Alarma"
+                        @update:modelValue="filtrar"
+                    />
 
-                                <option
-                                    v-for="(
-                                        combustible, i
-                                    ) in selects.combustibles"
-                                    :key="i"
-                                    class="text-gris"
-                                    :value="combustible"
-                                >
-                                    {{ combustible }}
-                                </option>
-                            </select>
-
-                            <XIcon
-                                v-show="filtros.combustible"
-                                class="h-5 cursor-pointer text-gray-400"
-                                @click="reset('combustible')"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col md:space-y-1.5">
-                        <label
-                            class="font-bold text-2xs md:text-xs lg:text-sm"
-                            for="year"
-                        >
-                            Año (mín.)
-                        </label>
-
-                        <div class="flex items-center space-x-2">
-                            <input
-                                class="
-                                    flex-1
-                                    py-1.5
-                                    rounded
-                                    border border-amarillo
-                                    text-sm
-                                    font-light
-                                    leading-tight
-                                    px-1
-                                    w-full
-                                    text-2xs
-                                    md:text-xs md:px-4
-                                    lg:text-sm
-                                    2xl:px-6 2xl:py-2
-                                "
-                                type="number"
-                                id="year"
-                                placeholder="Año"
-                                v-model="filtros.year"
-                                @input="filtrar"
-                            />
-
-                            <XIcon
-                                v-show="filtros.year"
-                                class="h-5 cursor-pointer text-gray-400"
-                                @click="reset('year')"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col md:space-y-1.5">
-                        <label
-                            class="font-bold text-2xs md:text-xs lg:text-sm"
-                            for="cilindrada"
-                        >
-                            Cilindrada (mín.)
-                        </label>
-
-                        <div class="flex items-center space-x-2">
-                            <input
-                                class="
-                                    flex-1
-                                    py-1.5
-                                    rounded
-                                    border border-amarillo
-                                    text-sm
-                                    font-light
-                                    leading-tight
-                                    px-1
-                                    w-full
-                                    text-2xs
-                                    md:text-xs md:px-4
-                                    lg:text-sm
-                                    2xl:px-6 2xl:py-2
-                                "
-                                type="number"
-                                id="cilindrada"
-                                placeholder="Cilindrada"
-                                v-model="filtros.cilindrada"
-                                @input="filtrar"
-                            />
-
-                            <XIcon
-                                v-show="filtros.cilindrada"
-                                class="h-5 cursor-pointer text-gray-400"
-                                @click="reset('cilindrada')"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="md:space-x-2">
-                        <input
-                            class="h-3 w-3 md:h-4 md:w-4"
-                            id="abs"
-                            type="checkbox"
-                            v-model="filtros.abs"
-                            @change="filtrar"
-                        />
-
-                        <label
-                            class="
-                                text-gray-700
-                                font-bold
-                                mb-2
-                                text-2xs
-                                md:text-xs
-                                lg:text-sm
-                            "
-                            for="abs"
-                        >
-                            ABS
-                        </label>
-                    </div>
-
-                    <div class="md:space-x-2">
-                        <input
-                            class="h-3 w-3 md:h-4 md:w-4"
-                            id="airbag"
-                            type="checkbox"
-                            v-model="filtros.airbag"
-                            @change="filtrar"
-                        />
-
-                        <label
-                            class="
-                                text-gray-700
-                                font-bold
-                                mb-2
-                                text-2xs
-                                md:text-xs
-                                lg:text-sm
-                            "
-                            for="airbag"
-                        >
-                            Airbag
-                        </label>
-                    </div>
-
-                    <div class="md:space-x-2">
-                        <input
-                            class="h-3 w-3 md:h-4 md:w-4"
-                            id="ac"
-                            type="checkbox"
-                            v-model="filtros.ac"
-                            @change="filtrar"
-                        />
-
-                        <label
-                            class="
-                                text-gray-700
-                                font-bold
-                                mb-2
-                                text-2xs
-                                md:text-xs
-                                lg:text-sm
-                            "
-                            for="ac"
-                        >
-                            Aire acondicionado
-                        </label>
-                    </div>
-
-                    <div class="md:space-x-2">
-                        <input
-                            class="h-3 w-3 md:h-4 md:w-4"
-                            id="alarma"
-                            type="checkbox"
-                            v-model="filtros.alarma"
-                            @change="filtrar"
-                        />
-
-                        <label
-                            class="
-                                text-gray-700
-                                font-bold
-                                mb-2
-                                text-2xs
-                                md:text-xs
-                                lg:text-sm
-                            "
-                            for="alarma"
-                        >
-                            Alarma
-                        </label>
-                    </div>
-
-                    <div class="md:space-x-2">
-                        <input
-                            class="h-3 w-3 md:h-4 md:w-4"
-                            id="vidriosElectricos"
-                            type="checkbox"
-                            v-model="filtros.vidriosElectricos"
-                            @change="filtrar"
-                        />
-
-                        <label
-                            class="
-                                text-gray-700
-                                font-bold
-                                mb-2
-                                text-2xs
-                                md:text-xs
-                                lg:text-sm
-                            "
-                            for="vidriosElectricos"
-                        >
-                            Vidrios eléctricos
-                        </label>
-                    </div>
+                    <CheckboxInput
+                        v-model="filtros.vidriosElectricos"
+                        campo="vidriosElectricos"
+                        label="Vidrios eléctricos"
+                        @update:modelValue="filtrar"
+                    />
                 </div>
             </form>
         </div>
@@ -808,16 +264,25 @@
 </template>
 
 <script>
-import XIcon from '../svg/XIcon.vue';
 import axios from 'axios';
 
+import SelectInput from './SelectInput.vue';
+import NormalInput from './NormalInput.vue';
+import CheckboxInput from './CheckboxInput.vue';
 import DetalleItem from '../detalle/DetalleItem.vue';
 import Cargando from '../Cargando.vue';
 import MiniItem from './MiniItem.vue';
 
 export default {
     name: 'BuscadorMain',
-    components: { MiniItem, Cargando, XIcon, DetalleItem },
+    components: {
+        MiniItem,
+        Cargando,
+        DetalleItem,
+        SelectInput,
+        NormalInput,
+        CheckboxInput,
+    },
     data() {
         return {
             items: [],
@@ -884,7 +349,8 @@ export default {
             .catch((err) => console.error(err));
 
         axios('https://apis.digital.gob.cl/dpa/comunas').then(
-            (res) => (this.comunas = res.data.map((comuna) => comuna.nombre))
+            (res) =>
+                (this.selects.comunas = res.data.map((comuna) => comuna.nombre))
         );
 
         setInterval(() => {
