@@ -49,7 +49,7 @@ export default {
     components: { XIcon },
     props: {
         type: String,
-        modelValue: String,
+        modelValue: [String, Number],
         campo: String,
         label: String,
         list: {

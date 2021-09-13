@@ -19,111 +19,111 @@
 
             <form id="filtros" class="flex flex-col space-y-3">
                 <SelectInput
-                    v-model="filtros.tipo"
+                    v-model="filtros.info.tipo"
                     campo="tipo"
                     label="Categoría"
                     :opciones="Object.keys(selects.tipos)"
                     :textos="Object.values(selects.tipos)"
-                    @reset="reset('tipo')"
+                    @reset="reset('info', 'tipo')"
                     @update:modelValue="filtrar"
                 />
 
                 <SelectInput
-                    v-model="filtros.precioBoleto"
+                    v-model="filtros.info.precioBoleto"
                     campo="precioBoleto"
                     label="Precio boleto"
                     :opciones="selects.precios"
                     :format="formatPrecio"
-                    @reset="reset('precioBoleto')"
+                    @reset="reset('info', 'precioBoleto')"
                     @update:modelValue="filtrar"
                 />
 
                 <NormalInput
                     type="text"
-                    v-model="filtros.comuna"
+                    v-model="filtros.info.comuna"
                     campo="comuna"
                     label="Comuna"
                     :list="selects.comunas"
-                    @reset="reset('comuna')"
+                    @reset="reset('info', 'comuna')"
                     @update:modelValue="filtrar"
                 />
 
                 <div
-                    v-if="filtros.tipo === 'Casa'"
+                    v-if="filtros.info.tipo === 'Casa'"
                     id="filtrosCasa"
                     class="flex flex-col space-y-3"
                 >
                     <NormalInput
                         type="number"
-                        v-model="filtros.wc"
+                        v-model.number="filtros.casa.wc"
                         campo="wc"
                         label="Baños (mín.)"
-                        @reset="reset('wc')"
+                        @reset="reset('casa', 'wc')"
                         @update:modelValue="filtrar"
                     />
 
                     <NormalInput
                         type="number"
-                        v-model="filtros.estacionamiento"
+                        v-model.number="filtros.casa.estacionamiento"
                         campo="estacionamiento"
                         label="Estacionamientos (mín.)"
-                        @reset="reset('estacionamiento')"
+                        @reset="reset('casa', 'estacionamiento')"
                         @update:modelValue="filtrar"
                     />
 
                     <NormalInput
                         type="number"
-                        v-model="filtros.dormitorio"
+                        v-model.number="filtros.casa.dormitorio"
                         campo="dormitorio"
                         label="Dormitorios (mín.)"
-                        @reset="reset('dormitorio')"
+                        @reset="reset('casa', 'dormitorio')"
                         @update:modelValue="filtrar"
                     />
 
                     <NormalInput
                         type="number"
-                        v-model="filtros.piso"
+                        v-model.number="filtros.casa.piso"
                         campo="piso"
                         label="Pisos (mín.)"
-                        @reset="reset('piso')"
+                        @reset="reset('casa', 'piso')"
                         @update:modelValue="filtrar"
                     />
 
                     <CheckboxInput
-                        v-model="filtros.mascotas"
+                        v-model="filtros.casa.mascotas"
                         campo="mascotas"
                         label="Apto para mascotas"
                         @update:modelValue="filtrar"
                     />
 
                     <CheckboxInput
-                        v-model="filtros.piscina"
+                        v-model="filtros.casa.piscina"
                         campo="piscina"
                         label="Piscina"
                         @update:modelValue="filtrar"
                     />
 
                     <CheckboxInput
-                        v-model="filtros.edificio"
+                        v-model="filtros.casa.edificio"
                         campo="edificio"
                         label="Edificio"
                         @update:modelValue="filtrar"
                     />
 
                     <div
-                        v-if="filtros.edificio"
+                        v-if="filtros.casa.edificio"
                         id="filtrosEdificio"
                         class="flex flex-col space-y-3"
                     >
                         <CheckboxInput
-                            v-model="filtros.lavanderia"
+                            v-model="filtros.casa.lavanderia"
                             campo="lavanderia"
                             label="Lavandería"
                             @update:modelValue="filtrar"
                         />
 
                         <CheckboxInput
-                            v-model="filtros.eventos"
+                            v-model="filtros.casa.eventos"
                             campo="eventos"
                             label="Eventos"
                             @update:modelValue="filtrar"
@@ -132,85 +132,85 @@
                 </div>
 
                 <div
-                    v-if="filtros.tipo === 'Wheels'"
+                    v-if="filtros.info.tipo === 'Wheels'"
                     id="filtrosWheels"
                     class="flex flex-col space-y-3"
                 >
                     <NormalInput
                         type="text"
-                        v-model="filtros.marca"
+                        v-model="filtros.wheels.marca"
                         campo="marca"
                         label="Marca"
-                        @reset="reset('marca')"
+                        @reset="reset('wheels', 'marca')"
                         @update:modelValue="filtrar"
                     />
 
                     <SelectInput
-                        v-model="filtros.transmision"
+                        v-model="filtros.wheels.transmision"
                         campo="transmision"
                         label="Transmisión"
                         :opciones="selects.transmisiones"
-                        @reset="reset('transmision')"
+                        @reset="reset('wheels', 'transmision')"
                         @update:modelValue="filtrar"
                     />
 
                     <SelectInput
-                        v-model="filtros.combustible"
+                        v-model="filtros.wheels.combustible"
                         campo="combustible"
                         label="Combustible"
-                        :opciones="selects.combustiblees"
-                        @reset="reset('combustible')"
+                        :opciones="selects.combustibles"
+                        @reset="reset('wheels', 'combustible')"
                         @update:modelValue="filtrar"
                     />
 
                     <NormalInput
                         type="number"
-                        v-model="filtros.year"
+                        v-model.number="filtros.wheels.year"
                         campo="year"
                         label="Año (mín.)"
-                        @reset="reset('year')"
+                        @reset="reset('wheels', 'year')"
                         @update:modelValue="filtrar"
                     />
 
                     <NormalInput
                         type="number"
-                        v-model="filtros.cilindrada"
+                        v-model.number="filtros.wheels.cilindrada"
                         campo="cilindrada"
                         label="Cilindrada (mín.)"
-                        @reset="reset('cilindrada')"
+                        @reset="reset('wheels', 'cilindrada')"
                         @update:modelValue="filtrar"
                     />
 
                     <CheckboxInput
-                        v-model="filtros.abs"
+                        v-model="filtros.wheels.abs"
                         campo="abs"
                         label="ABS"
                         @update:modelValue="filtrar"
                     />
 
                     <CheckboxInput
-                        v-model="filtros.airbag"
+                        v-model="filtros.wheels.airbag"
                         campo="airbag"
                         label="Airbag"
                         @update:modelValue="filtrar"
                     />
 
                     <CheckboxInput
-                        v-model="filtros.ac"
+                        v-model="filtros.wheels.ac"
                         campo="ac"
                         label="Aire acondicionado"
                         @update:modelValue="filtrar"
                     />
 
                     <CheckboxInput
-                        v-model="filtros.alarma"
+                        v-model="filtros.wheels.alarma"
                         campo="alarma"
                         label="Alarma"
                         @update:modelValue="filtrar"
                     />
 
                     <CheckboxInput
-                        v-model="filtros.vidriosElectricos"
+                        v-model="filtros.wheels.vidriosElectricos"
                         campo="vidriosElectricos"
                         label="Vidrios eléctricos"
                         @update:modelValue="filtrar"
@@ -296,28 +296,34 @@ export default {
                 precioBoleto: 5000,
             },
             filtros: {
-                tipo: '',
-                precioBoleto: '',
-                comuna: '',
-                wc: '',
-                estacionamiento: '',
-                dormitorio: '',
-                piso: '',
-                mascotas: '',
-                piscina: '',
-                edificio: '',
-                lavanderia: '',
-                eventos: '',
-                marca: '',
-                transmision: '',
-                combustible: '',
-                year: '',
-                cilindrada: '',
-                abs: '',
-                airbag: '',
-                ac: '',
-                alarma: '',
-                vidriosElectricos: '',
+                info: {
+                    tipo: '',
+                    precioBoleto: '',
+                    comuna: '',
+                },
+                casa: {
+                    wc: '',
+                    estacionamiento: '',
+                    dormitorio: '',
+                    piso: '',
+                    mascotas: '',
+                    piscina: '',
+                    edificio: '',
+                    lavanderia: '',
+                    eventos: '',
+                },
+                wheels: {
+                    marca: '',
+                    transmision: '',
+                    combustible: '',
+                    year: '',
+                    cilindrada: '',
+                    abs: '',
+                    airbag: '',
+                    ac: '',
+                    alarma: '',
+                    vidriosElectricos: '',
+                },
             },
             selects: {
                 tipos: {
@@ -363,7 +369,7 @@ export default {
 
             let items = this.items;
 
-            for (const [campo, valor] of Object.entries(this.filtros)) {
+            for (const [campo, valor] of Object.entries(this.filtros.info)) {
                 if (valor) {
                     items = items.filter((item) => {
                         if (item[campo] || this.parche[campo]) {
@@ -373,12 +379,12 @@ export default {
 
                             switch (typeof valor) {
                                 case 'string':
-                                    return compara
+                                    return String(compara)
                                         .toLowerCase()
                                         .includes(valor.toLowerCase());
 
                                 case 'number':
-                                    return compara >= valor;
+                                    return Number(compara) >= valor;
 
                                 default:
                                     return compara === valor;
@@ -390,11 +396,45 @@ export default {
                 }
             }
 
+            let tipo = this.filtros.info.tipo.toLowerCase();
+
+            if (tipo) {
+                for (const [campo, valor] of Object.entries(
+                    this.filtros[tipo]
+                )) {
+                    if (valor) {
+                        items = items.filter((item) => {
+                            if (item.item[campo]) {
+                                switch (typeof valor) {
+                                    case 'string':
+                                        return item.item[campo]
+                                            .toLowerCase()
+                                            .includes(valor.toLowerCase());
+
+                                    case 'number':
+                                        return item.item[campo] >= valor;
+
+                                    default:
+                                        return item.item[campo] === valor;
+                                }
+                            } else {
+                                return false;
+                            }
+                        });
+                    }
+                }
+            }
+
             this.filtrado = items;
             this.cargando = false;
         },
-        reset(campo) {
-            this.filtros[campo] = '';
+        reset(grupo, campo) {
+            this.filtros[grupo][campo] = '';
+
+            if (campo === 'tipo') {
+                this.filtros.casa = this.filtros.wheels = {};
+            }
+
             this.filtrar();
         },
         formatPrecio(n) {
