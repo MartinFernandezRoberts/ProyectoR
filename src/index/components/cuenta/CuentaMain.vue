@@ -99,6 +99,17 @@ export default {
                                         'Crear publicación'
                                     )
                                 ),
+                                h(
+                                    'li',
+                                    h(
+                                        'a',
+                                        {
+                                            class: 'hover:text-rojo transition-colors duration-200 ease-out cursor-pointer',
+                                            href: '/logout',
+                                        },
+                                        'Cerrar sesión'
+                                    )
+                                ),
                             ]
                         )
                     ),

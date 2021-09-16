@@ -12,24 +12,21 @@
         class="
             flex flex-col
             text-base
-            pt-2
             bg-anaranjado
-            lg:h-auto
             lg:flex-row
             lg:container
-            lg:mx-auto
-            lg:p-4
-            lg:flex
-            lg:items-start
+            lg:p-2
+            lg:items-center
             lg:bg-white
             lg:text-lg
         "
     >
-        <div class="flex-row mx-auto my-6 lg:flex-1">
+        <div class="p-2 flex-row flex justify-center items-center lg:flex-1">
             <router-link to="/">
                 <LogoRifasapp class="w-64 hidden lg:block" />
-                <LogoRifasAppMovil class="w-56 inline-block -mt-4 lg:hidden" />
+                <LogoRifasAppMovil class="w-48 inline-block lg:hidden" />
             </router-link>
+
             <BotonNav
                 :abierto="abierto"
                 @abrir="abierto = !abierto"
@@ -47,7 +44,8 @@
                 class="lg:hidden w-7/12 shadow-2xl md:w-4/12"
             />
         </transition>
-        <BotonMiCuenta class="hidden lg:block flex-1" />
+
+        <BotonMiCuenta class="flex-1 hidden lg:block" />
     </header>
 </template>
 

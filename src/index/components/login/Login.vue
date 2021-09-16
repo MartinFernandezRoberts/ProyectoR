@@ -1,5 +1,5 @@
 <template>
-    <section class="flex flex-col justify-center items-center">
+    <section class="py-12 flex flex-col justify-center items-center">
         <h1 class="mb-10 2xl:mb-12 text-3xl 2xl:text-4xl font-bold text-center">
             Inicio de sesión
         </h1>

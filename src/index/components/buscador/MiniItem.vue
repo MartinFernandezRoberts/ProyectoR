@@ -1,78 +1,64 @@
 <template>
-    <div class="border-6 border-claro rounded-lg">
-        <div class="px-2 py-3 justify-around items-center md:flex">
+    <div class="border-6 border-claro rounded-lg shadow">
+        <div class="px-4 py-2 flex items-center rounded-t bg-claro">
             <div
                 class="
                     flex
                     items-center
-                    text-2xs
-                    font-bold
-                    text-dorado
                     space-x-1
                     w-full
                     mx-auto
-                    justify-center
+                    text-anaranjado
                 "
             >
-                <RelojArenaIcon class="w-6" />
+                <RelojArenaIcon class="h-10" />
 
-                <div class="w-24">{{ tiempoRestante }}</div>
-            </div>
-
-            <div class="text-dorado">
-                <p class="mb-1 text-3xs font-bold text-center uppercase">
-                    Números vendidos
-                </p>
-
-                <div
-                    class="
-                        flex
-                        border-3 border-dorado
-                        rounded-lg
-                        divide-x-3 divide-dorado
-                        text-sm
-                        font-light
-                    "
-                >
-                    <span
-                        v-for="(digit, i) in item.numerosComprados.padStart(
-                            4,
-                            '0'
-                        )"
-                        :key="i"
-                        class="flex-1 text-center w-6"
-                    >
-                        {{ digit }}
-                    </span>
-                </div>
+                <TiempoRestante
+                    class="flex-1"
+                    :tiempoRestante="tiempoRestante"
+                />
             </div>
         </div>
 
         <img
             :src="urlDev(item.imagenes[0])"
             alt="imagen item"
-            class="h-48 w-full object-cover"
+            class="h-48 w-full object-cover shadow-inner"
         />
 
-        <div id="info" class="px-7 bg-claro">
-            <div
-                id="estrellas"
-                class="text-lg text-center text-dorado space-x-1"
-            >
+        <div
+            class="
+                py-1
+                flex
+                justify-center
+                items-center
+                bg-dorado
+                text-sm text-white
+                space-x-4
+            "
+        >
+            <div class="flex font-bold">
                 <span
-                    v-for="n in 5"
-                    :key="n"
-                    v-html="n <= item.valoracion ? '&starf;' : '&star;'"
-                />
+                    v-for="(digit, i) in String(item.numerosComprados)"
+                    :key="i"
+                    class="flex-1 text-center w-5"
+                >
+                    {{ digit }}
+                </span>
             </div>
 
+            <p>Números vendidos</p>
+        </div>
+
+        <div id="info" class="px-7 py-4 bg-claro">
             <h3
                 class="
                     p-1.5
                     bg-white
-                    border-3 border-dorado
+                    border-2 border-dorado
                     rounded-lg
-                    text-lg text-center text-gris
+                    text-center
+                    font-bold
                 "
             >
                 {{ item.titulo }}
@@ -82,14 +68,15 @@
 </template>
 
 <script>
+import TiempoRestante from './TiempoRestante.vue';
 import RelojArenaIcon from '../svg/RelojArenaIcon.vue';
 
 export default {
     name: 'MiniItem',
-    components: { RelojArenaIcon },
+    components: { RelojArenaIcon, TiempoRestante },
     props: {
         item: Object,
-        tiempoRestante: String,
+        tiempoRestante: Object,
     },
     methods: {
         urlDev(path) {
