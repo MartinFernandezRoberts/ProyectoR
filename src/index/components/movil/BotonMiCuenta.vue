@@ -13,7 +13,6 @@
                     transition-colors
                     duration-200
                     ease-out
-                    lg:mt-6
                 "
             >
                 Mi cuenta
@@ -33,7 +32,6 @@
                     transition-colors
                     duration-200
                     ease-out
-                    lg:mt-6
                 "
             >
                 Iniciar sesión

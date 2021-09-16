@@ -1,5 +1,5 @@
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 59">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="9 7 28 44">
         <defs>
             <path id="SVGID_7_" d="M1751.5-394.26h2020V2230.5h-2020z" />
         </defs>

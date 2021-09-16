@@ -1,23 +1,23 @@
 <template>
-    <div class="flex flex-col md:space-y-1.5">
-        <label class="font-bold text-2xs md:text-xs lg:text-sm" :for="campo">
+    <div class="flex flex-col space-y-1.5">
+        <label class="font-bold text-sm" :for="campo">
             {{ label }}
         </label>
 
-        <div class="flex items-center md:space-x-2">
+        <div class="flex items-center space-x-2">
             <input
                 class="
                     flex-1
+                    px-2
                     py-1.5
                     rounded
                     border border-amarillo
                     font-light
                     leading-tight
-                    text-2xs
-                    w-full
-                    px-1.5
-                    md:text-xs md:px-4
-                    lg:text-sm
+                    overflow-x-hidden
+                    text-xs
+                    md:px-4
+                    lg:border-2 lg:text-sm
                     2xl:px-6 2xl:py-2
                 "
                 :type="type"

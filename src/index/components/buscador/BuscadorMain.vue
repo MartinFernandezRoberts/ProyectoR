@@ -1,23 +1,38 @@
 <template>
-    <div class="flex-1 flex">
+    <div class="flex-1 flex flex-col lg:flex-row">
         <div
             id="sidebar"
-            class="h-full px-2 w-1/3 py-4 md:px-6 md:py-12 lg:w-1/4"
+            :class="[
+                'self-stretch p-4 flex flex-col bg-white z-10 md:px-6 md:py-12 lg:w-1/4 lg:block',
+                modalFiltros ? 'fixed inset-0' : 'hidden',
+            ]"
         >
-            <div class="mb-6 2xl:mb-7 flex justify-center items-center">
-                <h1
-                    class="
-                        font-bold
-                        text-center text-sm
-                        md:text-lg md:mr-10
-                        2xl:text-xl
-                    "
+            <div class="mb-12 2xl:mb-7 flex items-end">
+                <h2 class="font-bold text-center text-xl leading-tight">
+                    Filtros
+                </h2>
+
+                <button
+                    type="button"
+                    class="ml-4 text-sm font-thin text-rojo"
+                    @click="resetTodo"
                 >
-                    Buscador
-                </h1>
+                    Borrar todo
+                </button>
+
+                <button
+                    type="button"
+                    class="ml-auto w-6 lg:hidden"
+                    @click="modalFiltros = false"
+                >
+                    <XIcon />
+                </button>
             </div>
 
-            <form id="filtros" class="flex flex-col space-y-3">
+            <form
+                id="filtros"
+                class="flex-1 flex flex-col overflow-auto space-y-4"
+            >
                 <SelectInput
                     v-model="filtros.info.tipo"
                     campo="tipo"
@@ -51,7 +66,7 @@
                 <div
                     v-if="filtros.info.tipo === 'Casa'"
                     id="filtrosCasa"
-                    class="flex flex-col space-y-3"
+                    class="flex flex-col space-y-4"
                 >
                     <NormalInput
                         type="number"
@@ -89,31 +104,33 @@
                         @update:modelValue="filtrar"
                     />
 
-                    <CheckboxInput
-                        v-model="filtros.casa.mascotas"
-                        campo="mascotas"
-                        label="Apto para mascotas"
-                        @update:modelValue="filtrar"
-                    />
+                    <div id="checkCasa" class="pt-2 space-y-4">
+                        <CheckboxInput
+                            v-model="filtros.casa.mascotas"
+                            campo="mascotas"
+                            label="Apto para mascotas"
+                            @update:modelValue="filtrar"
+                        />
 
-                    <CheckboxInput
-                        v-model="filtros.casa.piscina"
-                        campo="piscina"
-                        label="Piscina"
-                        @update:modelValue="filtrar"
-                    />
+                        <CheckboxInput
+                            v-model="filtros.casa.piscina"
+                            campo="piscina"
+                            label="Piscina"
+                            @update:modelValue="filtrar"
+                        />
 
-                    <CheckboxInput
-                        v-model="filtros.casa.edificio"
-                        campo="edificio"
-                        label="Edificio"
-                        @update:modelValue="filtrar"
-                    />
+                        <CheckboxInput
+                            v-model="filtros.casa.edificio"
+                            campo="edificio"
+                            label="Edificio"
+                            @update:modelValue="filtrar"
+                        />
+                    </div>
 
                     <div
                         v-if="filtros.casa.edificio"
                         id="filtrosEdificio"
-                        class="flex flex-col space-y-3"
+                        class="flex flex-col space-y-4"
                     >
                         <CheckboxInput
                             v-model="filtros.casa.lavanderia"
@@ -134,7 +151,7 @@
                 <div
                     v-if="filtros.info.tipo === 'Wheels'"
                     id="filtrosWheels"
-                    class="flex flex-col space-y-3"
+                    class="flex flex-col space-y-4"
                 >
                     <NormalInput
                         type="text"
@@ -181,62 +198,122 @@
                         @update:modelValue="filtrar"
                     />
 
-                    <CheckboxInput
-                        v-model="filtros.wheels.abs"
-                        campo="abs"
-                        label="ABS"
-                        @update:modelValue="filtrar"
-                    />
+                    <div id="checkWheels" class="pt-2 space-y-4">
+                        <CheckboxInput
+                            v-model="filtros.wheels.abs"
+                            campo="abs"
+                            label="ABS"
+                            @update:modelValue="filtrar"
+                        />
 
-                    <CheckboxInput
-                        v-model="filtros.wheels.airbag"
-                        campo="airbag"
-                        label="Airbag"
-                        @update:modelValue="filtrar"
-                    />
+                        <CheckboxInput
+                            v-model="filtros.wheels.airbag"
+                            campo="airbag"
+                            label="Airbag"
+                            @update:modelValue="filtrar"
+                        />
 
-                    <CheckboxInput
-                        v-model="filtros.wheels.ac"
-                        campo="ac"
-                        label="Aire acondicionado"
-                        @update:modelValue="filtrar"
-                    />
+                        <CheckboxInput
+                            v-model="filtros.wheels.ac"
+                            campo="ac"
+                            label="Aire acondicionado"
+                            @update:modelValue="filtrar"
+                        />
 
-                    <CheckboxInput
-                        v-model="filtros.wheels.alarma"
-                        campo="alarma"
-                        label="Alarma"
-                        @update:modelValue="filtrar"
-                    />
+                        <CheckboxInput
+                            v-model="filtros.wheels.alarma"
+                            campo="alarma"
+                            label="Alarma"
+                            @update:modelValue="filtrar"
+                        />
 
-                    <CheckboxInput
-                        v-model="filtros.wheels.vidriosElectricos"
-                        campo="vidriosElectricos"
-                        label="Vidrios eléctricos"
-                        @update:modelValue="filtrar"
-                    />
+                        <CheckboxInput
+                            v-model="filtros.wheels.vidriosElectricos"
+                            campo="vidriosElectricos"
+                            label="Vidrios eléctricos"
+                            @update:modelValue="filtrar"
+                        />
+                    </div>
                 </div>
             </form>
+
+            <button
+                class="
+                    mt-4
+                    py-2
+                    rounded-lg
+                    bg-anaranjado
+                    text-white text-center
+                    font-thin
+                    lg:hidden
+                "
+                @click="modalFiltros = false"
+            >
+                Listo
+            </button>
         </div>
 
-        <div
-            id="contenido"
-            class="
-                py-12
-                px-6
-                h-screen
-                lg:h-auto
-                2xl:px-24
-                w-3/4
-                relative
-                overflow-auto
-            "
-        >
+        <div id="contenido" class="px-4 lg:h-auto 2xl:px-16 lg:w-3/4">
+            <h1 class="text-xl text-center font-bold my-6">Sorteos</h1>
+
+            <div class="flex">
+                <button
+                    type="button"
+                    class="
+                        px-2
+                        py-1
+                        flex
+                        items-center
+                        border
+                        rounded-lg
+                        border-anaranjado
+                        text-anaranjado text-sm
+                        font-thin
+                        space-x-2
+                        lg:hidden
+                    "
+                    @click="modalFiltros = true"
+                >
+                    <FadersIcon class="w-4" />
+
+                    <p>Filtrar</p>
+                </button>
+
+                <button
+                    type="button"
+                    class="
+                        ml-auto
+                        flex
+                        items-center
+                        text-gray-400 text-sm
+                        font-thin
+                        space-x-1
+                    "
+                >
+                    <BarrasIcon class="w-4" />
+
+                    <select
+                        v-model="orden"
+                        class="cursor-pointer"
+                        @change="ordenar"
+                    >
+                        <option
+                            v-for="(opcion, i) in Object.keys(selects.ordenes)"
+                            :key="i"
+                            class="text-gris"
+                            :value="opcion"
+                        >
+                            {{ selects.ordenes[opcion] }}
+                        </option>
+                    </select>
+                </button>
+            </div>
+
             <Cargando v-show="cargando" class="absolute inset-0 z-10" />
 
             <div
                 :class="[
-                    'grid gap-4 auto-rows-max grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+                    'pt-4 pb-12 grid gap-4 auto-rows-max grid-cols-1 sm:grid-cols-2 lg:pt-8 xl:pb-16 xl:grid-cols-3 2xl:pb-24',
                     { 'opacity-20 filter blur-sm': cargando },
                 ]"
             >
@@ -264,6 +341,9 @@
 </template>
 
 <script>
+import BarrasIcon from '../svg/BarrasIcon.vue';
+import FadersIcon from '../svg/FadersIcon.vue';
+import XIcon from '../svg/XIcon.vue';
 import axios from 'axios';
 
 import SelectInput from './SelectInput.vue';
@@ -282,6 +362,9 @@ export default {
         SelectInput,
         NormalInput,
         CheckboxInput,
+        XIcon,
+        FadersIcon,
+        BarrasIcon,
     },
     data() {
         return {
@@ -289,9 +372,10 @@ export default {
             filtrado: [],
             itemActual: {},
             modal: false,
+            modalFiltros: false,
+            orden: 'nuevo',
             parche: {
-                numerosComprados: '132',
-                valoracion: '3.5',
+                numerosComprados: 132,
                 fechaSorteo: new Date('2021-10-30T18:00:00-0400'),
                 precioBoleto: 5000,
             },
@@ -341,6 +425,11 @@ export default {
                     'Híbrido',
                     'Otro',
                 ],
+                ordenes: {
+                    // sorteo: 'Sorteo más próximo',
+                    nuevo: 'Más nuevo',
+                    antiguo: 'Más antiguo',
+                },
             },
             cargando: true,
             ahora: new Date().getTime(),
@@ -437,6 +526,40 @@ export default {
 
             this.filtrar();
         },
+        resetTodo() {
+            for (const campo in this.filtros.info) {
+                this.filtros.info[campo] = '';
+            }
+
+            this.filtros.casa = this.filtros.wheels = {};
+
+            this.filtrar();
+        },
+        ordenar() {
+            let compara;
+
+            switch (this.orden) {
+                /* case 'sorteo':
+                    compara = (a, b) => {a.fechaSorteo - b.fechaSorteo};
+                    break; */
+
+                case 'nuevo':
+                    compara = (a, b) =>
+                        Date.parse(b.fecha) - Date.parse(a.fecha);
+                    break;
+
+                case 'antiguo':
+                    compara = (a, b) =>
+                        Date.parse(a.fecha) - Date.parse(b.fecha);
+                    break;
+
+                default:
+                    return 1;
+            }
+
+            this.items.sort(compara);
+            this.filtrar();
+        },
         formatPrecio(n) {
             let precio = String(n);
             let formateado = '';
@@ -463,11 +586,13 @@ export default {
             );
             const segundos = Math.floor((tiempo % (1000 * 60)) / 1000);
 
-            return tiempo <= 0
-                ? '¡En sorteo!'
-                : `${this.pad(dias)}d ${this.pad(horas)}h ${this.pad(
-                      minutos
-                  )}m ${this.pad(segundos)}s`;
+            return {
+                tiempo,
+                dias,
+                horas,
+                minutos,
+                segundos,
+            };
         },
         pad(n) {
             return ('0' + n).slice(-2);
