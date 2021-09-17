@@ -608,7 +608,7 @@ export default {
         },
     },
     created() {
-        axios(this.urlDev(`api/items/${this.$route.params.id}`))
+        axios(`/api/items/${this.$route.params.id}`)
             .then((res) => {
                 this.item = res.data;
                 this.cargando = false;
