@@ -317,48 +317,39 @@
                     { 'opacity-20 filter blur-sm': cargando },
                 ]"
             >
-                <MiniItem
+                <router-link
                     v-for="(item, i) in filtrado"
                     :key="i"
-                    class="cursor-pointer"
-                    :item="{ ...item, ...parche }"
-                    :tiempoRestante="tiempoRestante(parche.fechaSorteo)"
-                    @click="
-                        itemActual = item;
-                        modal = true;
-                    "
-                />
+                    :to="`/item/${item._id}`"
+                >
+                    <MiniItem
+                        class="cursor-pointer"
+                        :item="{ ...item, ...parche }"
+                        :tiempoRestante="tiempoRestante(parche.fechaSorteo)"
+                    />
+                </router-link>
             </div>
-
-            <DetalleItem
-                v-if="modal"
-                :item="itemActual"
-                :tiempoRestante="tiempoRestante(parche.fechaSorteo)"
-                @cerrar="modal = false"
-            />
         </div>
     </div>
 </template>
 
 <script>
-import BarrasIcon from '../svg/BarrasIcon.vue';
-import FadersIcon from '../svg/FadersIcon.vue';
-import XIcon from '../svg/XIcon.vue';
 import axios from 'axios';
 
 import SelectInput from './SelectInput.vue';
 import NormalInput from './NormalInput.vue';
 import CheckboxInput from './CheckboxInput.vue';
-import DetalleItem from '../detalle/DetalleItem.vue';
 import Cargando from '../Cargando.vue';
 import MiniItem from './MiniItem.vue';
+import BarrasIcon from '../svg/BarrasIcon.vue';
+import FadersIcon from '../svg/FadersIcon.vue';
+import XIcon from '../svg/XIcon.vue';
 
 export default {
     name: 'BuscadorMain',
     components: {
         MiniItem,
         Cargando,
-        DetalleItem,
         SelectInput,
         NormalInput,
         CheckboxInput,
@@ -370,8 +361,6 @@ export default {
         return {
             items: [],
             filtrado: [],
-            itemActual: {},
-            modal: false,
             modalFiltros: false,
             orden: 'nuevo',
             parche: {

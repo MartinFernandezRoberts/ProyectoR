@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
             .populate('item')
             .lean();
 
-        res.send(items);
+        res.status(200).send(items);
     } catch (err) {
         console.error(err);
         res.status(500).send(err);
@@ -37,7 +37,24 @@ router.get('/todo', ensureAuth, ensureAdmin, async (req, res) => {
             .populate('usuario')
             .lean();
 
-        res.send(items);
+        res.status(200).send(items);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+});
+
+//GET publicados
+router.get('/:item', async (req, res) => {
+    try {
+        const item = await Item.findOne({
+            _id: req.params.item,
+            estado: 'publicado',
+        })
+            .populate('item')
+            .lean();
+
+        res.status(200).send(item);
     } catch (err) {
         console.error(err);
         res.status(500).send(err);
@@ -55,7 +72,7 @@ router.get('/userItems', ensureAuth, async (req, res) => {
             .populate('item')
             .lean();
 
-        res.send(items);
+        res.status(200).send(items);
     } catch (err) {
         console.error(err);
         res.status(500).send(err);
@@ -71,7 +88,7 @@ router.get('/user/:user', ensureAuth, ensureAdmin, async (req, res) => {
             .populate('item')
             .lean();
 
-        res.send(items);
+        res.status(200).send(items);
     } catch (err) {
         console.error(err);
         res.status(500).send(err);

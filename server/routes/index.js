@@ -14,6 +14,10 @@ router.get('/buscador', async (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
+router.get('/item/:id', async (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+});
+
 router.get('/condiciones', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
