@@ -615,9 +615,9 @@ export default {
             })
             .catch((err) => console.error(err));
 
-        /* setInterval(() => {
+        setInterval(() => {
             this.ahora = new Date().getTime();
-        }, 1000); */
+        }, 1000);
     },
     methods: {
         urlDev(path) {
