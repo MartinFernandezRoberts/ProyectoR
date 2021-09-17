@@ -32,7 +32,7 @@
                 flex
                 justify-center
                 items-center
-                bg-dorado
+                bg-amarillo
                 text-sm text-white
                 space-x-4
             "

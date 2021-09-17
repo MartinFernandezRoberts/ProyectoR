@@ -25,10 +25,13 @@
             <FlechaCirculoIcon
                 class="mx-4 w-8 z-10 cursor-pointer"
                 transform="scale(-1,1)"
-                @click="slide(-1)"
+                @click="
+                    slide(-1);
+                    resetTimer();
+                "
             />
 
-            <div class="self-end pb-2">
+            <div class="self-end pb-2 flex space-x-2">
                 <svg
                     v-for="(imagen, i) in imagenes"
                     :key="i"
@@ -48,7 +51,10 @@
 
             <FlechaCirculoIcon
                 class="mx-4 w-8 z-10 cursor-pointer"
-                @click="slide(1)"
+                @click="
+                    slide(1);
+                    resetTimer();
+                "
             />
         </div>
     </div>
@@ -66,10 +72,11 @@ export default {
     data() {
         return {
             index: 0,
+            timer: null,
         };
     },
     created() {
-        setInterval(() => this.slide(1), 3000);
+        this.timer = setInterval(this.autoSlide, 5000);
     },
     methods: {
         urlDev(path) {
@@ -85,6 +92,13 @@ export default {
             }
 
             this.index = n;
+        },
+        autoSlide() {
+            this.slide(1);
+        },
+        resetTimer() {
+            clearInterval(this.timer);
+            this.timer = setInterval(this.autoSlide, 5000);
         },
     },
 };
