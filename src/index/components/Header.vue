@@ -5,25 +5,28 @@
             v-if="abierto"
             @click="abierto = !abierto"
             class="w-screen h-screen fixed bg-gris bg-opacity-40 z-20 lg:hidden"
-        ></div>
+        />
     </transition>
+
     <header
         ref="header"
         class="
             flex flex-col
             text-base
             bg-anaranjado
-            lg:flex-row
-            lg:container
+            lg:mx-auto
             lg:p-2
+            lg:container
+            lg:flex-row
             lg:items-center
             lg:bg-white
-            lg:text-lg
+            lg:text-sm
+            xl:text-base
         "
     >
-        <div class="p-2 flex-row flex justify-center items-center lg:flex-1">
+        <div class="flex-row flex justify-center items-center lg:flex-1">
             <router-link to="/">
-                <LogoRifasapp class="w-64 hidden lg:block" />
+                <LogoRifasapp class="w-48 hidden lg:block xl:w-52 2xl:w-64" />
                 <LogoRifasAppMovil class="w-48 inline-block lg:hidden" />
             </router-link>
 
@@ -73,9 +76,7 @@ export default {
     mounted() {
         this.setHeaderHeight(this.$refs.header.offsetHeight);
     },
-    methods: {
-        ...mapMutations(['setHeaderHeight']),
-    },
+    methods: mapMutations(['setHeaderHeight']),
 };
 </script>
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
     <section
         id="como-funciona"
-        class="flex flex-col justify-center items-center bg-white"
+        class="p-8 flex flex-col justify-center items-center bg-white"
     >
         <div
             class="
