@@ -1,13 +1,7 @@
 <template>
     <section
         id="destacadas"
-        class="
-            flex flex-col
-            justify-center
-            items-center
-            overflow-hidden
-            lg:my-2
-        "
+        class="p-8 flex flex-col justify-center items-center lg:my-2"
     >
         <h2 class="mb-6 text-3xl font-bold lg:mb-2">Sorteos destacados</h2>
 

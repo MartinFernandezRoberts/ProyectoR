@@ -1,8 +1,8 @@
 <template>
-    <Inicio :style="{ height: inicioHeight + 'px' }" />
-    <ItemsDestacados class="h-screen" />
-    <ComoParticipar class="h-screen" />
-    <Contacto :style="{ height: contactoHeight + 'px' }" />
+    <Inicio :style="{ minHeight: inicioHeight + 'px' }" />
+    <ItemsDestacados class="min-h-screen" />
+    <ComoParticipar class="min-h-screen" />
+    <Contacto :style="{ minHeight: contactoHeight + 'px' }" />
 </template>
 
 <script>

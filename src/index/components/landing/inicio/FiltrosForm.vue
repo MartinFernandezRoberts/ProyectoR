@@ -1,5 +1,5 @@
 <template>
-    <form class="container mx-auto max-w-5xl text-lg lg:text-sm 2xl:text-lg">
+    <form class="text-lg lg:text-sm 2xl:text-lg">
         <div class="flex">
             <CustomInput
                 v-model="lugar"
@@ -36,7 +36,7 @@
             </button>
         </div>
 
-        <div class="mt-16 flex justify-between lg:mt-10 2xl:mt-16">
+        <div class="mt-16 flex justify-between space-x-12 lg:mt-10 2xl:mt-16">
             <CustomRadioInput v-model="categoria" :options="['Casa', 'Auto']" />
             <CustomRadioInput
                 v-model="subCategoria"
