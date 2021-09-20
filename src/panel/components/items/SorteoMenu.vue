@@ -25,10 +25,10 @@ export default {
     },
     emits: ['cargar'],
     methods: {
-        setFecha(fecha) {
+        setFecha(fechaSorteo) {
             axios
                 .post(`http://localhost:3000/api/items/${this.id}/setSorteo`, {
-                    fecha,
+                    fechaSorteo,
                 })
                 .then((res) => {
                     console.log(res.data);
