@@ -162,6 +162,32 @@
                         @reset="form.docs = {}"
                     />
                 </section>
+                <section class="flex flex-col">
+                    <HeaderAcordeon
+                        seccion="Fecha Sorteo"
+                        :actual="seccionActual === 'Fecha Sorteo'"
+                        :error="false"
+                        @click="toggleSeccion('Fecha Sorteo')"
+                    />
+
+                    <SorteoMenu
+                        v-show="seccionActual === 'Fecha Sorteo'"
+                        class="
+                            mx-auto
+                            justify-center
+                            items-center
+                            px-4
+                            py-2
+                            flex flex-col
+                            border-r border-b border-l-2 border-gray-500
+                            text-gray-700
+                            space-y-2
+                        "
+                        :id="item._id"
+                        :fechaSorteo="item.fechaSorteo"
+                        @cargar="$emit('cargar')"
+                    />
+                </section>
             </div>
 
             <button
@@ -186,6 +212,7 @@
 
 <script>
 import EstadoMenu from './EstadoMenu.vue';
+import SorteoMenu from './SorteoMenu.vue';
 import DocsItemForm from '../../../index/components/crear/DocsItemForm.vue';
 import DetallesItemForm from '../../../index/components/crear/DetallesItemForm.vue';
 import ImagenesItemForm from '../../../index/components/crear/ImagenesItemForm.vue';
@@ -206,6 +233,7 @@ export default {
         DetallesItemForm,
         DocsItemForm,
         EstadoMenu,
+        SorteoMenu,
     },
     props: {
         item: Object,
