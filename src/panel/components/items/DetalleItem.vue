@@ -164,15 +164,18 @@
                 </section>
                 <section class="flex flex-col">
                     <HeaderAcordeon
-                        seccion="fechaSorteo"
-                        :actual="seccionActual === 'fechaSorteo'"
+                        seccion="Fecha Sorteo"
+                        :actual="seccionActual === 'Fecha Sorteo'"
                         :error="false"
-                        @click="toggleSeccion('fechaSorteo')"
+                        @click="toggleSeccion('Fecha Sorteo')"
                     />
 
                     <SorteoMenu
-                        v-show="seccionActual === 'fechaSorteo'"
+                        v-show="seccionActual === 'Fecha Sorteo'"
                         class="
+                            mx-auto
+                            justify-center
+                            items-center
                             px-4
                             py-2
                             flex flex-col

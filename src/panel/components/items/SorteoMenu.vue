@@ -1,13 +1,23 @@
 <template>
     <DatePicker
-        id="fechas"
+        id="fecha"
         mode="dateTime"
-        :minute-increment="60"
+        :minute-increment="30"
         :min-date="new Date()"
         color="pink"
         :model-config="datePickerConfig"
         v-model="fechaSorteo"
     />
+    <button
+        :class="[
+            'bg-pink-400 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-pink-200',
+            { 'animate-pulse': cargar },
+        ]"
+        type="button"
+        @click="handleSubmit"
+    >
+        Agendar Sorteo
+    </button>
 </template>
 
 <script>
@@ -38,13 +48,17 @@ export default {
                     console.error(err);
                 });
         },
+        handleSubmit() {
+            let formData = {
+                fechaSorteo: this.fechaSorteo.toISOString(),
+            };
+
+            this.$emit(formData);
+        },
     },
     data() {
         return {
             fechaSorteo: new Date(),
-            datePickerConfig: {
-                mask: 'DD/MM/YYYY',
-            },
         };
     },
 };
