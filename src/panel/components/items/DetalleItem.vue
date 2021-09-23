@@ -156,13 +156,16 @@
                             space-y-2
                         "
                         :id="item._id"
+                        :og="ogItem.docs || {}"
                         :docs="form.docs"
                         :errores="errores.docs"
                         @update="actualizarInput"
                         @reset="form.docs = {}"
+                        @borrarOg="borrarOg"
                     />
                 </section>
-                <section class="flex flex-col">
+
+                <!-- <section class="flex flex-col">
                     <HeaderAcordeon
                         seccion="Fecha Sorteo"
                         :actual="seccionActual === 'Fecha Sorteo'"
@@ -187,32 +190,47 @@
                         :fechaSorteo="item.fechaSorteo"
                         @cargar="$emit('cargar')"
                     />
-                </section>
+                </section> -->
             </div>
 
-            <button
-                class="
-                    mt-auto
-                    px-4
-                    py-2
-                    border-t border-gray-500
-                    text-right
-                    font-bold
-                    text-gray-700
-                    hover:bg-pink-700 hover:text-white
-                "
-                type="button"
-                @click="submit"
-            >
-                Guardar
-            </button>
+            <div class="mt-auto flex border-t border-gray-500">
+                <button
+                    class="
+                        px-4
+                        py-2
+                        text-gray-700
+                        border-r border-gray-500
+                        hover:bg-gray-700 hover:text-white
+                        font-bold
+                    "
+                    type="button"
+                    @click="$emit('cerrar')"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    class="
+                        flex-1
+                        px-4
+                        py-2
+                        text-pink-700 text-right
+                        hover:bg-pink-700 hover:text-white
+                        font-bold
+                    "
+                    type="button"
+                    @click="submit"
+                >
+                    Guardar
+                </button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import EstadoMenu from './EstadoMenu.vue';
-import SorteoMenu from './SorteoMenu.vue';
+// import SorteoMenu from './SorteoMenu.vue';
 import DocsItemForm from '../../../index/components/crear/DocsItemForm.vue';
 import DetallesItemForm from '../../../index/components/crear/DetallesItemForm.vue';
 import ImagenesItemForm from '../../../index/components/crear/ImagenesItemForm.vue';
@@ -233,7 +251,7 @@ export default {
         DetallesItemForm,
         DocsItemForm,
         EstadoMenu,
-        SorteoMenu,
+        // SorteoMenu,
     },
     props: {
         item: Object,
@@ -242,6 +260,7 @@ export default {
     data() {
         return {
             seccionActual: '',
+            ogItem: this.item,
             form: {
                 info: {
                     tipo: this.item.tipo,
@@ -261,6 +280,7 @@ export default {
                 imagenes: {},
                 detalles: {},
                 docs: {},
+                bases: {},
             },
             validado: false,
             enviando: false,
@@ -299,6 +319,9 @@ export default {
                 }
             }
         },
+        borrarOg(seccion, campo) {
+            this.ogItem[seccion][campo] = '';
+        },
         async guardar() {
             console.log('enviar datos para guardar como borrador');
         },
@@ -330,8 +353,14 @@ export default {
                 });
 
                 axios
-                    .post(this.urlDev('api/items'), formData)
-                    .then((res) => console.log(res.data))
+                    .post(
+                        this.urlDev(`api/items/${this.item._id}/editar`),
+                        formData
+                    )
+                    .then((res) => {
+                        console.log(res.data);
+                        this.$emit('cargar');
+                    })
                     .catch((err) => console.error(err));
 
                 this.enviando = false;
@@ -348,7 +377,7 @@ export default {
                     }
                 }
 
-                console.log('validación fallida');
+                alert('Validación fallida.');
             }
 
             this.validado = true;

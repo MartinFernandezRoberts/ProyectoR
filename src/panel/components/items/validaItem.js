@@ -83,9 +83,6 @@ export const validator = new Validator({
         }
     }),
     docs: object().nullable(),
-    bases: object({
-        bases: boolean().required(),
-    }),
 });
 
 export const validaDetalles = new Validator({ ...schemaCasa, ...schemaWheels });
