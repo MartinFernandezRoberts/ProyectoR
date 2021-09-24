@@ -1,27 +1,29 @@
 <template>
-    <DatePicker
-        id="fecha"
-        mode="dateTime"
-        :minute-increment="30"
-        :min-date="new Date()"
-        color="pink"
-        :model-config="datePickerConfig"
-        v-model="fechaSorteo"
-    />
-    <button
-        :class="[
-            'bg-pink-400 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-pink-200',
-            { 'animate-pulse': cargar },
-        ]"
-        type="button"
-        @click="handleSubmit"
+    <div
+        class="
+            px-4
+            py-2
+            w-full
+            flex flex-col
+            border-r border-b border-l-2 border-gray-500
+            text-gray-700
+            space-y-2
+        "
     >
-        Agendar Sorteo
-    </button>
+        <DatePicker
+            id="fecha"
+            :modelValue="fecha"
+            mode="dateTime"
+            color="pink"
+            :minute-increment="30"
+            :min-date="new Date()"
+            :model-config="datePickerConfig"
+            @update:modelValue="update"
+        />
+    </div>
 </template>
 
 <script>
-import axios from 'axios';
 import { DatePicker } from 'v-calendar';
 
 export default {
@@ -30,36 +32,21 @@ export default {
         DatePicker,
     },
     props: {
-        id: String,
-        fechaSorteo: Date,
+        fechaSorteo: String,
     },
-    emits: ['cargar'],
-    methods: {
-        setFecha(fechaSorteo) {
-            axios
-                .post(`http://localhost:3000/api/items/${this.id}/setSorteo`, {
-                    fechaSorteo,
-                })
-                .then((res) => {
-                    console.log(res.data);
-                    this.$emit('cargar');
-                })
-                .catch((err) => {
-                    console.error(err);
-                });
-        },
-        handleSubmit() {
-            let formData = {
-                fechaSorteo: this.fechaSorteo.toISOString(),
-            };
-
-            this.$emit(formData);
-        },
-    },
+    emits: ['update'],
     data() {
         return {
-            fechaSorteo: new Date(),
+            fecha: new Date(this.fechaSorteo),
+            datePickerConfig: {
+                timeAdjust: '18:00:00',
+            },
         };
+    },
+    methods: {
+        update(date) {
+            this.$emit('update', 'info', 'fechaSorteo', date.toISOString());
+        },
     },
 };
 </script>
