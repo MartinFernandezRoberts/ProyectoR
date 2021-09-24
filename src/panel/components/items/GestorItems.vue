@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-1">
+    <div class="flex-1 pb-8 relative">
         <FlechaCirculoIcon
             :class="[
                 'h-6 m-1 sticky top-0 z-10 hover:text-pink-600 cursor-pointer transition-colors duration-200 ease-out',

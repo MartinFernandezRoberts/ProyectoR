@@ -1,5 +1,14 @@
 <template>
-    <div>
+    <div
+        class="
+            px-4
+            py-2
+            flex flex-col
+            border-r border-b border-l-2 border-gray-500
+            text-gray-700
+            space-y-2
+        "
+    >
         <button
             v-show="estado !== 'publicado'"
             class="

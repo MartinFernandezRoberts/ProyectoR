@@ -32,7 +32,7 @@
                         font-bold
                     "
                     type="button"
-                    @click="$emit('borrarOg', 'test')"
+                    @click="$emit('borrarOg', 'docs', 'test')"
                 >
                     Reemplazar
                 </button>
@@ -44,8 +44,6 @@
                 :error="errores.test"
                 @change="(file) => agregarDoc('test', file)"
             />
-
-            <button type="button" @click="logOg">OG</button>
         </div>
     </form>
 </template>
@@ -62,7 +60,7 @@ export default {
         docs: Object,
         errores: Object,
     },
-    emits: ['update', 'reset'],
+    emits: ['update', 'reset', 'borrarOg'],
     data() {
         return {
             dragging: '',

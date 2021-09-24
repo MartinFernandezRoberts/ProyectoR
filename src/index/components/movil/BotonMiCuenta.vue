@@ -1,40 +1,24 @@
 <template>
     <div class="lg:text-center">
-        <a v-if="user" href="/cuenta">
+        <a :href="user ? '/cuenta' : '/login'">
             <button
                 class="
-                    px-6
+                    px-4
                     py-2
                     border-3 border-amarillo
                     rounded-lg
+                    text-sm
                     font-bold
                     text-gris
                     hover:border-anaranjado hover:bg-anaranjado hover:text-white
                     transition-colors
                     duration-200
                     ease-out
+                    xl:px-6
+                    2xl:text-base
                 "
             >
-                Mi cuenta
-            </button>
-        </a>
-
-        <a v-else href="/login">
-            <button
-                class="
-                    px-6
-                    py-2
-                    border-3 border-amarillo
-                    rounded-lg
-                    font-bold
-                    text-gris
-                    hover:border-anaranjado hover:bg-anaranjado hover:text-white
-                    transition-colors
-                    duration-200
-                    ease-out
-                "
-            >
-                Iniciar sesión
+                {{ user ? 'Mi cuenta' : 'Iniciar sesión' }}
             </button>
         </a>
     </div>

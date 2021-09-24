@@ -1,7 +1,7 @@
 <template>
     <section
         id="contacto"
-        class="flex flex-col justify-center items-center overflow-hidden"
+        class="p-8 flex flex-col justify-center items-center"
     >
         <h2 class="mb-10 2xl:mb-12 text-3xl 2xl:text-4xl font-bold text-center">
             Contacto

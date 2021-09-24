@@ -1,6 +1,6 @@
 <template>
-    <section class="flex flex-col overflow-hidden 2xl:-mt-10">
-        <div class="flex-grow flex flex-col justify-center items-center">
+    <section class="flex flex-col">
+        <div class="p-8 flex-grow flex flex-col justify-center items-center">
             <p
                 class="
                     flex
@@ -46,7 +46,9 @@
                 >
             </h2>
 
-            <FiltrosForm class="mt-12 hidden lg:block lg:mt-4 2xl:mt-12" />
+            <FiltrosForm
+                class="mt-12 max-w-5xl hidden lg:block lg:mt-4 2xl:mt-12"
+            />
 
             <div class="mt-6 w-full flex items-center space-x-8">
                 <div class="flex-1">
