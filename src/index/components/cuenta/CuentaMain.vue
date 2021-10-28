@@ -2,7 +2,7 @@
 import { h, markRaw } from 'vue';
 import axios from 'axios';
 
-import SandwichIcon from '../svg/SandwichIcon.vue';
+import SandwichIcon from '@/assets/svg/SandwichIcon.vue';
 import CuentaDatos from './CuentaDatos.vue';
 import CuentaItems from './CuentaItems.vue';
 import CuentaBoletos from './CuentaBoletos.vue';

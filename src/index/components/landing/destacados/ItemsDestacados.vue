@@ -481,9 +481,9 @@
 import axios from 'axios';
 
 import Cargando from '../../Cargando.vue';
-import FlechitaIcon from '../../svg/FlechitaIcon.vue';
-import ParticiparIcon from '../../svg/ParticiparIcon.vue';
-import RelojArenaIcon from '../../svg/RelojArenaIcon.vue';
+import FlechitaIcon from '@/assets/svg/FlechitaIcon.vue';
+import ParticiparIcon from '@/assets/svg/ParticiparIcon.vue';
+import RelojArenaIcon from '@/assets/svg/RelojArenaIcon.vue';
 import InfoCasa from './InfoCasa.vue';
 import InfoWheels from './InfoWheels.vue';
 

@@ -144,13 +144,13 @@
 </template>
 
 <script>
-import BoletosIcon from '../../svg/BoletosIcon.vue';
 import FiltrosForm from './FiltrosForm.vue';
 import MarqueeText from './MarqueeText.vue';
-import BrilloIcon from '../../svg/BrilloIcon.vue';
-import LlaveCasaIcon from '../../svg/LlaveCasaIcon.vue';
-import ManoIcon from '../../svg/ManoIcon.vue';
-import TrebolIcon from '../../svg/TrebolIcon.vue';
+import BoletosIcon from '@/assets/svg/BoletosIcon.vue';
+import BrilloIcon from '@/assets/svg/BrilloIcon.vue';
+import LlaveCasaIcon from '@/assets/svg/LlaveCasaIcon.vue';
+import ManoIcon from '@/assets/svg/ManoIcon.vue';
+import TrebolIcon from '@/assets/svg/TrebolIcon.vue';
 
 export default {
     name: 'Inicio',

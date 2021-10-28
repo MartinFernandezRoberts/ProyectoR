@@ -341,9 +341,9 @@ import NormalInput from './NormalInput.vue';
 import CheckboxInput from './CheckboxInput.vue';
 import Cargando from '../Cargando.vue';
 import MiniItem from './MiniItem.vue';
-import BarrasIcon from '../svg/BarrasIcon.vue';
-import FadersIcon from '../svg/FadersIcon.vue';
-import XIcon from '../svg/XIcon.vue';
+import BarrasIcon from '@/assets/svg/BarrasIcon.vue';
+import FadersIcon from '@/assets/svg/FadersIcon.vue';
+import XIcon from '@/assets/svg/XIcon.vue';
 
 export default {
     name: 'BuscadorMain',
@@ -425,7 +425,7 @@ export default {
         };
     },
     created() {
-        axios('http://localhost:3000/api/items/todo')
+        axios('http://localhost:3000/api/items')
             .then((res) => {
                 this.filtrado = this.items = res.data;
                 this.cargando = false;

@@ -67,9 +67,9 @@
 import BannerService from './BannerService';
 import BannerForm from './BannerForm.vue';
 import BannerAgenda from './BannerAgenda.vue';
-import EditIcon from '../svg/EditIcon.vue';
-import DeleteIcon from '../svg/DeleteIcon.vue';
-import CalendarIcon from '../svg/CalendarIcon.vue';
+import EditIcon from '@/assets/svg/EditIcon.vue';
+import DeleteIcon from '@/assets/svg/DeleteIcon.vue';
+import CalendarIcon from '@/assets/svg/CalendarIcon.vue';
 
 export default {
     name: 'BannerList',

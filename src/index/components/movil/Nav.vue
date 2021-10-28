@@ -1,14 +1,14 @@
 <template>
     <nav
         class="
-            flex-col
             self-end
-            text-right
+            py-10
+            flex flex-col
+            items-stretch
             fixed
             h-screen
             z-20
             bg-white
-            -mt-2
             lg:mt-0
             lg:relative
             lg:text-center
@@ -19,10 +19,11 @@
     >
         <ul
             class="
-                space-y-4
-                font-bold
                 p-4
-                mt-10
+                w-full
+                space-y-4
+                text-right
+                font-bold
                 text-gris
                 lg:text-anaranjado
                 lg:space-y-0
@@ -54,7 +55,8 @@
                 <a href="/buscador">Buscar</a>
             </li>
         </ul>
-        <BotonMiCuenta class="lg:hidden absolute bottom-20 right-4" />
+
+        <BotonMiCuenta class="mt-auto w-full text-center lg:hidden" />
     </nav>
 </template>
 

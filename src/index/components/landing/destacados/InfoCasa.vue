@@ -16,7 +16,7 @@
 
         <li class="flex items-center space-x-1">
             <div class="w-14 text-gris">
-                <DormitoriosIcon />
+                <DormitorioIcon />
             </div>
 
             <p class="text-dorado">{{ casa.dormitorios }} dormitorios</p>
@@ -41,16 +41,16 @@
 </template>
 
 <script>
-import CocheraIcon from '../../svg/CocheraIcon.vue';
-import TinaIcon from '../../svg/TinaIcon.vue';
-import DormitoriosIcon from '../../svg/DormitoriosIcon.vue';
-import AreaIcon from '../../svg/AreaIcon.vue';
+import CocheraIcon from '@/assets/svg/CocheraIcon.vue';
+import TinaIcon from '@/assets/svg/TinaIcon.vue';
+import DormitorioIcon from '@/assets/svg/DormitorioIcon.vue';
+import AreaIcon from '@/assets/svg/AreaIcon.vue';
 
 export default {
     name: 'InfoCasa',
     components: {
         AreaIcon,
-        DormitoriosIcon,
+        DormitorioIcon,
         TinaIcon,
         CocheraIcon,
     },

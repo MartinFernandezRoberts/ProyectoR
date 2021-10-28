@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import ChevronIcon from '../svg/ChevronIcon.vue';
+import ChevronIcon from '@/assets/svg/ChevronIcon.vue';
 
 export default {
     name: 'HeaderAcordeon',

@@ -66,8 +66,7 @@ export const validator = new Validator({
                         'Formato no soportado. Debe ser una imagen.',
                         (value) => value.type.includes('image')
                     )
-            )
-            .min(1),
+            ),
         borrar: array().nullable().of(string()),
     }),
     detalles: object().when('info.tipo', (tipo, schema) => {

@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import DeleteIcon from '../svg/DeleteIcon.vue';
+import DeleteIcon from '@/assets/svg/DeleteIcon.vue';
 import AgendaService from './AgendaService';
 import EventoForm from './EventoForm.vue';
 

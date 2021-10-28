@@ -11,6 +11,9 @@ const CasaSchema = new mongoose.Schema({
     construido: {
         type: Number,
     },
+    dormitorio: {
+        type: Number,
+    },
     wc: {
         type: Number,
     },
@@ -28,9 +31,6 @@ const CasaSchema = new mongoose.Schema({
         ],
     },
     estacionamiento: {
-        type: Number,
-    },
-    dormitorio: {
         type: Number,
     },
     piso: {

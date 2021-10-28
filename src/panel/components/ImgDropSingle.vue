@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import UploadIcon from '../components/svg/UploadIcon.vue';
+import UploadIcon from '@/assets/svg/UploadIcon.vue';
 
 export default {
     name: 'ImgDropSingle',

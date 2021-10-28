@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import XIcon from '../svg/XIcon.vue';
+import XIcon from '@/assets/svg/XIcon.vue';
 
 export default {
     name: 'SelectInput',

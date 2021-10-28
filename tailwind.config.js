@@ -29,6 +29,12 @@ module.exports = {
                 '3xl': '1890px',
                 '4xl': '3800px',
             },
+            transitionProperty: {
+                flex: 'flex',
+            },
+            flex: {
+                0: 0,
+            },
         },
     },
     variants: {

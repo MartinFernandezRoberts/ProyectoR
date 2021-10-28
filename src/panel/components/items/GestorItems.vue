@@ -70,7 +70,7 @@
 import DetalleItem from './DetalleItem.vue';
 import MiniItem from './MiniItem.vue';
 import axios from 'axios';
-import FlechaCirculoIcon from '../../../index/components/svg/FlechaCirculoIcon.vue';
+import FlechaCirculoIcon from '@/assets/svg/FlechaCirculoIcon.vue';
 
 export default {
     name: 'GestorItems',

@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-4 text-center text-2xs">
+        <div class="grid grid-cols-4 text-center text-2xs font-thin">
             <div>DÍAS</div>
             <div>HORAS</div>
             <div>MINUTOS</div>

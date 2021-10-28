@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import IsotipoIcon from '../../index/components/svg/IsotipoIcon.vue';
+import IsotipoIcon from '@/assets/svg/IsotipoIcon.vue';
 
 export default {
     name: 'Inicio',

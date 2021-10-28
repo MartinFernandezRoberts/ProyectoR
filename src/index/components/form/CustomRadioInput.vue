@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import Marcador from '../svg/MarcadorIcon.vue';
+import Marcador from '@/assets/svg/MarcadorIcon.vue';
 
 export default {
     name: 'CustomRadioInput',

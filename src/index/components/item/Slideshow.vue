@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import FlechaCirculoIcon from '../svg/FlechaCirculoIcon.vue';
+import FlechaCirculoIcon from '@/assets/svg/FlechaCirculoIcon.vue';
 
 export default {
     name: 'Slideshow',

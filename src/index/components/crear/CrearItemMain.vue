@@ -196,7 +196,7 @@ import { mapState, mapMutations } from 'vuex';
 import { validator, validaDetalles } from './validaItem';
 import validaBorrador from './validaBorrador';
 
-import MarcadorIcon from '../svg/MarcadorIcon.vue';
+import MarcadorIcon from '@/assets/svg/MarcadorIcon.vue';
 import InfoItemForm from './InfoItemForm.vue';
 import ImagenesItemForm from './ImagenesItemForm.vue';
 import DetallesItemForm from './DetallesItemForm.vue';

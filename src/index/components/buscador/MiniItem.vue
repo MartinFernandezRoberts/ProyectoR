@@ -1,16 +1,7 @@
 <template>
     <div class="border-6 border-claro rounded-lg shadow">
         <div class="px-4 py-2 flex items-center rounded-t bg-claro">
-            <div
-                class="
-                    flex
-                    items-center
-                    space-x-1
-                    w-full
-                    mx-auto
-                    text-anaranjado
-                "
-            >
+            <div class="flex items-center space-x-1 w-full text-anaranjado">
                 <RelojArenaIcon class="h-10" />
 
                 <TiempoRestante
@@ -69,7 +60,7 @@
 
 <script>
 import TiempoRestante from './TiempoRestante.vue';
-import RelojArenaIcon from '../svg/RelojArenaIcon.vue';
+import RelojArenaIcon from '@/assets/svg/RelojArenaIcon.vue';
 
 export default {
     name: 'MiniItem',

@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import IsotipoIcon from '../index/components/svg/IsotipoIcon.vue';
-import SandwichIcon from '../index/components/svg/SandwichIcon.vue';
+import IsotipoIcon from '@/assets/svg/IsotipoIcon.vue';
+import SandwichIcon from '@/assets/svg/SandwichIcon.vue';
 
 export default {
     name: 'Panel',

@@ -179,10 +179,10 @@
 import PerfectScrollbar from 'perfect-scrollbar';
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
 //import Compressor from 'compressorjs';
-import UploadIcon from '@/panel/components/svg/UploadIcon.vue';
-import DeleteIcon from '@/panel/components/svg/DeleteIcon.vue';
-import ZoomIcon from '@/panel/components/svg/ZoomIcon.vue';
-import StarIcon from '@/panel/components/svg/StarIcon.vue';
+import UploadIcon from '@/assets/svg/UploadIcon.vue';
+import DeleteIcon from '@/assets/svg/DeleteIcon.vue';
+import ZoomIcon from '@/assets/svg/ZoomIcon.vue';
+import StarIcon from '@/assets/svg/StarIcon.vue';
 
 export default {
     name: 'MultiImgDrop',

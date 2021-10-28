@@ -56,8 +56,8 @@
 import { mapMutations } from 'vuex';
 
 import BotonMiCuenta from './movil/BotonMiCuenta.vue';
-import LogoRifasapp from './svg/LogoRifasapp.vue';
-import LogoRifasAppMovil from './svg/LogoRifasAppMovil.vue';
+import LogoRifasapp from '@/assets/svg/LogoRifasapp.vue';
+import LogoRifasAppMovil from '@/assets/svg/LogoRifasAppMovil.vue';
 import Nav from './movil/Nav.vue';
 import BotonNav from './movil/BotonNav.vue';
 
