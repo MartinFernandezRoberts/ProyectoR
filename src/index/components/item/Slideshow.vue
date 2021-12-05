@@ -1,5 +1,5 @@
 <template>
-    <div class="relative">
+    <div class="relative h-64">
         <img
             class="w-full h-full object-cover"
             :src="urlDev(imagenes[index])"

@@ -1,37 +1,44 @@
 <template>
     <Cargando v-if="cargando" />
 
-    <div v-else>
-        <div
-            class="
-                px-4
-                py-2
-                flex
-                justify-between
-                items-center
-                border-b border-gray-300
-            "
-        >
-            <a href="/buscador">
-                <FlechaCirculoIcon
-                    class="
-                        w-6
-                        text-gray-300
-                        hover:text-gris
-                        transition-colors
-                        duration-200
-                        ease-out
-                    "
-                    transform="scale(-1,1)"
-                />
-            </a>
+    <div v-else class="container mx-auto lg:px-8">
+        <div class="lg:flex justify-between">
+            <div
+                class="
+                    px-4
+                    py-2
+                    flex
+                    justify-between
+                    items-center
+                    border-b border-gray-300
+                    lg:border-none
+                "
+            >
+                <a href="/buscador" class="lg:pl-2">
+                    <FlechaCirculoIcon
+                        class="
+                            w-6
+                            text-gray-300
+                            hover:text-gris
+                            transition-colors
+                            duration-200
+                            ease-out
+                        "
+                        transform="scale(-1,1)"
+                    />
+                </a>
 
-            <span class="text-sm font-thin">{{ tipos[item.tipo] }}</span>
+                <span class="text-sm font-thin lg:order-first">{{
+                    tipos[item.tipo]
+                }}</span>
+            </div>
+
+            <h1 class="p-4 font-bold text-center text-2xl lg:order-first">
+                {{ item.titulo }}
+            </h1>
         </div>
 
-        <h1 class="p-4 font-bold text-center text-2xl">{{ item.titulo }}</h1>
-
-        <Slideshow class="h-64" :imagenes="item.imagenes" />
+        <ItemImagenes :imagenes="item.imagenes" />
 
         <div
             class="
@@ -44,6 +51,7 @@
                 bg-gris
                 text-white
                 space-x-1
+                lg:rounded-lg
             "
         >
             <RelojArenaIcon class="h-8" />
@@ -105,8 +113,8 @@
 import { defineAsyncComponent } from 'vue';
 import axios from 'axios';
 
+import ItemImagenes from './ItemImagenes.vue';
 import Cargando from '../Cargando.vue';
-import Slideshow from './Slideshow.vue';
 import SeccionItem from './SeccionItem.vue';
 import TiempoRestante from '../buscador/TiempoRestante.vue';
 import FlechaCirculoIcon from '@/assets/svg/FlechaCirculoIcon.vue';
@@ -116,7 +124,6 @@ export default {
     name: 'ItemMain',
     components: {
         RelojArenaIcon,
-        Slideshow,
         TiempoRestante,
         Cargando,
         FlechaCirculoIcon,
@@ -125,6 +132,7 @@ export default {
         DetalleWheels: defineAsyncComponent(() =>
             import('./DetalleWheels.vue')
         ),
+        ItemImagenes,
     },
     emits: ['cerrar'],
     data() {
